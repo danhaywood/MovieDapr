@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesMovie", "RazorPagesMovie\RazorPagesMovie.csproj", "{9731CCAC-2DF0-4DBB-8823-0B247F5B47A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorPagesMovie", "RazorPagesMovie\RazorPagesMovie.csproj", "{9731CCAC-2DF0-4DBB-8823-0B247F5B47A0}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MovieDb", "MovieDb\MovieDb.sqlproj", "{E092A2BE-4E81-474C-9078-D97F891850DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{17599B16-BE03-48FD-AF60-BB214F45B0CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{17599B16-BE03-48FD-AF60-BB214F45B0CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieBackend", "MovieBackend\MovieBackend.csproj", "{45FFCB8B-0A76-4A0E-B7CA-9B1ADF975200}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{17599B16-BE03-48FD-AF60-BB214F45B0CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17599B16-BE03-48FD-AF60-BB214F45B0CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17599B16-BE03-48FD-AF60-BB214F45B0CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45FFCB8B-0A76-4A0E-B7CA-9B1ADF975200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45FFCB8B-0A76-4A0E-B7CA-9B1ADF975200}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45FFCB8B-0A76-4A0E-B7CA-9B1ADF975200}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45FFCB8B-0A76-4A0E-B7CA-9B1ADF975200}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
