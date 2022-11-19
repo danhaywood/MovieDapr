@@ -251,3 +251,33 @@ Tool 'microsoft.sqlpackage' (version '161.6374.0') was successfully installed. E
 ----
 
 * Building the project creates the .dacpac file.
+
+* deploying
++
+https://learn.microsoft.com/en-us/sql/tools/sqlpackage/sqlpackage-publish?view=sql-server-ver16
++
+created a database on my HALXPS15-2022\SQLEXPRESS instance
++
+[source,powershell]
+----
+cd MovieDb
+dotnet SqlPackage /Action:Publish /SourceFile:"bin\Debug\MovieDb.dacpac" /TargetConnectionString:"Server=halxps15-2022\SQLEXPRESS;Database=dbMovie;Integrated Security=True;Encrypt=False;"
+----
++
+results in:
++
+[source,powershell]
+----
+Publishing to database 'dbMovie' on server 'halxps15-2022\SQLEXPRESS'.
+Initializing deployment (Start)
+Initializing deployment (Complete)
+Analyzing deployment plan (Start)
+Analyzing deployment plan (Complete)
+Updating database (Start)
+Creating SqlTable [dbo].[Movie]...
+Update complete.
+Updating database (Complete)
+Successfully published database.
+Changes to connection setting default values were incorporated in a recent release.  More information is available at https://aka.ms/dacfx-connection
+Time elapsed 0:00:12.62
+----
