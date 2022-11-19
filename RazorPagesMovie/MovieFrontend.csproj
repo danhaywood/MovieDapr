@@ -31,16 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\Data\MovieData.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include=".config\dotnet-tools.json" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="dotnet tool restore" />
-    <Exec Command="dotnet swagger tofile --yaml --output $(OutputPath)\swagger.yaml $(OutputPath)\$(AssemblyName).dll v1 " />
-  </Target>
 
 </Project>

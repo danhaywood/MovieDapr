@@ -7,9 +7,9 @@ namespace MovieBackend.Models
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new RazorPagesMovieContext(
+            using (var context = new MovieContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<RazorPagesMovieContext>>()))
+                    DbContextOptions<MovieContext>>()))
             {
                 if (context == null || context.Movie == null)
                 {

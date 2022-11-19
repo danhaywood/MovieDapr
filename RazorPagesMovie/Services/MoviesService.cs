@@ -14,7 +14,14 @@ namespace RazorPagesMovie.Services
 
         public MoviesService()
         {
-            _httpClient = new HttpClient();
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("https://localhost:7092/");
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            
+            _httpClient = httpClient;
+
         }
 
         // GET: api/Movies
@@ -39,7 +46,7 @@ namespace RazorPagesMovie.Services
         
         // PUT: api/Movies/5
         [HttpPut("{id}")]
-        public async Task<MovieDto?> UpdateMovie(long id, MovieDto movieDto)
+        public async Task<MovieDto?> UpdateMovie(int id, MovieDto movieDto)
         {
 
             var response = await _httpClient.PutAsJsonAsync($"api/Movies/{id}", movieDto);
@@ -54,7 +61,7 @@ namespace RazorPagesMovie.Services
         [HttpPost]
         public async Task<Uri> CreateMovie(MovieDto movieDto)
         {
-            var response = await _httpClient.PostAsJsonAsync($"api/Movies/{movieDto.ID}", movieDto);
+            var response = await _httpClient.PostAsJsonAsync($"api/Movies", movieDto);
             response.EnsureSuccessStatusCode();
             
             return response.Headers.Location;

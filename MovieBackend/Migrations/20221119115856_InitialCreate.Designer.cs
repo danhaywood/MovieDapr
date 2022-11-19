@@ -11,7 +11,7 @@ using MovieBackend.Data;
 
 namespace RazorPagesMovie.Migrations
 {
-    [DbContext(typeof(RazorPagesMovieContext))]
+    [DbContext(typeof(MovieContext))]
     [Migration("20221119115856_InitialCreate")]
     partial class InitialCreate
     {

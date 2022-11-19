@@ -11,8 +11,9 @@ namespace MovieBackend.Controllers
     [Produces("application/json")]
     public class MoviesController : ControllerBase
     {
-        private readonly RazorPagesMovieContext _context;
-        public MoviesController(RazorPagesMovieContext context)
+        private readonly MovieContext _context;
+        
+        public MoviesController(MovieContext context)
         {
             _context = context;
         }
@@ -26,22 +27,34 @@ namespace MovieBackend.Controllers
 
         // GET: api/Movies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MovieDto>> GetMovie(long id)
+        public async Task<ActionResult<MovieDto>> GetMovie(int id)
         {
-            var todoItem = await _context.Movie.FindAsync(id);
-            return todoItem == null ? NotFound() : todoItem.AsDto();
+            var movie = await _context.Movie.FindAsync(id);
+            return movie == null ? NotFound() : movie.AsDto();
         }
         
+        // POST: api/Movies
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<MovieDto>> CreateMovie(MovieDto movieDto)
+        {
+            var movie = new Movie(movieDto);
+            _context.Movie.Add(movie);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(
+                nameof(GetMovie),
+                new { id = movie.ID },
+                movie.AsDto());
+        }
+
         // PUT: api/Movies/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTodoItem(long id, MovieDto movieDto)
+        public async Task<ActionResult<MovieDto>> UpdateMovie(MovieDto movieDto)
         {
-            if (id != movieDto.ID)
-            {
-                return BadRequest();
-            }
-
+            var id = movieDto.ID;
+            
             var movie = await _context.Movie.FindAsync(id);
             if (movie == null)
             {
@@ -64,22 +77,7 @@ namespace MovieBackend.Controllers
                 return NotFound();
             }
 
-            return NoContent();
-        }
-
-        // POST: api/Movies
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<MovieDto>> CreateMovie(MovieDto movieDto)
-        {
-            var movie = new Movie(movieDto);
-            _context.Movie.Add(movie);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(
-                nameof(GetMovie),
-                new { id = movie.ID },
-                movie.AsDto());
+            return await GetMovie(id);
         }
 
         /// <summary>
@@ -91,22 +89,22 @@ namespace MovieBackend.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMovie(long id)
+        public async Task<IActionResult> DeleteMovie(int id)
         {
-            var todoItem = await _context.Movie.FindAsync(id);
+            var movie = await _context.Movie.FindAsync(id);
 
-            if (todoItem == null)
+            if (movie == null)
             {
                 return NotFound();
             }
 
-            _context.Movie.Remove(todoItem);
+            _context.Movie.Remove(movie);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool MovieExists(long id)
+        private bool MovieExists(int id)
         {
             return _context.Movie.Any(x => x.ID == id);
         }

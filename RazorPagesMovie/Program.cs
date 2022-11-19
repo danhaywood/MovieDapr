@@ -1,61 +1,18 @@
-﻿using System.Reflection;
-using EvolveDb;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+﻿using RazorPagesMovie.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-//// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "ToDo API",
-        Description = "An ASP.NET Core Web API for managing ToDo items",
-        TermsOfService = new Uri("https://example.com/terms"),
-        Contact = new OpenApiContact
-        {
-            Name = "Example Contact",
-            Url = new Uri("https://example.com/contact")
-        },
-        License = new OpenApiLicense
-        {
-            Name = "Example License",
-            Url = new Uri("https://example.com/license")
-        }
-    });
-    
-    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
-});
-
 builder.Services.AddRazorPages();
-
-var connectionString = builder.Configuration.GetConnectionString("RazorPagesMovieContext") ??
-                             throw new InvalidOperationException( "Connection string 'RazorPagesMovieContext' not found.");
-
+builder.Services.AddScoped<MoviesService, MoviesService>();
 
 var app = builder.Build();
 
 var isDevelopment = app.Environment.IsDevelopment();
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-}
-
-
 // Configure the HTTP request pipeline.
 if (isDevelopment)
 {
     app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI();
 }
 else 
 {
@@ -71,6 +28,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapRazorPages();
 
 app.Run();

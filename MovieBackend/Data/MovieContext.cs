@@ -3,9 +3,9 @@ using MovieBackend.Models;
 
 namespace MovieBackend.Data
 {
-    public class RazorPagesMovieContext : DbContext
+    public class MovieContext : DbContext
     {
-        public RazorPagesMovieContext (DbContextOptions<RazorPagesMovieContext> options)
+        public MovieContext (DbContextOptions<MovieContext> options)
             : base(options)
         {
         }
