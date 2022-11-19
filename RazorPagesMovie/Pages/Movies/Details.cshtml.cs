@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesMovie.Data;
-using RazorPagesMovie.Dto;
+using Api;
 using RazorPagesMovie.Models;
 
 namespace RazorPagesMovie.Pages.Movies

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesMovie", "RazorPag
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MovieDb", "MovieDb\MovieDb.sqlproj", "{E092A2BE-4E81-474C-9078-D97F891850DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieDto", "MovieDto\MovieDto.csproj", "{17599B16-BE03-48FD-AF60-BB214F45B0CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{17599B16-BE03-48FD-AF60-BB214F45B0CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

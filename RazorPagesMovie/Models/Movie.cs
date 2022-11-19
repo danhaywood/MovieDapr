@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using RazorPagesMovie.Dto;
+using Api;
 
 namespace RazorPagesMovie.Models
 {
@@ -11,7 +11,7 @@ namespace RazorPagesMovie.Models
         {
         }
 
-        public Movie(MovieDto movieDto)
+        public Movie(Api.MovieDto movieDto)
         {
             this.ID = movieDto.ID;
             this.Title = movieDto.Title;
