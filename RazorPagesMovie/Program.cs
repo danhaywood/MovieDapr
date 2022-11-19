@@ -1,9 +1,8 @@
-﻿using EvolveDb;
+﻿using System.Reflection;
+using EvolveDb;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
-using Microsoft.Extensions.DependencyInjection;
-using RazorPagesMovie;
+using Microsoft.OpenApi.Models;
 using RazorPagesMovie.Data;
 using RazorPagesMovie.Models;
 using RazorPagesMovie.Sql;
@@ -11,11 +10,37 @@ using RazorPagesMovie.Sql;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers();
+//// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "ToDo API",
+        Description = "An ASP.NET Core Web API for managing ToDo items",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Example Contact",
+            Url = new Uri("https://example.com/contact")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Example License",
+            Url = new Uri("https://example.com/license")
+        }
+    });
+    
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
+
 builder.Services.AddRazorPages();
 
 var connectionString = builder.Configuration.GetConnectionString("RazorPagesMovieContext") ??
                              throw new InvalidOperationException( "Connection string 'RazorPagesMovieContext' not found.");
-
 
 builder.Services.AddDbContext<RazorPagesMovieContext>(options =>
 {
@@ -24,12 +49,12 @@ builder.Services.AddDbContext<RazorPagesMovieContext>(options =>
 
 var app = builder.Build();
 
-var isProdEnv = !app.Environment.IsDevelopment();
+var isDevelopment = app.Environment.IsDevelopment();
 var evolve = new Evolve(new SqlConnection(connectionString), logDelegate: s => Console.Out.WriteLine("Evolve: " + s))
 {
     EmbeddedResourceAssemblies = new[] { typeof(Sql).Assembly },
-    IsEraseDisabled = isProdEnv,
-    MustEraseOnValidationError = isProdEnv
+    IsEraseDisabled = !isDevelopment,
+    MustEraseOnValidationError = !isDevelopment
 };
 evolve.Migrate();
 
@@ -42,7 +67,13 @@ using (var scope = app.Services.CreateScope())
 
 
 // Configure the HTTP request pipeline.
-if (isProdEnv)
+if (isDevelopment)
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+else 
 {
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -56,6 +87,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.MapControllers();
 
 app.Run();

@@ -11,12 +11,12 @@ namespace RazorPagesMovie.Models
         {
         }
 
-        public Movie(Api.MovieDto movieDto)
+        public Movie(MovieDto movieDto)
         {
-            this.ID = movieDto.ID;
-            this.Title = movieDto.Title;
-            this.ReleaseDate = movieDto.ReleaseDate;
-            this.Genre = movieDto.Genre;
+            ID = movieDto.ID;
+            Title = movieDto.Title;
+            ReleaseDate = movieDto.ReleaseDate;
+            Genre = movieDto.Genre;
         }
 
         public int ID { get; set; }
@@ -34,11 +34,11 @@ namespace RazorPagesMovie.Models
         {
             return new MovieDto()
             {
-                ID = this.ID,
-                Title = this.Title,
-                ReleaseDate = this.ReleaseDate,
-                Genre = this.Genre,
-                Price = this.Price,
+                ID = ID,
+                Title = Title,
+                ReleaseDate = ReleaseDate,
+                Genre = Genre,
+                Price = Price,
             };
         }
     }
