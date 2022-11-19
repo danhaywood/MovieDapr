@@ -92,3 +92,6 @@ and adding as a PostBuild target means will be generated each time.
 
 
 
+== Reorganised ...
+
+renamed solution, backend proj.
