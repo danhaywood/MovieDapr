@@ -312,3 +312,15 @@ Successfully published database.
 Changes to connection setting default values were incorporated in a recent release.  More information is available at https://aka.ms/dacfx-connection
 Time elapsed 0:00:11.83
 ----
+
+
+== Evolve (as a library)
+
+for the RazorPagesMovie
+
+[source,powershell]
+----
+cd RazorPagesMovie
+dotnet add package Evolve --version 3.1.0-alpha7
+----
+
