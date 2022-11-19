@@ -1,0 +1,24 @@
+﻿= Backend
+
+* https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-6.0&tabs=visual-studio#install-http-repl
++
+[source,powershell]
+----
+dotnet tool install -g Microsoft.dotnet-httprepl
+----
+
+* https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-6.0&tabs=visual-studio#test-posttodoitem-1
++
+fix, use 7020 not 5001 (as per launch settings)
++
+[source,powershell]
+----
+httprepl https://localhost:7020/api/todoitems
+----
++then
++
+[source,repl]
+----
+post -h Content-Type=application/json -c "{"name":"walk dog","isComplete":true}"
+----
+  
