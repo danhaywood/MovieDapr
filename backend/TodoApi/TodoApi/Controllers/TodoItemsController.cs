@@ -6,6 +6,7 @@ namespace TodoApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class TodoItemsController : ControllerBase
     {
         private readonly TodoContext _context;
@@ -87,7 +88,25 @@ namespace TodoApi.Controllers
                 ItemToDTO(todoItem));
         }
 
-        // DELETE: api/TodoItems/5
+        /// <summary>
+        /// Deletes a specific TodoItem.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Todo
+        ///     {
+        ///        "id": 1,
+        ///        "name": "Item #1",
+        ///        "isComplete": true
+        ///     }
+        ///
+        /// </remarks>
+        /// <example>
+        /// DELETE: api/TodoItems/5
+        /// </example>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodoItem(long id)
         {
