@@ -318,9 +318,12 @@ Time elapsed 0:00:11.83
 
 for the RazorPagesMovie
 
+* add nuget package
++
 [source,powershell]
 ----
 cd RazorPagesMovie
 dotnet add package Evolve --version 3.1.0-alpha7
 ----
 
+* reverse engineers scripts
