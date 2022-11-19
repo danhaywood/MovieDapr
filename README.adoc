@@ -283,3 +283,32 @@ Time elapsed 0:00:12.62
 ----
 
 * add 2 extended properties for 2 of the columns
+
+* rebuild and redeploy
++
+[source,powershell]
+----
+cd MovieDb
+dotnet SqlPackage /Action:Publish /SourceFile:"bin\Debug\MovieDb.dacpac" /TargetConnectionString:"Server=halxps15-2022\SQLEXPRESS;Database=dbMovie;Integrated Security=True;Encrypt=False;"
+----
++
+results in:
++
+[source,powershell]
+----
+Publishing to database 'dbMovie' on server 'halxps15-2022\SQLEXPRESS'.
+Initializing deployment (Start)
+Initializing deployment (Complete)
+Analyzing deployment plan (Start)
+Analyzing deployment plan (Complete)
+Updating database (Start)
+Creating SqlExtendedProperty [dbo].[Movie].[ReleaseDate].[gdpr_brand]...
+Creating SqlExtendedProperty [dbo].[Movie].[ReleaseDate].[gdpr_category]...
+Creating SqlExtendedProperty [dbo].[Movie].[Title].[gdpr_brand]...
+Creating SqlExtendedProperty [dbo].[Movie].[Title].[gdpr_category]...
+Update complete.
+Updating database (Complete)
+Successfully published database.
+Changes to connection setting default values were incorporated in a recent release.  More information is available at https://aka.ms/dacfx-connection
+Time elapsed 0:00:11.83
+----
