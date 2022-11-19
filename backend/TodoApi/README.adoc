@@ -69,6 +69,26 @@ Transfer-Encoding: chunked
 }
 ----
 
+== Generate Swagger file at  built time
+
+as per https://github.com/domaindrivendev/Swashbuckle.AspNetCore#using-the-tool-with-the-net-core-30-sdk-or-later
+
+[source,powershell]
+----
+cd backend\TodoApi\TodoApi
+dotnet new tool-manifest
+dotnet tool install --version 6.2.3 Swashbuckle.AspNetCore.Cli      #<.>
+----
+<.> important to use the same version as in the app itself.
+
+* generate with:
++
+[source,powershell]
+----
+dotnet swagger tofile --output x.json bin\Debug\net6.0\TodoApi.dll v1
+----
+
+and adding as a PostBuild target means will be generated each time.
 
 
 
