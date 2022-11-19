@@ -221,3 +221,33 @@ image::images/image-2022-11-19-12-13-14-331.png[width=600px]
 
 Can also access from Visual Studio 2022, `View > SQL Server Object Explorer`.
 
+== SSDT (sqlproj, dacpac)
+
+* Added a new "SQL Server Database Project" to the solution.
+
+* connect to localdb, reverse engineer
+** EF migrations table
+** Movie table
+
+* delete DDL for EF migrations table
+
+* as per https://learn.microsoft.com/en-us/sql/tools/sqlpackage/sqlpackage-download?view=sql-server-ver16
++
+(but making local)
++
+[source,powershell]
+----
+cd backend\MovieDb
+dotnet new tool-manifest
+dotnet tool install microsoft.sqlpackage
+----
++
+resulting in:
++
+[source,output]
+----
+You can invoke the tool from this directory using the following commands: 'dotnet tool run sqlpackage' or 'dotnet sqlpackage'.
+Tool 'microsoft.sqlpackage' (version '161.6374.0') was successfully installed. Entry is added to the manifest file C:\github\danhaywood\tutorial-asp-net-core-api\MovieDb\.config\dotnet-tools.json.
+----
+
+* Building the project creates the .dacpac file.
