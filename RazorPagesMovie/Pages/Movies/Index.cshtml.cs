@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesMovie.Models;
+using RazorPagesMovie.Dto;
 
 namespace RazorPagesMovie.Pages.Movies
 {
@@ -15,7 +15,7 @@ namespace RazorPagesMovie.Pages.Movies
             _context = context;
         }
 
-        public IList<Movie> Movie { get;set; } = default!;
+        public IList<MovieDto> Movie { get;set; } = default!;
         [BindProperty(SupportsGet = true)]
         public string ? SearchString { get; set; }
         public SelectList ? Genres { get; set; }
@@ -24,14 +24,7 @@ namespace RazorPagesMovie.Pages.Movies
         
         public async Task OnGetAsync()
         {
-            var movies = 
-                from m in _context.Movie
-                select m;
-            if (!string.IsNullOrEmpty(SearchString))
-            {
-                movies = movies.Where(s => s.Title.Contains(SearchString));
-            }
-
+            var movies = _context.Movie.Where(s => string.IsNullOrEmpty(SearchString) || s.Title.Contains(SearchString)).Select(x => x.AsDto());
             Movie = await movies.ToListAsync();
         }
         

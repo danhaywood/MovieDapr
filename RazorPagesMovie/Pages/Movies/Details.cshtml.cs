@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesMovie.Data;
+using RazorPagesMovie.Dto;
 using RazorPagesMovie.Models;
 
 namespace RazorPagesMovie.Pages.Movies
@@ -19,11 +20,11 @@ namespace RazorPagesMovie.Pages.Movies
             _context = context;
         }
 
-      public Movie Movie { get; set; }
+      public MovieDto Movie { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Movie == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -35,7 +36,7 @@ namespace RazorPagesMovie.Pages.Movies
             }
             else 
             {
-                Movie = movie;
+                Movie = movie.AsDto();
             }
             return Page();
         }

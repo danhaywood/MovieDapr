@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesMovie", "RazorPag
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MovieDb", "MovieDb\MovieDb.sqlproj", "{E092A2BE-4E81-474C-9078-D97F891850DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieDto", "MovieDto\MovieDto.csproj", "{17599B16-BE03-48FD-AF60-BB214F45B0CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{E092A2BE-4E81-474C-9078-D97F891850DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E092A2BE-4E81-474C-9078-D97F891850DF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E092A2BE-4E81-474C-9078-D97F891850DF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{17599B16-BE03-48FD-AF60-BB214F45B0CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17599B16-BE03-48FD-AF60-BB214F45B0CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17599B16-BE03-48FD-AF60-BB214F45B0CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17599B16-BE03-48FD-AF60-BB214F45B0CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

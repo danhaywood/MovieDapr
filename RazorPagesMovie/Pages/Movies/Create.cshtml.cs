@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RazorPagesMovie.Data;
+using RazorPagesMovie.Dto;
 using RazorPagesMovie.Models;
 
 namespace RazorPagesMovie.Pages.Movies
@@ -25,21 +26,21 @@ namespace RazorPagesMovie.Pages.Movies
         }
 
         [BindProperty]
-        public Movie Movie { get; set; }
+        public MovieDto Movie { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
           if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+          {
+              return Page();
+          }
 
-            _context.Movie.Add(Movie);
-            await _context.SaveChangesAsync();
+          _context.Movie.Add(new Movie(Movie));
+          await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+          return RedirectToPage("./Index");
         }
     }
 }

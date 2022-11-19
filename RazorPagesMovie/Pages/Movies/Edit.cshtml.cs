@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesMovie.Data;
+using RazorPagesMovie.Dto;
 using RazorPagesMovie.Models;
 
 namespace RazorPagesMovie.Pages.Movies
@@ -21,7 +22,7 @@ namespace RazorPagesMovie.Pages.Movies
         }
 
         [BindProperty]
-        public Movie Movie { get; set; } = default!;
+        public MovieDto Movie { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,7 +36,7 @@ namespace RazorPagesMovie.Pages.Movies
             {
                 return NotFound();
             }
-            Movie = movie;
+            Movie = movie.AsDto();
             return Page();
         }
 
@@ -48,7 +49,17 @@ namespace RazorPagesMovie.Pages.Movies
                 return Page();
             }
 
-            _context.Attach(Movie).State = EntityState.Modified;
+            var movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == Movie.ID);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            movie.Genre = Movie.Genre;
+            movie.Title = Movie.Title;
+            movie.Price = Movie.Price;
+            movie.ReleaseDate = Movie.ReleaseDate;
+            
+            _context.Attach(movie).State = EntityState.Modified;
 
             try
             {
