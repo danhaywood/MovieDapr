@@ -37,7 +37,6 @@ namespace TodoApi.Controllers
             {
                 return NotFound();
             }
-
             return todoItem;
         }
 
@@ -80,7 +79,7 @@ namespace TodoApi.Controllers
             _context.TodoItems.Add(todoItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
+            return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
         }
 
         // DELETE: api/TodoItems/5
