@@ -3,9 +3,6 @@ using EvolveDb;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using RazorPagesMovie.Data;
-using RazorPagesMovie.Models;
-using RazorPagesMovie.Sql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,27 +39,14 @@ builder.Services.AddRazorPages();
 var connectionString = builder.Configuration.GetConnectionString("RazorPagesMovieContext") ??
                              throw new InvalidOperationException( "Connection string 'RazorPagesMovieContext' not found.");
 
-builder.Services.AddDbContext<RazorPagesMovieContext>(options =>
-{
-    options.UseSqlServer(connectionString);
-});
 
 var app = builder.Build();
 
 var isDevelopment = app.Environment.IsDevelopment();
-var evolve = new Evolve(new SqlConnection(connectionString), logDelegate: s => Console.Out.WriteLine("Evolve: " + s))
-{
-    EmbeddedResourceAssemblies = new[] { typeof(Sql).Assembly },
-    IsEraseDisabled = !isDevelopment,
-    MustEraseOnValidationError = !isDevelopment
-};
-evolve.Migrate();
 
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-
-    SeedData.Initialize(services);
 }
 
 

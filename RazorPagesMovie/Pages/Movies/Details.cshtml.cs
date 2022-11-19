@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using RazorPagesMovie.Data;
 using Api;
-using RazorPagesMovie.Models;
+using RazorPagesMovie.Services;
 
 namespace RazorPagesMovie.Pages.Movies
 {
     public class DetailsModel : PageModel
     {
-        private readonly RazorPagesMovieContext _context;
-
-        public DetailsModel(RazorPagesMovieContext context)
+        private readonly MoviesService _moviesService;
+        public DetailsModel(MoviesService moviesService)
         {
-            _context = context;
+            _moviesService = moviesService;
         }
 
       public MovieDto Movie { get; set; }
@@ -29,15 +22,13 @@ namespace RazorPagesMovie.Pages.Movies
                 return NotFound();
             }
 
-            var movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
+            var movie = await _moviesService.GetMovie(id.Value);
             if (movie == null)
             {
                 return NotFound();
             }
-            else 
-            {
-                Movie = movie.AsDto();
-            }
+
+            Movie = movie;
             return Page();
         }
     }

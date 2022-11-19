@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Api;
+using RazorPagesMovie.Services;
 
 namespace RazorPagesMovie.Pages.Movies
 {
     public class IndexModel : PageModel
     {
-        private readonly Data.RazorPagesMovieContext _context;
-
-        public IndexModel(Data.RazorPagesMovieContext context)
+        private readonly MoviesService _moviesService;
+        public IndexModel(MoviesService moviesService)
         {
-            _context = context;
+            _moviesService = moviesService;
         }
 
         public IList<MovieDto> Movie { get;set; } = default!;
@@ -24,8 +23,7 @@ namespace RazorPagesMovie.Pages.Movies
         
         public async Task OnGetAsync()
         {
-            var movies = _context.Movie.Where(s => string.IsNullOrEmpty(SearchString) || s.Title.Contains(SearchString)).Select(x => x.AsDto());
-            Movie = await movies.ToListAsync();
+            Movie = await _moviesService.GetMovies();  // no search just yet...  _context.Movie.Where(s => string.IsNullOrEmpty(SearchString) || s.Title.Contains(SearchString)).Select(x => x.AsDto());
         }
         
     }

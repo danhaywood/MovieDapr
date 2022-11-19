@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using RazorPagesMovie.Data;
 using Api;
-using RazorPagesMovie.Models;
+using RazorPagesMovie.Services;
 
 namespace RazorPagesMovie.Pages.Movies
 {
     public class EditModel : PageModel
     {
-        private readonly RazorPagesMovieContext _context;
-
-        public EditModel(RazorPagesMovieContext context)
+        private readonly MoviesService _moviesService;
+        public EditModel(MoviesService moviesService)
         {
-            _context = context;
+            _moviesService = moviesService;
         }
 
         [BindProperty]
@@ -26,17 +18,17 @@ namespace RazorPagesMovie.Pages.Movies
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Movie == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var movie =  await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
+            var movie = await _moviesService.GetMovie(id.Value);
             if (movie == null)
             {
                 return NotFound();
             }
-            Movie = movie.AsDto();
+            Movie = movie;
             return Page();
         }
 
@@ -49,23 +41,8 @@ namespace RazorPagesMovie.Pages.Movies
                 return Page();
             }
 
-            var movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == Movie.ID);
+            var movie = await _moviesService.UpdateMovie(Movie.ID, Movie);
             if (movie == null)
-            {
-                return NotFound();
-            }
-            movie.Genre = Movie.Genre;
-            movie.Title = Movie.Title;
-            movie.Price = Movie.Price;
-            movie.ReleaseDate = Movie.ReleaseDate;
-            
-            _context.Attach(movie).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException) when (!MovieExists(Movie.ID))
             {
                 return NotFound();
             }
@@ -73,9 +50,5 @@ namespace RazorPagesMovie.Pages.Movies
             return RedirectToPage("./Index");
         }
 
-        private bool MovieExists(int id)
-        {
-          return _context.Movie.Any(e => e.ID == id);
-        }
     }
 }
