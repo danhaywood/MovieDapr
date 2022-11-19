@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<MoviesService, MoviesService>();
+builder.Services.AddDaprSidekick(builder.Configuration);
 
 var app = builder.Build();
 

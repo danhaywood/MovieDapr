@@ -327,3 +327,27 @@ dotnet add package Evolve --version 3.1.0-alpha7
 ----
 
 * reverse engineers scripts
+
+
+== DAPR
+
+(Need to look document properly)
+
+* added dapr sidekick
+
+* Start dapr:
++
+[source,powershell]
+----
+dapr dashboard
+----
+
+* Start Docker Desktop:
++
+which has the apps running from a previous `dapr init`, IIRC.
++
+NOTE: what I don't yet know is how to stop then restart dapr, other than uninstalling and re-init'ing (!)
+
+* start both apps
++
+both are starting their own `daprd` correctly.

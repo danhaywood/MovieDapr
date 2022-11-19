@@ -38,6 +38,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddRazorPages();
+builder.Services.AddDaprSidekick(builder.Configuration);
 
 var connectionString = builder.Configuration.GetConnectionString("RazorPagesMovieContext") ??
                              throw new InvalidOperationException( "Connection string 'RazorPagesMovieContext' not found.");
