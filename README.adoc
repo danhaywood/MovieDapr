@@ -95,3 +95,31 @@ and adding as a PostBuild target means will be generated each time.
 == Reorganised ...
 
 renamed solution, backend proj.
+
+
+== Razor MVC tutorial
+
+as per previous commit messages...
+
+in Package Manager console:
+
+[source,pm]
+----
+Add-Migration InitialCreate
+----
+
+results in:
+
+[source,pm]
+----
+Build started...
+Build succeeded.
+Microsoft.EntityFrameworkCore.Model.Validation[30000]
+No store type was specified for the decimal property 'Price' on entity type 'Movie'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+Microsoft.EntityFrameworkCore.Infrastructure[10403]
+Entity Framework Core 6.0.10 initialized 'RazorPagesMovieContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.10' with options: None
+Microsoft.EntityFrameworkCore.Model.Validation[30000]
+No store type was specified for the decimal property 'Price' on entity type 'Movie'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+No store type was specified for the decimal property 'Price' on entity type 'Movie'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+To undo this action, use Remove-Migration.
+----
