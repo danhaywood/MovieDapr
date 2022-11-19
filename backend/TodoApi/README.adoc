@@ -21,4 +21,54 @@ httprepl https://localhost:7020/api/todoitems
 ----
 post -h Content-Type=application/json -c "{"name":"walk dog","isComplete":true}"
 ----
-  
+
+
+== Experimenting with the repl and swagger
+
+* re-enabled Swagger in `Program.cs`
+
+* connect using just:
++
+[source,powershell]
+----
+httprepl https://localhost:7020/
+----
++
+[source,output]
+----
+❯ httprepl https://localhost:7020/
+(Disconnected)> connect https://localhost:7020/
+Using a base address of https://localhost:7020/
+Using OpenAPI description at https://localhost:7020/swagger/v1/swagger.json
+For detailed tool info, see https://aka.ms/http-repl-doc
+
+https://localhost:7020/>
+----
+
+* can cd, ls, post, get etc
++
+[source,repl]
+----
+cd api/TodoItems
+post -h Content-Type=application/json -c "{"name":"walk dog","isComplete":true}"
+----
++
+[source,output]
+----
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
+Date: Sat, 19 Nov 2022 10:34:03 GMT
+Location: https://localhost:7020/api/TodoItems/2
+Server: Kestrel
+Transfer-Encoding: chunked
+
+{
+  "id": 1,
+  "name": "walk dog",
+  "isComplete": true
+}
+----
+
+
+
+
