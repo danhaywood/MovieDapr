@@ -281,3 +281,5 @@ Successfully published database.
 Changes to connection setting default values were incorporated in a recent release.  More information is available at https://aka.ms/dacfx-connection
 Time elapsed 0:00:12.62
 ----
+
+* add 2 extended properties for 2 of the columns
