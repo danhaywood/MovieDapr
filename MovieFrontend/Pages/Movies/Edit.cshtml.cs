@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Api;
+using MovieData;
 using MovieFrontend.Services;
 
 namespace MovieFrontend.Pages.Movies

@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
-using Api;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieBackend.Data;
 using MovieBackend.Models;
+using MovieData;
 
 namespace MovieBackend.Controllers
 {

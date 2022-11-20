@@ -13,7 +13,7 @@ namespace MovieBackend.Models
             {
                 if (context == null || context.Movie == null)
                 {
-                    throw new ArgumentNullException("Null RazorPagesMovieContext");
+                    throw new ArgumentNullException("Null MovieBackendContext");
                 }
 
                 // Look for any movies.

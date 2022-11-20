@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "RazorPagesMovie": {
+    "MovieBackend": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

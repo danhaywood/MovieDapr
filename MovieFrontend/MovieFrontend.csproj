@@ -33,11 +33,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Data\MovieData.csproj" />
+    <Content Include=".config\dotnet-tools.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include=".config\dotnet-tools.json" />
+    <ProjectReference Include="..\MovieData\MovieData.csproj" />
   </ItemGroup>
 
 </Project>
