@@ -29,7 +29,7 @@ namespace MovieBackend.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
-        public List<Character> Characters { get; set; }
+        public virtual List<Character> Characters { get; set; } = new List<Character>();
         
         public MovieDto AsDto()
         {
@@ -40,6 +40,7 @@ namespace MovieBackend.Models
                 ReleaseDate = ReleaseDate,
                 Genre = Genre,
                 Price = Price,
+                Characters = Characters.Select(x => x.AsDto()).ToList()
             };
         }
     }

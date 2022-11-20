@@ -38,7 +38,6 @@ namespace MovieBackend.Models
             _context.SaveChanges();
             
             ResetCharacters();
-
             _context.SaveChanges();
         }
 
@@ -118,29 +117,34 @@ namespace MovieBackend.Models
         }
         private void ResetCharacters()
         {
-            _context.Character.AddRange(
-                NewCharacter("When Harry Met Sally", "Meg Ryan", "Sally Albright"),
-                NewCharacter("When Harry Met Sally", "Billy Crystal", "Harry Burns"),
-                NewCharacter("When Harry Met Sally", "Carrie Fisher", "Marie"),
-                NewCharacter("When Harry Met Sally", "Bruno Kirby", "Jess"),
-                NewCharacter("Groundhog Day", "Bill Murray", "Phil"),
-                NewCharacter("Groundhog Day", "Andie Macdowell", "Rita"),
-                NewCharacter("Groundhog Day", "Harold Ramis", "Neurologist"),
-                NewCharacter("Ghostbusters", "Bill Murray", "Peter Venkman"),
-                NewCharacter("Ghostbusters", "Harold Ramis", "Egon Spengler"),
-                NewCharacter("Ghostbusters", "Dan Ackroyd", "Ray Stanz"),
-                NewCharacter("Ghostbusters", "Ernie Hudson", "Winston Zeddemore")
-            );
+            NewCharacter("When Harry Met Sally", "Meg Ryan", "Sally Albright");
+            NewCharacter("When Harry Met Sally", "Billy Crystal", "Harry Burns");
+            NewCharacter("When Harry Met Sally", "Carrie Fisher", "Marie");
+            NewCharacter("When Harry Met Sally", "Bruno Kirby", "Jess");
+            NewCharacter("Groundhog Day", "Bill Murray", "Phil");
+            NewCharacter("Groundhog Day", "Andie Macdowell", "Rita");
+            NewCharacter("Groundhog Day", "Harold Ramis", "Neurologist");
+            NewCharacter("Ghostbusters", "Bill Murray", "Peter Venkman");
+            NewCharacter("Ghostbusters", "Harold Ramis", "Egon Spengler");
+            NewCharacter("Ghostbusters", "Dan Ackroyd", "Ray Stanz");
+            NewCharacter("Ghostbusters", "Ernie Hudson", "Winston Zeddemore");
         }
 
         private Character NewCharacter(string movieTitle, string actorName, string characterName)
         {
-            return new Character()
+            var movie = MovieFor(movieTitle);
+            var actor = ActorFor(actorName);
+            
+            var character = new Character()
             {
-                Movie = MovieFor(movieTitle),
-                Actor = ActorFor(actorName),
+                Movie = movie,
+                Actor = actor,
                 CharacterName = characterName
             };
+            movie.Characters.Add(character);
+            actor.Characters.Add(character);
+            
+            return character;
         }
         private Movie MovieFor(string title)
         {

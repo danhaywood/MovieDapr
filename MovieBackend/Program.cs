@@ -95,7 +95,8 @@ var connectionString = builder.Configuration.GetConnectionString("MovieBackendCo
 
 builder.Services.AddDbContext<MovieContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseLazyLoadingProxies()
+            .UseSqlServer(connectionString);
 });
 
 var app = builder.Build();
