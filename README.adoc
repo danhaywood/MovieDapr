@@ -331,23 +331,68 @@ dotnet add package Evolve --version 3.1.0-alpha7
 
 == DAPR
 
-(Need to look document properly)
+Need to disable https in startup, else will get SSL connection errors.
+(The alternative is running sentry manually and priming )
 
-* added dapr sidekick
 
-* Start dapr:
+* Start Docker Desktop
+
+* (Re)start dapr:
 +
 [source,powershell]
 ----
-dapr dashboard
+dapr uninstall
+dapr init
 ----
 
-* Start Docker Desktop:
+* added dapr sidekick nuget library, and add into `Program.cs`
+
+* also *DISABLE* https in `Program.cs`
 +
-which has the apps running from a previous `dapr init`, IIRC.
+because mTLS does not run in local mode
+
+* reconfigure HttpClient using DAPR
 +
-NOTE: what I don't yet know is how to stop then restart dapr, other than uninstalling and re-init'ing (!)
+https://learn.microsoft.com/en-us/dotnet/architecture/dapr-for-net-developers/service-invocation
+
+** this works and is recommended:
++
+[source,c#]
+----
+var httpClient = daprSidecarHttpClientFactory.CreateInvokeHttpClient("moviebackend");
+----
++
+where `daprSidecarHttpClientFactory` is an injected instance of `IDaprSidecarHttpClientFactory`
+
+** but this also seems to work:
++
+[source,c#]
+----
+var httpClient = new HttpClient();
+httpClient.DefaultRequestHeaders.Add("dapr-app-id", "moviebackend");
+httpClient.BaseAddress = new Uri("http://localhost:3500");
+----
++
+what's interesting here, don't quite understand, is that when tested (later) that port `3500` works irrespective of whether `moviebackend` is started before `moviefrontend`, OR, the other way around (reversing the ports that the two apps get)
 
 * start both apps
 +
 both are starting their own `daprd` correctly.
+
+* inspect
++
+[source,powershell]
+----
+dapr list
+----
++
+shows
++
+[source,output]
+----
+APP ID         HTTP PORT  GRPC PORT  APP PORT  COMMAND  AGE  CREATED              DAPRD PID  CLI PID
+moviebackend   3500       50001      5095               58m  2022-11-19 17:21.23  53844      0
+moviefrontend  3501       50002      5085               5s   2022-11-19 18:19.43  46392      0
+----
+
+* tracing captures interactions, at http://localhost:9411/zipkin/

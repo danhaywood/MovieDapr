@@ -5,30 +5,35 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Dapr.Client;
+using Man.Dapr.Sidekick.Http;
 
 namespace RazorPagesMovie.Services
 {
     public class MoviesService
     {
         private readonly HttpClient _httpClient;
+        private readonly string baseURL;
 
-        public MoviesService()
+        public MoviesService(IDaprSidecarHttpClientFactory daprSidecarHttpClientFactory)
         {
-            var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("https://localhost:7092/");
+            var httpClient = daprSidecarHttpClientFactory.CreateInvokeHttpClient("moviebackend");
+            // var httpClient = new HttpClient();
+            // httpClient.DefaultRequestHeaders.Add("dapr-app-id", "moviebackend");
+            // httpClient.BaseAddress = new Uri("http://localhost:3500");   // seems to work irrespective of which app is started first
+
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
             
             _httpClient = httpClient;
-
         }
 
         // GET: api/Movies
         [HttpGet]
         public async Task<List<MovieDto>> GetMovies()
         {
-            var response = await _httpClient.GetAsync("api/Movies");
+            var response = await _httpClient.GetAsync("/api/Movies");
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadFromJsonAsync<List<MovieDto>>() ?? new List<MovieDto>();
@@ -38,7 +43,7 @@ namespace RazorPagesMovie.Services
         [HttpGet("{id}")]
         public async Task<MovieDto?> GetMovie(int id)
         {
-            var response = await _httpClient.GetAsync($"api/Movies/{id}");
+            var response = await _httpClient.GetAsync($"/api/Movies/{id}");
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadFromJsonAsync<MovieDto>() ?? null;
@@ -49,7 +54,7 @@ namespace RazorPagesMovie.Services
         public async Task<MovieDto?> UpdateMovie(int id, MovieDto movieDto)
         {
 
-            var response = await _httpClient.PutAsJsonAsync($"api/Movies/{id}", movieDto);
+            var response = await _httpClient.PutAsJsonAsync($"/api/Movies/{id}", movieDto);
             response.EnsureSuccessStatusCode();
             
             // Deserialize the updated product from the response body.
