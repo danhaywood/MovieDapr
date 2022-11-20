@@ -1,9 +1,9 @@
 ﻿using Api;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using RazorPagesMovie.Services;
+using MovieFrontend.Services;
 
-namespace RazorPagesMovie.Pages.Movies
+namespace MovieFrontend.Pages.Movies
 {
     public class CreateModel : PageModel
     {

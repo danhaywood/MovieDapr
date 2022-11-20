@@ -8,7 +8,7 @@ using MovieBackend.Data;
 
 #nullable disable
 
-namespace RazorPagesMovie.Migrations
+namespace MovieFrontend.Migrations
 {
     [DbContext(typeof(MovieContext))]
     partial class RazorPagesMovieContextModelSnapshot : ModelSnapshot

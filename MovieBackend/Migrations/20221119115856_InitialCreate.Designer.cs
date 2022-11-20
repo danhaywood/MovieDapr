@@ -9,7 +9,7 @@ using MovieBackend.Data;
 
 #nullable disable
 
-namespace RazorPagesMovie.Migrations
+namespace MovieFrontend.Migrations
 {
     [DbContext(typeof(MovieContext))]
     [Migration("20221119115856_InitialCreate")]

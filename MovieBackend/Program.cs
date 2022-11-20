@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MovieBackend.Data;
 using MovieBackend.Models;
-using RazorPagesMovie.Sql;
+using MovieFrontend.Sql;
 
 var builder = WebApplication.CreateBuilder(args);
 

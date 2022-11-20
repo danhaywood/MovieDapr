@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Dapr.Client;
 using Man.Dapr.Sidekick.Http;
 
-namespace RazorPagesMovie.Services
+namespace MovieFrontend.Services
 {
     public class MoviesService
     {

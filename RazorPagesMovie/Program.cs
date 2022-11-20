@@ -1,4 +1,4 @@
-﻿using RazorPagesMovie.Services;
+﻿using MovieFrontend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

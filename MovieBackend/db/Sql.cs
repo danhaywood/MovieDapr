@@ -1,4 +1,4 @@
-﻿namespace RazorPagesMovie.Sql;
+﻿namespace MovieFrontend.Sql;
 
 public class Sql
 {
