@@ -30,8 +30,14 @@ builder.Services.AddOpenTelemetryTracing(options =>
         .ConfigureResource(r => r.AddService( serviceName: assemblyName + " app", serviceVersion: assemblyVersion, serviceInstanceId: Environment.MachineName))
         .AddSource(nameof(MoviesController))
         .SetSampler(new AlwaysOnSampler())
-        //.AddHttpClientInstrumentation()
+        //.AddHttpClientInstrumentation()   // don't do this, otherwise we'll instrument our calls to the dapr sidecar.
         .AddAspNetCoreInstrumentation()
+        .AddSqlClientInstrumentation(options =>
+        {
+            options.SetDbStatementForText = true;
+            options.RecordException = true;
+            options.SetDbStatementForStoredProcedure = true;
+        })
         ;
 
     switch (tracingExporter)
