@@ -65,7 +65,7 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="dotnet tool restore" />
-    <Exec Command="dotnet swagger tofile --yaml --output $(OutputPath)\swagger.yaml $(OutputPath)\$(AssemblyName).dll v1 " />
+    <Exec Command="dotnet swagger tofile --yaml --output $(OutputPath)\swagger.yaml $(OutputPath)\$(AssemblyName).dll v1 "  EnvironmentVariables="POST_BUILD=true" />
   </Target>
 
 </Project>

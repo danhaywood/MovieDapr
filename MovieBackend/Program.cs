@@ -101,13 +101,18 @@ builder.Services.AddDbContext<MovieContext>(options =>
 var app = builder.Build();
 
 var isDevelopment = app.Environment.IsDevelopment();
-var evolve = new Evolve(new SqlConnection(connectionString), logDelegate: s => Console.Out.WriteLine("Evolve: " + s))
+
+var postBuild = Environment.GetEnvironmentVariable("POST_BUILD");
+if (postBuild == null)
 {
-    EmbeddedResourceAssemblies = new[] { typeof(Sql).Assembly },
-    IsEraseDisabled = !isDevelopment,
-    MustEraseOnValidationError = !isDevelopment
-};
-evolve.Migrate();
+    var evolve = new Evolve(new SqlConnection(connectionString), logDelegate: s => Console.Out.WriteLine("Evolve: " + s))
+    {
+        EmbeddedResourceAssemblies = new[] { typeof(Sql).Assembly },
+        IsEraseDisabled = !isDevelopment,
+        MustEraseOnValidationError = !isDevelopment
+    };
+    evolve.Migrate();
+}
 
 using (var scope = app.Services.CreateScope())
 {
