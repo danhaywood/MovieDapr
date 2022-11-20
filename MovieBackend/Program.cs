@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MovieBackend.Controllers;
 using MovieBackend.Data;
+using MovieBackend.Graphql;
 using MovieBackend.Models;
 using MovieFrontend.Sql;
 using OpenTelemetry.Exporter;
@@ -13,6 +14,7 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Path = System.IO.Path;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -87,6 +89,10 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+builder.Services
+    .AddGraphQLServer()
+    .AddQueryType<Query>();
+
 builder.Services.AddRazorPages();
 builder.Services.AddDaprSidekick(builder.Configuration);
 
@@ -143,5 +149,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
+
+app.MapGraphQL();
 
 app.Run();
