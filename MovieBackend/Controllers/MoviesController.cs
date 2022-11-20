@@ -27,7 +27,11 @@ namespace MovieBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
         {
-            return await _movieRepository.GetMovies();;
+            Task<List<Movie>> movies = _movieRepository.GetMovies();
+            return await Task.Run(() =>
+            {
+                return movies.Result.Select(x => x.AsDto()).ToList();
+            });
         }
 
         // GET: api/Movies/5
