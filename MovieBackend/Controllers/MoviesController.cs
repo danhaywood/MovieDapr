@@ -1,10 +1,12 @@
 ﻿using Api;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MovieBackend.Data;
-using MovieBackend.Models;
+using MovieFrontend.Services;
+using MovieFrontend.Data;
+using MovieFrontend.Models;
+using RazorPagesMovie.Services;
 
-namespace MovieBackend.Controllers
+namespace MovieFrontend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -12,17 +14,21 @@ namespace MovieBackend.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly MovieContext _context;
+        private readonly TraceService _traceService;
         
-        public MoviesController(MovieContext context)
+        public MoviesController(MovieContext context, TraceService traceService)
         {
             _context = context;
+            _traceService = traceService;
         }
 
         // GET: api/Movies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
         {
-            return await _context.Movie.Select(x => x.AsDto()).ToListAsync();
+            var listAsync = _context.Movie.Select(x => x.AsDto()).ToListAsync();
+            _traceService.Execute(listAsync);
+            return await listAsync;
         }
 
         // GET: api/Movies/5

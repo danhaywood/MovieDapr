@@ -1,14 +1,10 @@
-﻿using Api;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Dapr.Client;
+using Api;
 using Man.Dapr.Sidekick.Http;
+using Microsoft.AspNetCore.Mvc;
 
-namespace RazorPagesMovie.Services
+namespace MovieFrontend.Services
 {
     public class MoviesService
     {

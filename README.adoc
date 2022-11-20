@@ -396,3 +396,6 @@ moviefrontend  3501       50002      5085               5s   2022-11-19 18:19.43
 ----
 
 * tracing captures interactions, at http://localhost:9411/zipkin/
+
+== Extending Tracing Support
+

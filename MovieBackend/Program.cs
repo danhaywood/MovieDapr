@@ -3,9 +3,16 @@ using EvolveDb;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using MovieBackend.Data;
-using MovieBackend.Models;
-using RazorPagesMovie.Sql;
+using MovieFrontend;
+using MovieFrontend.Data;
+using MovieFrontend.Models;
+using MovieFrontend.Services;
+using MovieFrontend.Sql;
+using RazorPagesMovie.Services;
+using zipkin4net;
+using zipkin4net.Tracers.Zipkin;
+using zipkin4net.Transport.Http;
+using ILogger = zipkin4net.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +48,9 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddRazorPages();
 builder.Services.AddDaprSidekick(builder.Configuration);
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<TraceService, TraceService>();
+builder.Services.AddHostedService<LifetimeService>();
 
 var connectionString = builder.Configuration.GetConnectionString("RazorPagesMovieContext") ??
                              throw new InvalidOperationException( "Connection string 'RazorPagesMovieContext' not found.");
@@ -49,6 +59,21 @@ builder.Services.AddDbContext<MovieContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+
+
+
+IZipkinSender sender = new HttpZipkinSender("http://localhost:9411", "text/plain");
+
+TraceManager.SamplingRate = 1.0f; //full tracing
+
+var tracer = new ZipkinTracer(sender, new ThriftSpanSerializer());
+TraceManager.RegisterTracer(tracer);
+TraceManager.Start(new ZipkinClientLogger());
+
+//Run your application
+
+//On shutdown
+// TraceManager.Stop();
 
 var app = builder.Build();
 
@@ -83,6 +108,7 @@ else
     app.UseHsts();
     app.UseHttpsRedirection();
 }
+
 
 app.UseStaticFiles();
 

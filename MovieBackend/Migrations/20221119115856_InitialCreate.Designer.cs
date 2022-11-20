@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MovieBackend.Data;
+using MovieFrontend.Data;
 
 #nullable disable
 
-namespace RazorPagesMovie.Migrations
+namespace MovieFrontend.Migrations
 {
     [DbContext(typeof(MovieContext))]
     [Migration("20221119115856_InitialCreate")]

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MovieBackend.Data;
+using MovieFrontend.Data;
 
-namespace MovieBackend.Models
+namespace MovieFrontend.Models
 {
     public static class SeedData
     {

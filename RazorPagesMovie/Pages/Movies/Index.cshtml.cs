@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Api;
-using RazorPagesMovie.Services;
+using MovieFrontend.Services;
 
-namespace RazorPagesMovie.Pages.Movies
+namespace MovieFrontend.Pages.Movies
 {
     public class IndexModel : PageModel
     {
