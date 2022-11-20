@@ -57,6 +57,8 @@ builder.Services.AddOpenTelemetryTracing(options =>
     }
 });
 
+builder.Services.AddScoped<MovieRepository>();
+
 builder.Services.Configure<AspNetCoreInstrumentationOptions>(builder.Configuration.GetSection("AspNetCoreInstrumentation"));
 
 // Add services to the container.

@@ -15,20 +15,19 @@ namespace MovieBackend.Controllers
         private static readonly ActivitySource ActivitySource = new(nameof(MoviesController));
         
         private readonly MovieContext _context;
-        
-        public MoviesController(MovieContext context)
+        private readonly MovieRepository _movieRepository;
+
+        public MoviesController(MovieContext context, MovieRepository movieRepository)
         {
             _context = context;
+            _movieRepository = movieRepository;
         }
 
         // GET: api/Movies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
         {
-            using (ActivitySource.StartActivity(nameof(GetMovies), ActivityKind.Client))
-            {
-                return await _context.Movie.Select(x => x.AsDto()).ToListAsync();
-            }
+            return await _movieRepository.GetMovies();;
         }
 
         // GET: api/Movies/5
