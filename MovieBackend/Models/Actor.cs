@@ -19,6 +19,8 @@ namespace MovieBackend.Models
         public int ID { get; set; }
         public string Name { get; set; } = string.Empty;
 
+        public List<Character> Characters { get; set; }
+
         public ActorDto AsDto()
         {
             return new ActorDto()

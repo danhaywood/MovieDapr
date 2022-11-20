@@ -29,6 +29,8 @@ namespace MovieBackend.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
+        public List<Character> Characters { get; set; }
+        
         public MovieDto AsDto()
         {
             return new MovieDto()

@@ -12,5 +12,7 @@ namespace MovieBackend.Data
 
         public DbSet<Movie> Movie { get; set; } = default!;
         public DbSet<Actor> Actor { get; set; } = default!;
+        public DbSet<Character> Character { get; set; } = default!;
+        
     }
 }

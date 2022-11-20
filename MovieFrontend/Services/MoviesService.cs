@@ -13,7 +13,6 @@ namespace MovieFrontend.Services
     public class MoviesService
     {
         private readonly HttpClient _httpClient;
-        private readonly string baseURL;
 
         public MoviesService(IDaprSidecarHttpClientFactory daprSidecarHttpClientFactory)
         {
@@ -69,7 +68,7 @@ namespace MovieFrontend.Services
             var response = await _httpClient.PostAsJsonAsync($"api/Movies", movieDto);
             response.EnsureSuccessStatusCode();
             
-            return response.Headers.Location;
+            return response.Headers.Location!;
         }
 
         /// <summary>

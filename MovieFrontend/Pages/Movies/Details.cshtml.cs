@@ -13,7 +13,7 @@ namespace MovieFrontend.Pages.Movies
             _moviesService = moviesService;
         }
 
-      public MovieDto Movie { get; set; }
+        public MovieDto Movie { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

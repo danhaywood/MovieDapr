@@ -109,16 +109,17 @@ if (postBuild == null)
     {
         EmbeddedResourceAssemblies = new[] { typeof(Sql).Assembly },
         IsEraseDisabled = !isDevelopment,
-        MustEraseOnValidationError = !isDevelopment
+        RetryRepeatableMigrationsUntilNoError = true,
+        MustEraseOnValidationError = isDevelopment
     };
     evolve.Migrate();
-}
+    
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    SeedData.Initialize(services);
+        SeedData.Initialize(services);
+    }
 }
 
 
@@ -138,11 +139,8 @@ else
 }
 
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

@@ -15,5 +15,7 @@ namespace MovieData
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
+
+        public List<CharacterDto> Characters { get; set; } = new();
     }
 }
