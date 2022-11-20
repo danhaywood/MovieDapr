@@ -6,8 +6,73 @@ using Microsoft.OpenApi.Models;
 using MovieBackend.Data;
 using MovieBackend.Models;
 using MovieFrontend.Sql;
+using OpenTelemetry.Exporter;
+using OpenTelemetry.Instrumentation.AspNetCore;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// OpenTelemetry
+var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "unknown";
+
+// Switch between Zipkin/<!--Jaeger/OTLP-->/Console by setting UseTracingExporter in appsettings.json.
+var tracingExporter = builder.Configuration.GetValue<string>("UseTracingExporter").ToLowerInvariant();
+
+var serviceName = tracingExporter switch
+{
+    // "jaeger" => builder.Configuration.GetValue<string>("Jaeger:ServiceName"),
+    "zipkin" => builder.Configuration.GetValue<string>("Zipkin:ServiceName"),
+    // "otlp" => builder.Configuration.GetValue<string>("Otlp:ServiceName"),
+    _ => "AspNetCoreExampleService",
+};
+
+Action<ResourceBuilder> configureResource = r => r.AddService(
+    serviceName, serviceVersion: assemblyVersion, serviceInstanceId: Environment.MachineName);
+
+builder.Services.AddOpenTelemetryTracing(options =>
+{
+    options
+        .ConfigureResource(configureResource)
+        .SetSampler(new AlwaysOnSampler())
+        //.AddHttpClientInstrumentation()
+        .AddAspNetCoreInstrumentation()
+        ;
+
+    switch (tracingExporter)
+    {
+        // case "jaeger":
+        //     options.AddJaegerExporter();
+        //
+        //     builder.Services.Configure<JaegerExporterOptions>(builder.Configuration.GetSection("Jaeger"));
+        //
+        //     // Customize the HttpClient that will be used when JaegerExporter is configured for HTTP transport.
+        //     builder.Services.AddHttpClient("JaegerExporter", configureClient: (client) => client.DefaultRequestHeaders.Add("X-MyCustomHeader", "value"));
+        //     break;
+
+        case "zipkin":
+            options.AddZipkinExporter();
+
+            builder.Services.Configure<ZipkinExporterOptions>(builder.Configuration.GetSection("Zipkin"));
+            break;
+
+        // case "otlp":
+        //     options.AddOtlpExporter(otlpOptions =>
+        //     {
+        //         otlpOptions.Endpoint = new Uri(builder.Configuration.GetValue<string>("Otlp:Endpoint"));
+        //     });
+        //     break;
+
+        default:
+            options.AddConsoleExporter();
+
+            break;
+    }
+});
+
+builder.Services.Configure<AspNetCoreInstrumentationOptions>(builder.Configuration.GetSection("AspNetCoreInstrumentation"));
 
 // Add services to the container.
 builder.Services.AddControllers();
