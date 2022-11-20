@@ -396,3 +396,38 @@ moviefrontend  3501       50002      5085               5s   2022-11-19 18:19.43
 ----
 
 * tracing captures interactions, at http://localhost:9411/zipkin/
+
+
+== Evolve incremental?
+
+* Added `Actor.sql`
+
+* rebuilt
+
+=== First idea
+* install Evolve dotnet tool
++
+[source,powershell]
+----
+dotnet tool install --global Evolve.Tool
+----
+
+* preview from assembly
++
+[source,powershell]
+----
+evolve migrate sqlserver -c "Server=(localdb)\\mssqllocaldb;Database=RazorPagesMovieUsingEvolve.Data;Trusted_Connection=True;MultipleActiveResultSets=true" --embedded-resource-assembly MovieBackend/bin/Debug/net6.0/MovieBackend.dll --transaction-mode RollbackAll
+----
++
+Using SQL Profiler, this does capture all the commands required.
+So in theory could wrap with some Powershell to start profiler, run the above, stop profiler and then export the trace.
++
+see `evolve-trace-definition.sql` for the SQL that could be called from a Powershell script.
+
+=== Second idea
+
+PROBABLY EASIER:
+
+* write a custom tool that uses Evolve SDK, but enable SqlClientListener to capture events
++
+https://learn.microsoft.com/en-us/sql/connect/ado-net/enable-eventsource-tracing?view=sql-server-ver16
