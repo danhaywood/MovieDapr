@@ -1,0 +1,9 @@
+﻿query movies {
+    movies {
+        id
+        title
+        releaseDate
+        genre
+        price
+    }
+}
