@@ -3,17 +3,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieData;
 using MovieFrontend.Services;
 
-namespace MovieFrontend.Views.Movies
+namespace MovieFrontend.Pages.Movies
 {
-    public class DetailsModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly MoviesService _moviesService;
-        public DetailsModel(MoviesService moviesService)
+        public DeleteModel(MoviesService moviesService)
         {
             _moviesService = moviesService;
         }
 
-        public MovieDto Movie { get; set; }
+    [BindProperty]
+      public MovieDto Movie { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,7 +30,19 @@ namespace MovieFrontend.Views.Movies
             }
 
             Movie = movie;
+            
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            await _moviesService.DeleteMovie(id.Value);
+
+            return RedirectToPage("./Index");
         }
     }
 }

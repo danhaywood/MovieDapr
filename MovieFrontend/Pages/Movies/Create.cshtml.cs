@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieData;
 using MovieFrontend.Services;
 
-namespace MovieFrontend.Views.Movies
+namespace MovieFrontend.Pages.Movies
 {
     public class CreateModel : PageModel
     {

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieData;
 using MovieFrontend.Services;
 
-namespace MovieFrontend.Views.Movies
+namespace MovieFrontend.Pages.Movies
 {
     public class IndexModel : PageModel
     {

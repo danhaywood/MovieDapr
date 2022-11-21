@@ -2,7 +2,7 @@
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRazorPages().WithRazorPagesRoot("/Views");
+builder.Services.AddRazorPages();
 builder.Services.AddScoped<MoviesService, MoviesService>();
 builder.Services.AddDaprSidekick(builder.Configuration);
 
