@@ -463,6 +463,7 @@ dotnet graphql init https://localhost:7092/graphql/ -n MovieFrontend -p ./Graphq
 adds a simple query:
 
 [source,graphql]
+.Graphql/Queries.graphql
 ----
 query movies {
   movies {
