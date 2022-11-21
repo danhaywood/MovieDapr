@@ -16,26 +16,34 @@ namespace MovieBackend.Models
             _context = context;
         }
 
-        public async Task<List<Actor>> GetActors()
+        public DbSet<Actor> GetActors()
         {
             using (ActivitySource.StartActivity(nameof(GetActors), ActivityKind.Client))
+            {
+                return _context.Actor;
+            }
+        }
+        
+        public async Task<List<Actor>> GetActorsAsync()
+        {
+            using (ActivitySource.StartActivity(nameof(GetActorsAsync), ActivityKind.Client))
             {
                 return await _context.Actor.ToListAsync();
             }
         }
         
-        public async Task<Actor?> GetActor(int id)
+        public async Task<Actor?> GetActorAsync(int id)
         {
-            using (ActivitySource.StartActivity(nameof(GetActor), ActivityKind.Client))
+            using (ActivitySource.StartActivity(nameof(GetActorAsync), ActivityKind.Client))
             {
                 return await _context.Actor.FindAsync(id);
             }
         }
         
-        public async Task<Actor> CreateActor(ActorDto actorDto)
+        public async Task<Actor> CreateActorAsync(ActorDto actorDto)
         {
             var actor = new Actor(actorDto);
-            using (ActivitySource.StartActivity(nameof(CreateActor), ActivityKind.Client))
+            using (ActivitySource.StartActivity(nameof(CreateActorAsync), ActivityKind.Client))
             {
                 var actorEntry = _context.Actor.Add(actor);
                 await _context.SaveChangesAsync();
@@ -43,14 +51,14 @@ namespace MovieBackend.Models
             }
         }
         
-        public async Task<Actor?> UpdateActor(ActorDto movieDto)
+        public async Task<Actor?> UpdateActorAsync(ActorDto movieDto)
         {
-            using (ActivitySource.StartActivity(nameof(UpdateActor), ActivityKind.Client))
+            using (ActivitySource.StartActivity(nameof(UpdateActorAsync), ActivityKind.Client))
             {
                 Actor? actor;
                 int id;
                 
-                using (ActivitySource.StartActivity(nameof(UpdateActor) + ".Find", ActivityKind.Client))
+                using (ActivitySource.StartActivity(nameof(UpdateActorAsync) + ".Find", ActivityKind.Client))
                 {
                     id = movieDto.ID;
         
@@ -63,7 +71,7 @@ namespace MovieBackend.Models
 
                 actor.Name = actor.Name;
                 
-                using (ActivitySource.StartActivity(nameof(UpdateActor) + ".Save", ActivityKind.Client))
+                using (ActivitySource.StartActivity(nameof(UpdateActorAsync) + ".Save", ActivityKind.Client))
                 {
                     _context.Attach(actor).State = EntityState.Modified;
         
@@ -76,19 +84,19 @@ namespace MovieBackend.Models
                         return null;
                     }
         
-                    return await GetActor(id);
+                    return await GetActorAsync(id);
                 }
             }
         }
         
-        public async Task<bool> DeleteActor(int id)
+        public async Task<bool> DeleteActorAsync(int id)
         {
         
-            using (ActivitySource.StartActivity(nameof(DeleteActor), ActivityKind.Client))
+            using (ActivitySource.StartActivity(nameof(DeleteActorAsync), ActivityKind.Client))
             {
                 
                 Actor? actor;
-                using (ActivitySource.StartActivity(nameof(DeleteActor) + ".Find", ActivityKind.Client))
+                using (ActivitySource.StartActivity(nameof(DeleteActorAsync) + ".Find", ActivityKind.Client))
                 {
                     actor = await _context.Actor.FindAsync(id);
                     if (actor == null)
@@ -96,7 +104,7 @@ namespace MovieBackend.Models
                         return false;
                     }
                 }
-                using (ActivitySource.StartActivity(nameof(DeleteActor) + ".Delete", ActivityKind.Client))
+                using (ActivitySource.StartActivity(nameof(DeleteActorAsync) + ".Delete", ActivityKind.Client))
                 {
                     _context.Actor.Remove(actor);
                     await _context.SaveChangesAsync();
@@ -106,19 +114,19 @@ namespace MovieBackend.Models
             }
         }
         
+        public async Task<Actor?> FindActorByNameAsync(string name)
+        {
+            using (ActivitySource.StartActivity(nameof(FindActorByNameAsync), ActivityKind.Client))
+            {
+                return await _context.Actor.FirstAsync(x => x.Name == name);
+            }
+        }
+
         private bool ActorExists(int id)
         {
             using (ActivitySource.StartActivity(nameof(ActorExists), ActivityKind.Client))
             {
                 return _context.Movie.Any(x => x.ID == id);
-            }
-        }
-
-        public async Task<Actor?> FindActorByName(string name)
-        {
-            using (ActivitySource.StartActivity(nameof(FindActorByName), ActivityKind.Client))
-            {
-                return await _context.Actor.FirstAsync(x => x.Name == name);
             }
         }
     }

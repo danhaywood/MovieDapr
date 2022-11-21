@@ -23,7 +23,7 @@ namespace MovieBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
         {
-            var movies = await _movieRepository.GetMovies();
+            var movies = await _movieRepository.GetMoviesAsync();
             return movies.Select(x => x.AsDto()).ToList();
         }
 
@@ -31,7 +31,7 @@ namespace MovieBackend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<MovieDto>> GetMovie(int id)
         {
-            var movie = await  _movieRepository.GetMovie(id);
+            var movie = await  _movieRepository.GetMovieAsync(id);
             return movie == null ? NotFound() : movie.AsDto();
         }
         
@@ -40,7 +40,7 @@ namespace MovieBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<MovieDto>> CreateMovie(MovieDto movieDto)
         {
-            var createdMovie = await _movieRepository.CreateMovie(movieDto);
+            var createdMovie = await _movieRepository.CreateMovieAsync(movieDto);
             return CreatedAtAction(
                 nameof(CreateMovie),
                 new { id = createdMovie.ID },
@@ -52,7 +52,7 @@ namespace MovieBackend.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<MovieDto>> UpdateMovie(MovieDto movieDto)
         {
-            var updatedMovie = await _movieRepository.UpdateMovie(movieDto);
+            var updatedMovie = await _movieRepository.UpdateMovieAsync(movieDto);
             return updatedMovie == null ? NotFound() : Ok(updatedMovie.AsDto());
         }
 
@@ -67,7 +67,7 @@ namespace MovieBackend.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie(int id)
         {
-            var result =  await _movieRepository.DeleteMovie(id);
+            var result =  await _movieRepository.DeleteMovieAsync(id);
             return result ? NoContent() : NotFound();
         }
     }

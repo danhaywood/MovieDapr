@@ -16,28 +16,29 @@ namespace MovieBackend.Models
             _context = context;
         }
 
-        public async Task<List<Character>> GetCharacters()
+        public DbSet<Character> GetCharacters()
         {
             using (ActivitySource.StartActivity(nameof(GetCharacters), ActivityKind.Client))
+            {
+                return _context.Character;
+            }
+        }
+        
+        public async Task<List<Character>> GetCharactersAsync()
+        {
+            using (ActivitySource.StartActivity(nameof(GetCharactersAsync), ActivityKind.Client))
             {
                 return await _context.Character.ToListAsync();
             }
         }
         
-        public async Task<Character?> GetCharacter(int id)
+        public async Task<Character?> GetCharacterAsync(int id)
         {
-            using (ActivitySource.StartActivity(nameof(GetCharacter), ActivityKind.Client))
+            using (ActivitySource.StartActivity(nameof(GetCharacterAsync), ActivityKind.Client))
             {
                 return await _context.Character.FindAsync(id);
             }
         }
         
-        private bool MovieExists(int id)
-        {
-            using (ActivitySource.StartActivity(nameof(MovieExists), ActivityKind.Client))
-            {
-                return _context.Movie.Any(x => x.ID == id);
-            }
-        }
     }
 }

@@ -99,6 +99,8 @@ builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
     .AddProjections()
+    .AddFiltering()
+    .AddSorting()
     ;
 
 builder.Services.AddRazorPages();

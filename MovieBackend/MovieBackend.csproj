@@ -14,8 +14,8 @@
   <ItemGroup>
     <PackageReference Include="Dapr.Client" Version="1.9.0" />
     <PackageReference Include="Evolve" Version="3.1.0-alpha7" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="13.0.0-preview.81" />
-    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="13.0.0-preview.81" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.15.2" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.15.2" />
     <PackageReference Include="Man.Dapr.Sidekick.AspNetCore" Version="1.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
       <PrivateAssets>all</PrivateAssets>

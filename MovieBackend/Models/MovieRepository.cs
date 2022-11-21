@@ -16,26 +16,34 @@ namespace MovieBackend.Models
             _context = context;
         }
 
-        public async Task<List<Movie>> GetMovies()
+        public DbSet<Movie> GetMovies()
         {
             using (ActivitySource.StartActivity(nameof(GetMovies), ActivityKind.Client))
+            {
+                return _context.Movie;
+            }
+        }
+        
+        public async Task<List<Movie>> GetMoviesAsync()
+        {
+            using (ActivitySource.StartActivity(nameof(GetMoviesAsync), ActivityKind.Client))
             {
                 return await _context.Movie.ToListAsync();
             }
         }
         
-        public async Task<Movie?> GetMovie(int id)
+        public async Task<Movie?> GetMovieAsync(int id)
         {
-            using (ActivitySource.StartActivity(nameof(GetMovie), ActivityKind.Client))
+            using (ActivitySource.StartActivity(nameof(GetMovieAsync), ActivityKind.Client))
             {
                 return await _context.Movie.FindAsync(id);
             }
         }
         
-        public async Task<Movie> CreateMovie(MovieDto movieDto)
+        public async Task<Movie> CreateMovieAsync(MovieDto movieDto)
         {
             var movie = new Movie(movieDto);
-            using (ActivitySource.StartActivity(nameof(CreateMovie), ActivityKind.Client))
+            using (ActivitySource.StartActivity(nameof(CreateMovieAsync), ActivityKind.Client))
             {
                 var movieEntry = _context.Movie.Add(movie);
                 await _context.SaveChangesAsync();
@@ -43,14 +51,14 @@ namespace MovieBackend.Models
             }
         }
         
-        public async Task<Movie?> UpdateMovie(MovieDto movieDto)
+        public async Task<Movie?> UpdateMovieAsync(MovieDto movieDto)
         {
-            using (ActivitySource.StartActivity(nameof(UpdateMovie), ActivityKind.Client))
+            using (ActivitySource.StartActivity(nameof(UpdateMovieAsync), ActivityKind.Client))
             {
                 Movie? movie;
                 int id;
                 
-                using (ActivitySource.StartActivity(nameof(UpdateMovie) + ".Find", ActivityKind.Client))
+                using (ActivitySource.StartActivity(nameof(UpdateMovieAsync) + ".Find", ActivityKind.Client))
                 {
                     id = movieDto.ID;
         
@@ -66,7 +74,7 @@ namespace MovieBackend.Models
                 movie.Price = movieDto.Price;
                 movie.ReleaseDate = movieDto.ReleaseDate;
                 
-                using (ActivitySource.StartActivity(nameof(UpdateMovie) + ".Save", ActivityKind.Client))
+                using (ActivitySource.StartActivity(nameof(UpdateMovieAsync) + ".Save", ActivityKind.Client))
                 {
                     _context.Attach(movie).State = EntityState.Modified;
         
@@ -79,19 +87,19 @@ namespace MovieBackend.Models
                         return null;
                     }
         
-                    return await GetMovie(id);
+                    return await GetMovieAsync(id);
                 }
             }
         }
         
-        public async Task<bool> DeleteMovie(int id)
+        public async Task<bool> DeleteMovieAsync(int id)
         {
         
-            using (ActivitySource.StartActivity(nameof(DeleteMovie), ActivityKind.Client))
+            using (ActivitySource.StartActivity(nameof(DeleteMovieAsync), ActivityKind.Client))
             {
                 
                 Movie? movie;
-                using (ActivitySource.StartActivity(nameof(DeleteMovie) + ".Find", ActivityKind.Client))
+                using (ActivitySource.StartActivity(nameof(DeleteMovieAsync) + ".Find", ActivityKind.Client))
                 {
                     movie = await _context.Movie.FindAsync(id);
                     if (movie == null)
@@ -99,7 +107,7 @@ namespace MovieBackend.Models
                         return false;
                     }
                 }
-                using (ActivitySource.StartActivity(nameof(DeleteMovie) + ".Delete", ActivityKind.Client))
+                using (ActivitySource.StartActivity(nameof(DeleteMovieAsync) + ".Delete", ActivityKind.Client))
                 {
                     _context.Movie.Remove(movie);
                     await _context.SaveChangesAsync();
@@ -118,9 +126,9 @@ namespace MovieBackend.Models
         }
 
 
-        public async Task<Movie?> FindMovieByTitle(string title)
+        public async Task<Movie?> FindMovieByTitleAsync(string title)
         {
-            using (ActivitySource.StartActivity(nameof(FindMovieByTitle), ActivityKind.Client))
+            using (ActivitySource.StartActivity(nameof(FindMovieByTitleAsync), ActivityKind.Client))
             {
                 return await _context.Movie.FirstAsync(x => x.Title == title);
             }
