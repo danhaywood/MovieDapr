@@ -3,18 +3,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieData;
 using MovieFrontend.Services;
 
-namespace MovieFrontend.Pages.Movies
+namespace MovieFrontend.Views.Movies
 {
-    public class EditModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly MoviesService _moviesService;
-        public EditModel(MoviesService moviesService)
+        public DeleteModel(MoviesService moviesService)
         {
             _moviesService = moviesService;
         }
 
-        [BindProperty]
-        public MovieDto Movie { get; set; } = default!;
+    [BindProperty]
+      public MovieDto Movie { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,27 +28,21 @@ namespace MovieFrontend.Pages.Movies
             {
                 return NotFound();
             }
+
             Movie = movie;
+            
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            var movie = await _moviesService.UpdateMovie(Movie.Id, Movie);
-            if (movie == null)
+            if (id == null)
             {
                 return NotFound();
             }
+            await _moviesService.DeleteMovie(id.Value);
 
             return RedirectToPage("./Index");
         }
-
     }
 }
