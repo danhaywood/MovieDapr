@@ -5,7 +5,7 @@ namespace MovieData
 {
     public class MovieDto
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
 
         [Display(Name = "Release Date")]

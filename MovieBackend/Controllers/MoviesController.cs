@@ -43,7 +43,7 @@ namespace MovieBackend.Controllers
             var createdMovie = await _movieRepository.CreateMovieAsync(movieDto);
             return CreatedAtAction(
                 nameof(CreateMovie),
-                new { id = createdMovie.ID },
+                new { id = createdMovie.Id },
                 createdMovie.AsDto());
         }
 

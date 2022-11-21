@@ -60,7 +60,7 @@ namespace MovieBackend.Models
                 
                 using (ActivitySource.StartActivity(nameof(UpdateActorAsync) + ".Find", ActivityKind.Client))
                 {
-                    id = movieDto.ID;
+                    id = movieDto.Id;
         
                     actor = await _dbContext.Actor.FindAsync(id);
                     if (actor == null)
@@ -126,7 +126,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(ActorExists), ActivityKind.Client))
             {
-                return _dbContext.Movie.Any(x => x.ID == id);
+                return _dbContext.Movie.Any(x => x.Id == id);
             }
         }
     }

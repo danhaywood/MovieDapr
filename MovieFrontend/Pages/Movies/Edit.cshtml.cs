@@ -41,7 +41,7 @@ namespace MovieFrontend.Pages.Movies
                 return Page();
             }
 
-            var movie = await _moviesService.UpdateMovie(Movie.ID, Movie);
+            var movie = await _moviesService.UpdateMovie(Movie.Id, Movie);
             if (movie == null)
             {
                 return NotFound();

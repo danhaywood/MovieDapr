@@ -4,19 +4,15 @@ namespace MovieBackend.Models
 {
     public class Character
     {
-        public Character()
-        {
-        }
-
-        public int ID { get; set; }
+        public int Id { get; set; }
         
         [GraphQLIgnore]
-        public int MovieID { get; set; }
+        public int MovieId { get; set; }
         
         public virtual Movie Movie { get; set; }
         
         [GraphQLIgnore]
-        public int ActorID { get; set; }
+        public int ActorId { get; set; }
         
         public virtual Actor Actor { get; set; }
 
@@ -27,7 +23,7 @@ namespace MovieBackend.Models
         {
             return new CharacterDto()
             {
-                ID = ID,
+                ID = Id,
                 CharacterName = CharacterName,
             };
         }

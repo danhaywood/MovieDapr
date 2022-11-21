@@ -12,11 +12,11 @@ namespace MovieBackend.Models
 
         public Actor(ActorDto actorDto)
         {
-            ID = actorDto.ID;
+            Id = actorDto.Id;
             Name = actorDto.Name;
         }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
 
         [UseFiltering()]
@@ -28,7 +28,7 @@ namespace MovieBackend.Models
         {
             return new ActorDto()
             {
-                ID = ID,
+                Id = Id,
                 Name = Name,
             };
         }

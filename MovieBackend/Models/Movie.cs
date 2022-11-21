@@ -12,13 +12,13 @@ namespace MovieBackend.Models
 
         public Movie(MovieDto movieDto)
         {
-            ID = movieDto.ID;
+            Id = movieDto.Id;
             Title = movieDto.Title;
             ReleaseDate = movieDto.ReleaseDate;
             Genre = movieDto.Genre;
         }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
 
         [Display(Name = "Release Date")]
@@ -38,7 +38,7 @@ namespace MovieBackend.Models
         {
             return new MovieDto()
             {
-                ID = ID,
+                Id = Id,
                 Title = Title,
                 ReleaseDate = ReleaseDate,
                 Genre = Genre,
