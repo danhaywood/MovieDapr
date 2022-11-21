@@ -31,6 +31,8 @@ builder.Services.AddOpenTelemetryTracing(options =>
     options
         .ConfigureResource(r => r.AddService( serviceName: assemblyName + " app", serviceVersion: assemblyVersion, serviceInstanceId: Environment.MachineName))
         .AddSource(nameof(MovieRepository))
+        .AddSource(nameof(ActorRepository))
+        .AddSource(nameof(CharacterRepository))
         .SetSampler(new AlwaysOnSampler())
         //.AddHttpClientInstrumentation()   // don't do this, otherwise we'll instrument our calls to the dapr sidecar.
         .AddAspNetCoreInstrumentation()
@@ -58,6 +60,8 @@ builder.Services.AddOpenTelemetryTracing(options =>
 });
 
 builder.Services.AddScoped<MovieRepository>();
+builder.Services.AddScoped<ActorRepository>();
+builder.Services.AddScoped<CharacterRepository>();
 
 builder.Services.Configure<AspNetCoreInstrumentationOptions>(builder.Configuration.GetSection("AspNetCoreInstrumentation"));
 
@@ -93,7 +97,9 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<Query>();
+    .AddQueryType<Query>()
+    .AddProjections()
+    ;
 
 builder.Services.AddRazorPages();
 builder.Services.AddDaprSidekick(builder.Configuration);
@@ -102,6 +108,7 @@ var connectionString = builder.Configuration.GetConnectionString("MovieBackendCo
                              throw new InvalidOperationException( "Connection string 'MovieBackendContext' not found.");
 
 builder.Services.AddDbContext<MovieContext>(options =>
+// builder.Services.AddPooledDbContextFactory<MovieDbContext>(options =>
 {
     options.UseLazyLoadingProxies()
             .UseSqlServer(connectionString);

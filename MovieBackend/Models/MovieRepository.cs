@@ -117,6 +117,13 @@ namespace MovieBackend.Models
             }
         }
 
-        
+
+        public async Task<Movie?> FindMovieByTitle(string title)
+        {
+            using (ActivitySource.StartActivity(nameof(FindMovieByTitle), ActivityKind.Client))
+            {
+                return await _context.Movie.FirstAsync(x => x.Title == title);
+            }
+        }
     }
 }
