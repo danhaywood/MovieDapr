@@ -460,3 +460,18 @@ dotnet tool install StrawberryShake.Tools --local
 dotnet graphql init https://localhost:7092/graphql/ -n MovieFrontend -p ./Graphql
 ----
 
+adds a simple query:
+
+[source,graphql]
+----
+query movies {
+  movies {
+    id
+    title
+    releaseDate
+    genre
+    price
+  }
+}
+----
+
