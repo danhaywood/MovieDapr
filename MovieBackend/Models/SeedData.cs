@@ -7,9 +7,9 @@ namespace MovieBackend.Models
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new MovieContext(
+            using (var context = new MovieDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<MovieContext>>()))
+                    DbContextOptions<MovieDbContext>>()))
             {
                 if (context == null || context.Movie == null)
                 {
@@ -21,24 +21,24 @@ namespace MovieBackend.Models
             }
         }
 
-        private readonly MovieContext _context;
-        private SeedData(MovieContext context)
+        private readonly MovieDbContext _dbContext;
+        private SeedData(MovieDbContext dbContext)
         {
-            _context = context;
+            _dbContext = dbContext;
         }
 
         private void Seed()
         {
-            RemoveAll(_context.Character);
-            RemoveAll(_context.Actor);
-            RemoveAll(_context.Movie);
+            RemoveAll(_dbContext.Character);
+            RemoveAll(_dbContext.Actor);
+            RemoveAll(_dbContext.Movie);
 
             ResetMovies();
             ResetActors();
-            _context.SaveChanges();
+            _dbContext.SaveChanges();
             
             ResetCharacters();
-            _context.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         private void RemoveAll<T>(DbSet<T> dbSet) where T : class
@@ -49,7 +49,7 @@ namespace MovieBackend.Models
 
         private void ResetMovies()
         {
-            _context.Movie.AddRange(
+            _dbContext.Movie.AddRange(
                 new Movie
                 {
                     Title = "When Harry Met Sally",
@@ -76,7 +76,7 @@ namespace MovieBackend.Models
         
         private void ResetActors()
         {
-            _context.Actor.AddRange(
+            _dbContext.Actor.AddRange(
                 new Actor
                 {
                     Name = "Meg Ryan"
@@ -148,11 +148,11 @@ namespace MovieBackend.Models
         }
         private Movie MovieFor(string title)
         {
-            return _context.Movie.FirstOrDefault(x => x.Title == title)!;
+            return _dbContext.Movie.FirstOrDefault(x => x.Title == title)!;
         }
         private Actor ActorFor(string name)
         {
-            return _context.Actor.FirstOrDefault(x => x.Name == name)!;
+            return _dbContext.Actor.FirstOrDefault(x => x.Name == name)!;
         }
     }
 }

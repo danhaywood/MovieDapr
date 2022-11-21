@@ -10,7 +10,7 @@ using MovieBackend.Data;
 
 namespace MovieFrontend.Migrations
 {
-    [DbContext(typeof(MovieContext))]
+    [DbContext(typeof(MovieDbContext))]
     partial class RazorPagesMovieContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

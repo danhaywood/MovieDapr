@@ -10,17 +10,17 @@ namespace MovieBackend.Models
     {
         private static readonly ActivitySource ActivitySource = new(nameof(ActorRepository));
         
-        private readonly MovieContext _context;
-        public ActorRepository(MovieContext context)
+        private readonly MovieDbContext _dbContext;
+        public ActorRepository(MovieDbContext dbContext)
         {
-            _context = context;
+            _dbContext = dbContext;
         }
 
         public DbSet<Actor> GetActors()
         {
             using (ActivitySource.StartActivity(nameof(GetActors), ActivityKind.Client))
             {
-                return _context.Actor;
+                return _dbContext.Actor;
             }
         }
         
@@ -28,7 +28,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(GetActorsAsync), ActivityKind.Client))
             {
-                return await _context.Actor.ToListAsync();
+                return await _dbContext.Actor.ToListAsync();
             }
         }
         
@@ -36,7 +36,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(GetActorAsync), ActivityKind.Client))
             {
-                return await _context.Actor.FindAsync(id);
+                return await _dbContext.Actor.FindAsync(id);
             }
         }
         
@@ -45,8 +45,8 @@ namespace MovieBackend.Models
             var actor = new Actor(actorDto);
             using (ActivitySource.StartActivity(nameof(CreateActorAsync), ActivityKind.Client))
             {
-                var actorEntry = _context.Actor.Add(actor);
-                await _context.SaveChangesAsync();
+                var actorEntry = _dbContext.Actor.Add(actor);
+                await _dbContext.SaveChangesAsync();
                 return actorEntry.Entity;
             }
         }
@@ -62,7 +62,7 @@ namespace MovieBackend.Models
                 {
                     id = movieDto.ID;
         
-                    actor = await _context.Actor.FindAsync(id);
+                    actor = await _dbContext.Actor.FindAsync(id);
                     if (actor == null)
                     {
                         return null;
@@ -73,11 +73,11 @@ namespace MovieBackend.Models
                 
                 using (ActivitySource.StartActivity(nameof(UpdateActorAsync) + ".Save", ActivityKind.Client))
                 {
-                    _context.Attach(actor).State = EntityState.Modified;
+                    _dbContext.Attach(actor).State = EntityState.Modified;
         
                     try
                     {
-                        await _context.SaveChangesAsync();
+                        await _dbContext.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException) when (!ActorExists(id))
                     {
@@ -98,7 +98,7 @@ namespace MovieBackend.Models
                 Actor? actor;
                 using (ActivitySource.StartActivity(nameof(DeleteActorAsync) + ".Find", ActivityKind.Client))
                 {
-                    actor = await _context.Actor.FindAsync(id);
+                    actor = await _dbContext.Actor.FindAsync(id);
                     if (actor == null)
                     {
                         return false;
@@ -106,8 +106,8 @@ namespace MovieBackend.Models
                 }
                 using (ActivitySource.StartActivity(nameof(DeleteActorAsync) + ".Delete", ActivityKind.Client))
                 {
-                    _context.Actor.Remove(actor);
-                    await _context.SaveChangesAsync();
+                    _dbContext.Actor.Remove(actor);
+                    await _dbContext.SaveChangesAsync();
         
                     return true;
                 }
@@ -118,7 +118,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(FindActorByNameAsync), ActivityKind.Client))
             {
-                return await _context.Actor.FirstAsync(x => x.Name == name);
+                return await _dbContext.Actor.FirstAsync(x => x.Name == name);
             }
         }
 
@@ -126,7 +126,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(ActorExists), ActivityKind.Client))
             {
-                return _context.Movie.Any(x => x.ID == id);
+                return _dbContext.Movie.Any(x => x.ID == id);
             }
         }
     }

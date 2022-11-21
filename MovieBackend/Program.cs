@@ -109,7 +109,7 @@ builder.Services.AddDaprSidekick(builder.Configuration);
 var connectionString = builder.Configuration.GetConnectionString("MovieBackendContext") ??
                              throw new InvalidOperationException( "Connection string 'MovieBackendContext' not found.");
 
-builder.Services.AddDbContext<MovieContext>(options =>
+builder.Services.AddDbContext<MovieDbContext>(options =>
 // builder.Services.AddPooledDbContextFactory<MovieDbContext>(options =>
 {
     options.UseLazyLoadingProxies()

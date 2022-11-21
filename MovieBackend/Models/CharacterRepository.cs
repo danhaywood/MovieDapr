@@ -10,17 +10,17 @@ namespace MovieBackend.Models
     {
         private static readonly ActivitySource ActivitySource = new(nameof(CharacterRepository));
         
-        private readonly MovieContext _context;
-        public CharacterRepository(MovieContext context)
+        private readonly MovieDbContext _dbContext;
+        public CharacterRepository(MovieDbContext dbContext)
         {
-            _context = context;
+            _dbContext = dbContext;
         }
 
         public DbSet<Character> GetCharacters()
         {
             using (ActivitySource.StartActivity(nameof(GetCharacters), ActivityKind.Client))
             {
-                return _context.Character;
+                return _dbContext.Character;
             }
         }
         
@@ -28,7 +28,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(GetCharactersAsync), ActivityKind.Client))
             {
-                return await _context.Character.ToListAsync();
+                return await _dbContext.Character.ToListAsync();
             }
         }
         
@@ -36,7 +36,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(GetCharacterAsync), ActivityKind.Client))
             {
-                return await _context.Character.FindAsync(id);
+                return await _dbContext.Character.FindAsync(id);
             }
         }
         

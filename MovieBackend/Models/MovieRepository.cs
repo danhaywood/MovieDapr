@@ -10,17 +10,17 @@ namespace MovieBackend.Models
     {
         private static readonly ActivitySource ActivitySource = new(nameof(MovieRepository));
         
-        private readonly MovieContext _context;
-        public MovieRepository(MovieContext context)
+        private readonly MovieDbContext _dbContext;
+        public MovieRepository(MovieDbContext dbContext)
         {
-            _context = context;
+            _dbContext = dbContext;
         }
 
         public DbSet<Movie> GetMovies()
         {
             using (ActivitySource.StartActivity(nameof(GetMovies), ActivityKind.Client))
             {
-                return _context.Movie;
+                return _dbContext.Movie;
             }
         }
         
@@ -28,7 +28,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(GetMoviesAsync), ActivityKind.Client))
             {
-                return await _context.Movie.ToListAsync();
+                return await _dbContext.Movie.ToListAsync();
             }
         }
         
@@ -36,7 +36,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(GetMovieAsync), ActivityKind.Client))
             {
-                return await _context.Movie.FindAsync(id);
+                return await _dbContext.Movie.FindAsync(id);
             }
         }
         
@@ -45,8 +45,8 @@ namespace MovieBackend.Models
             var movie = new Movie(movieDto);
             using (ActivitySource.StartActivity(nameof(CreateMovieAsync), ActivityKind.Client))
             {
-                var movieEntry = _context.Movie.Add(movie);
-                await _context.SaveChangesAsync();
+                var movieEntry = _dbContext.Movie.Add(movie);
+                await _dbContext.SaveChangesAsync();
                 return movieEntry.Entity;
             }
         }
@@ -62,7 +62,7 @@ namespace MovieBackend.Models
                 {
                     id = movieDto.ID;
         
-                    movie = await _context.Movie.FindAsync(id);
+                    movie = await _dbContext.Movie.FindAsync(id);
                     if (movie == null)
                     {
                         return null;
@@ -76,11 +76,11 @@ namespace MovieBackend.Models
                 
                 using (ActivitySource.StartActivity(nameof(UpdateMovieAsync) + ".Save", ActivityKind.Client))
                 {
-                    _context.Attach(movie).State = EntityState.Modified;
+                    _dbContext.Attach(movie).State = EntityState.Modified;
         
                     try
                     {
-                        await _context.SaveChangesAsync();
+                        await _dbContext.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException) when (!MovieExists(id))
                     {
@@ -101,7 +101,7 @@ namespace MovieBackend.Models
                 Movie? movie;
                 using (ActivitySource.StartActivity(nameof(DeleteMovieAsync) + ".Find", ActivityKind.Client))
                 {
-                    movie = await _context.Movie.FindAsync(id);
+                    movie = await _dbContext.Movie.FindAsync(id);
                     if (movie == null)
                     {
                         return false;
@@ -109,8 +109,8 @@ namespace MovieBackend.Models
                 }
                 using (ActivitySource.StartActivity(nameof(DeleteMovieAsync) + ".Delete", ActivityKind.Client))
                 {
-                    _context.Movie.Remove(movie);
-                    await _context.SaveChangesAsync();
+                    _dbContext.Movie.Remove(movie);
+                    await _dbContext.SaveChangesAsync();
         
                     return true;
                 }
@@ -121,7 +121,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(MovieExists), ActivityKind.Client))
             {
-                return _context.Movie.Any(x => x.ID == id);
+                return _dbContext.Movie.Any(x => x.ID == id);
             }
         }
 
@@ -130,7 +130,7 @@ namespace MovieBackend.Models
         {
             using (ActivitySource.StartActivity(nameof(FindMovieByTitleAsync), ActivityKind.Client))
             {
-                return await _context.Movie.FirstAsync(x => x.Title == title);
+                return await _dbContext.Movie.FirstAsync(x => x.Title == title);
             }
         }
     }

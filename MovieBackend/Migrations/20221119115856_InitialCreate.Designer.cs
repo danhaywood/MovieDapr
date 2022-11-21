@@ -11,7 +11,7 @@ using MovieBackend.Data;
 
 namespace MovieFrontend.Migrations
 {
-    [DbContext(typeof(MovieContext))]
+    [DbContext(typeof(MovieDbContext))]
     [Migration("20221119115856_InitialCreate")]
     partial class InitialCreate
     {
