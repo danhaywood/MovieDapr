@@ -431,3 +431,32 @@ PROBABLY EASIER:
 * write a custom tool that uses Evolve SDK, but enable SqlClientListener to capture events
 +
 https://learn.microsoft.com/en-us/sql/connect/ado-net/enable-eventsource-tracing?view=sql-server-ver16
+
+
+== GraphQL Server (MovieBackend)
+
+https://chillicream.com/blog/2020/03/18/entity-framework
+
+updated from v10 to v12
+
+== GraphQL Client (MovieFrontend)
+
+https://chillicream.com/docs/strawberryshake/get-started
+
+working in the `MovieFrontend` folder:
+
+[source,powershell]
+----
+dotnet new tool-manifest
+----
+
+[source,powershell]
+----
+dotnet tool install StrawberryShake.Tools --local
+----
+
+[source,powershell]
+----
+dotnet graphql init https://localhost:7092/graphql/ -n MovieFrontend -p .
+----
+

@@ -2,10 +2,10 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "swashbuckle.aspnetcore.cli": {
-      "version": "6.2.3",
+    "strawberryshake.tools": {
+      "version": "12.15.2",
       "commands": [
-        "swagger"
+        "dotnet-graphql"
       ]
     }
   }
