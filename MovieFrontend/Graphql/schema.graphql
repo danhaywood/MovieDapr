@@ -1,0 +1,157 @@
+﻿schema {
+  query: Query
+}
+
+type Query {
+  movies(where: MovieFilterInput order: [MovieSortInput!]): [Movie!]!
+  actors(where: ActorFilterInput order: [ActorSortInput!]): [Actor!]!
+  characters(where: CharacterFilterInput order: [CharacterSortInput!]): [Character!]!
+}
+
+input MovieFilterInput {
+  and: [MovieFilterInput!]
+  or: [MovieFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  title: StringOperationFilterInput
+  releaseDate: ComparableDateTimeOperationFilterInput
+  genre: StringOperationFilterInput
+  price: ComparableDecimalOperationFilterInput
+  characters: ListFilterInputTypeOfCharacterFilterInput
+}
+
+input MovieSortInput {
+  id: SortEnumType
+  title: SortEnumType
+  releaseDate: SortEnumType
+  genre: SortEnumType
+  price: SortEnumType
+}
+
+input ActorFilterInput {
+  and: [ActorFilterInput!]
+  or: [ActorFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  name: StringOperationFilterInput
+  characters: ListFilterInputTypeOfCharacterFilterInput
+}
+
+input ActorSortInput {
+  id: SortEnumType
+  name: SortEnumType
+}
+
+input CharacterFilterInput {
+  and: [CharacterFilterInput!]
+  or: [CharacterFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  movie: MovieFilterInput
+  actor: ActorFilterInput
+  characterName: StringOperationFilterInput
+}
+
+input CharacterSortInput {
+  id: SortEnumType
+  movie: MovieSortInput
+  actor: ActorSortInput
+  characterName: SortEnumType
+}
+
+input ComparableInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int!]
+  nin: [Int!]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input ComparableDateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime!]
+  nin: [DateTime!]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input ComparableDecimalOperationFilterInput {
+  eq: Decimal
+  neq: Decimal
+  in: [Decimal!]
+  nin: [Decimal!]
+  gt: Decimal
+  ngt: Decimal
+  gte: Decimal
+  ngte: Decimal
+  lt: Decimal
+  nlt: Decimal
+  lte: Decimal
+  nlte: Decimal
+}
+
+input ListFilterInputTypeOfCharacterFilterInput {
+  all: CharacterFilterInput
+  none: CharacterFilterInput
+  some: CharacterFilterInput
+  any: Boolean
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+type Movie {
+  id: Int!
+  title: String!
+  releaseDate: DateTime!
+  genre: String!
+  price: Decimal!
+  characters(where: CharacterFilterInput order: [CharacterSortInput!]): [Character!]!
+}
+
+type Actor {
+  id: Int!
+  name: String!
+  characters(where: CharacterFilterInput order: [CharacterSortInput!]): [Character!]!
+}
+
+type Character {
+  id: Int!
+  movie: Movie!
+  actor: Actor!
+  characterName: String!
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+"The built-in `Decimal` scalar type."
+scalar Decimal
