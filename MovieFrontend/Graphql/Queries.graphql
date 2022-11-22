@@ -5,5 +5,21 @@
         releaseDate
         genre
         price
+        characters {
+            characterName
+        }
+    }
+}
+
+query movie_by_id($id: Int) {
+    movies(where: {id: {eq: $id }}) {
+        id
+        title
+        releaseDate
+        genre
+        price
+        characters {
+            characterName
+        }
     }
 }

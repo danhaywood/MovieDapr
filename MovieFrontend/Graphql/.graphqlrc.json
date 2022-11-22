@@ -3,7 +3,7 @@
   "documents": "**/*.graphql",
   "extensions": {
     "strawberryShake": {
-      "name": "Frontend",
+      "name": "MovieBackendGraphqlClient",
       "url": "https://localhost:7092/graphql/",
       "dependencyInjection": true,
       "strictSchemaValidation": true,

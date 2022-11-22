@@ -6,6 +6,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<MoviesService, MoviesService>();
 builder.Services.AddDaprSidekick(builder.Configuration);
 
+builder.Services.AddMovieBackendGraphqlClient()
+    .ConfigureHttpClient(httpClient =>
+    {
+        httpClient.DefaultRequestHeaders.Add("dapr-app-id", "moviebackend");
+        httpClient.BaseAddress = new Uri("http://localhost:3500/graphql");
+    });
+
 var app = builder.Build();
 
 var isDevelopment = app.Environment.IsDevelopment();

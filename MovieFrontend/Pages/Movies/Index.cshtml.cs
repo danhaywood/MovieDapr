@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieData;
 using MovieFrontend.Services;
+using StrawberryShake;
 
 namespace MovieFrontend.Pages.Movies
 {
     public class IndexModel : PageModel
     {
         private readonly MoviesService _moviesService;
+
         public IndexModel(MoviesService moviesService)
         {
             _moviesService = moviesService;
