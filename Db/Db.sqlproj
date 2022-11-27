@@ -62,6 +62,15 @@
     <Folder Include="dbo\Tables\" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="dbo\Tables\Movie.Genre.sql" />
+    <Build Include="dbo\Tables\Movie.Id.sql" />
+    <Build Include="dbo\Tables\Movie.Price.sql" />
+    <Build Include="dbo\Tables\Movie.ReleaseDate.sql" />
     <Build Include="dbo\Tables\Movie.sql" />
+    <Build Include="dbo\Tables\Movie.Title.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dbo\Tables\Actor.sql" />
+    <Content Include="dbo\Tables\Character.sql" />
   </ItemGroup>
 </Project>

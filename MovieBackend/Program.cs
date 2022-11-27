@@ -3,15 +3,12 @@ using EvolveDb;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using MovieBackend.Controllers;
 using MovieBackend.Data;
 using MovieBackend.Graphql;
 using MovieBackend.Models;
 using MovieFrontend.Sql;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Instrumentation.AspNetCore;
-using OpenTelemetry.Logs;
-using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Path = System.IO.Path;
@@ -110,6 +107,13 @@ var connectionString = builder.Configuration.GetConnectionString("MovieBackendCo
                              throw new InvalidOperationException( "Connection string 'MovieBackendContext' not found.");
 
 builder.Services.AddDbContext<MovieDbContext>(options =>
+// builder.Services.AddPooledDbContextFactory<MovieDbContext>(options =>
+{
+    options.UseLazyLoadingProxies()
+            .UseSqlServer(connectionString);
+});
+
+builder.Services.AddDbContext<MovieDataDbContext>(options =>
 // builder.Services.AddPooledDbContextFactory<MovieDbContext>(options =>
 {
     options.UseLazyLoadingProxies()
