@@ -3,34 +3,145 @@
 Demonstrating use of:
 
 * SSDT (DACPAC) for database definition
-* embedded Evolve to maintain backend-specific views
+* embedded Evolve to maintain backend-specific views (representing the DTO mapping)
+* graphql for querying (using views)
+** support sorting, filtering
+** support paging (commented out for the moment)
+** including /graphql playground
+** codegen client-side DTOs using Strawberry Shake
+* rest for updates 
+* swagger via Swashbuckle
+** also generate swagger.yml file
+* dapr for service invocations
+* dapr for distribute tracing (via zipkin)
+** use of ActivitySource for custom spans
+** include instrumenting SqlClient
+* automatically seeds data in DB (if none present)
+
+== TODO
+
+* dapr for secrets lookup
 
 
+== prerequisites:
 
-== To deploy
+* install Docker Desktop
 
-* Build
+* install Dapr
++
+https://docs.dapr.io/getting-started/install-dapr-cli/
++
+[source,powershell]
+----
+iwr -useb https://raw.githubusercontent.com/dapr/cli/master/install/install.ps1 | iex
+----
 
-* Deploy database
 
+== Build
+
+* swagger.yml created
++
+`MovieBackend/bin/Debug/net6.0/swagger.yml`
+
+* DACPAC created
++
+`Db/bin/Debug/Db.dacpac`
+
+
+== Deploy database
+
+* restore tool
++
 [source,powershell]
 ----
 cd Db
 dotnet tool restore
+----
+
+* deploy with sql package
++
+[source,powershell]
+----
 dotnet SqlPackage /Action:Publish /SourceFile:"bin\Debug\Db.dacpac" /TargetConnectionString:"Server=halxps15-2022\SQLEXPRESS;Database=dbMovie;Integrated Security=True;Encrypt=False;"
 ----
 
-// [source,graphql]
-// .Graphql/Queries.graphql
-// ----
-// query movies {
-//   movies {
-//     id
-//     title
-//     releaseDate
-//     genre
-//     price
-//   }
-// }
-// ----
-// 
+* confirm DB ok
++
+tables (but no views)
+
+
+== Run backend
+
+* run dapr
++
+[source,powershell]
+----
+dapr init
+----
+
+* inspect dashboard
++
+[source,powershell]
+----
+dapr dashboard
+----
++
+http://localhost:8080
+
+
+
+== Run backend
+
+* Run the backend (on port 7092)
+
+* Inspect the database
++
+Views should have been created by Evolve (`graphql` schema).
+
+* check `daprd.exe` is running:
++
+[source,powershell]
+----
+dapr list
+----
++
+NB: will _not_ appear on the dashboard though :-(
+
+* inspect Swagger backend, https://localhost:7092/swagger
++
+try out "Get movies"
+
+* inspect Graphql playground, navigate to http://localhost:7092/graphql
++
+[source,graphql]
+----
+query {
+  movies {
+    id
+    title
+    releaseDate
+    genre
+    price
+  }
+}
+----
+
+* inspect Zipkin, navigate to http://localhost:9411/zipkin
++
+compare the SQL in both cases
+
+
+== Run frontend
+
+* run the frontend also (on port 7082)
+
+* Should be able to list, edit
+
+* Perform an edit
++
+* inspect Zipkin, navigate to http://localhost:9411/zipkin
++
+The trace now extends to the client for edit
++
+NB: it doesn't, yet for graphql, as graphql isn't setting the correct http headers :-(
+

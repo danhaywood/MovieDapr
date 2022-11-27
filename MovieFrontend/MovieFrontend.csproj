@@ -41,6 +41,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Graphql\Generated" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Graphql\Generated\MovieBackendGraphqlClient.StrawberryShake.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MovieData\MovieData.csproj" />
   </ItemGroup>
 

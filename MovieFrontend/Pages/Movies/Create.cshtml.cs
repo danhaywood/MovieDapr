@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieData;
+using MovieFrontend.PageBindingModels;
 using MovieFrontend.Services;
 
 namespace MovieFrontend.Pages.Movies
@@ -19,8 +19,7 @@ namespace MovieFrontend.Pages.Movies
         }
 
         [BindProperty]
-        public MovieDto Movie { get; set; }
-        
+        public MoviePbm Movie { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -30,7 +29,7 @@ namespace MovieFrontend.Pages.Movies
               return Page();
           }
 
-          await _moviesService.CreateMovie(Movie);
+          await _moviesService.CreateMovie(Movie.AsDto());
 
           return RedirectToPage("./Index");
         }

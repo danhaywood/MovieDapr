@@ -1,19 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieData;
+using MovieFrontend.PageBindingModels;
 using MovieFrontend.Services;
+using StrawberryShake;
 
 namespace MovieFrontend.Pages.Movies
 {
     public class DetailsModel : PageModel
     {
-        private readonly MoviesService _moviesService;
-        public DetailsModel(MoviesService moviesService)
+        private readonly IMovieBackendGraphqlClient _backendGraphqlClient;
+        public DetailsModel(IMovieBackendGraphqlClient backendGraphqlClient)
         {
-            _moviesService = moviesService;
+            _backendGraphqlClient = backendGraphqlClient;
         }
 
-        public MovieDto Movie { get; set; }
+        [BindProperty]
+        public MoviePbm Movie { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -22,13 +24,13 @@ namespace MovieFrontend.Pages.Movies
                 return NotFound();
             }
 
-            var movie = await _moviesService.GetMovie(id.Value);
-            if (movie == null)
+            var movie = await _backendGraphqlClient.Movie_by_id.ExecuteAsync(id.Value);
+            movie.EnsureNoErrors();
+            if (movie.Data == null)
             {
                 return NotFound();
             }
-
-            Movie = movie;
+            Movie = movie.Data.Movies.Select(x => x.AsPbm()).First();
             return Page();
         }
     }

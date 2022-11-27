@@ -56,6 +56,7 @@ builder.Services.AddOpenTelemetryTracing(options =>
     }
 });
 
+// domain repositories
 builder.Services.AddScoped<MovieRepository>();
 builder.Services.AddScoped<ActorRepository>();
 builder.Services.AddScoped<CharacterRepository>();
@@ -107,18 +108,16 @@ var connectionString = builder.Configuration.GetConnectionString("MovieBackendCo
                              throw new InvalidOperationException( "Connection string 'MovieBackendContext' not found.");
 
 builder.Services.AddDbContext<MovieDbContext>(options =>
-// builder.Services.AddPooledDbContextFactory<MovieDbContext>(options =>
 {
-    options.UseLazyLoadingProxies()
-            .UseSqlServer(connectionString);
+    options.UseLazyLoadingProxies().UseSqlServer(connectionString);
 });
 
 builder.Services.AddDbContext<MovieDataDbContext>(options =>
-// builder.Services.AddPooledDbContextFactory<MovieDbContext>(options =>
+// builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>
 {
-    options.UseLazyLoadingProxies()
-            .UseSqlServer(connectionString);
+    options.UseLazyLoadingProxies().UseSqlServer(connectionString);
 });
+
 
 var app = builder.Build();
 

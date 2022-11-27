@@ -1,25 +1,65 @@
-﻿schema {
-  query: Query
-}
+﻿"""
+The `@defer` directive may be provided for fragment spreads and inline fragments to inform the executor to delay the execution of the current fragment to indicate deprioritization of the current fragment. A query with `@defer` directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred is delivered in a subsequent response. `@include` and `@skip` take precedence over `@defer`.
+"""
+directive @defer(
+  """
+  If this argument label has a value other than null, it will be passed on to the result of this defer directive. This label is intended to give client applications a way to identify to which fragment a deferred result belongs to.
+  """
+  label: String
+
+  """
+  Deferred when true.
+  """
+  if: Boolean
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""
+The `@stream` directive may be provided for a field of `List` type so that the backend can leverage technology such as asynchronous iterators to provide a partial list in the initial response, and additional list items in subsequent responses. `@include` and `@skip` take precedence over `@stream`.
+"""
+directive @stream(
+  """
+  If this argument label has a value other than null, it will be passed on to the result of this stream directive. This label is intended to give client applications a way to identify to which fragment a streamed result belongs to.
+  """
+  label: String
+
+  """
+  The initial elements that shall be send down to the consumer.
+  """
+  initialCount: Int! = 0
+
+  """
+  Streamed when true.
+  """
+  if: Boolean
+) on FIELD
 
 type Query {
-  movies(where: MovieFilterInput order: [MovieSortInput!]): [Movie!]!
-  actors(where: ActorFilterInput order: [ActorSortInput!]): [Actor!]!
-  characters(where: CharacterFilterInput order: [CharacterSortInput!]): [Character!]!
+  movies(
+    where: MovieDataFilterInput
+    order: [MovieDataSortInput!]
+  ): [MovieData!]!
+  actors(
+    where: ActorDataFilterInput
+    order: [ActorDataSortInput!]
+  ): [ActorData!]!
+  characters(
+    where: CharacterDataFilterInput
+    order: [CharacterDataSortInput!]
+  ): [CharacterData!]!
 }
 
-input MovieFilterInput {
-  and: [MovieFilterInput!]
-  or: [MovieFilterInput!]
+input MovieDataFilterInput {
+  and: [MovieDataFilterInput!]
+  or: [MovieDataFilterInput!]
   id: ComparableInt32OperationFilterInput
   title: StringOperationFilterInput
   releaseDate: ComparableDateTimeOperationFilterInput
   genre: StringOperationFilterInput
   price: ComparableDecimalOperationFilterInput
-  characters: ListFilterInputTypeOfCharacterFilterInput
+  characters: ListFilterInputTypeOfCharacterDataFilterInput
 }
 
-input MovieSortInput {
+input MovieDataSortInput {
   id: SortEnumType
   title: SortEnumType
   releaseDate: SortEnumType
@@ -27,32 +67,32 @@ input MovieSortInput {
   price: SortEnumType
 }
 
-input ActorFilterInput {
-  and: [ActorFilterInput!]
-  or: [ActorFilterInput!]
+input ActorDataFilterInput {
+  and: [ActorDataFilterInput!]
+  or: [ActorDataFilterInput!]
   id: ComparableInt32OperationFilterInput
   name: StringOperationFilterInput
-  characters: ListFilterInputTypeOfCharacterFilterInput
+  characters: ListFilterInputTypeOfCharacterDataFilterInput
 }
 
-input ActorSortInput {
+input ActorDataSortInput {
   id: SortEnumType
   name: SortEnumType
 }
 
-input CharacterFilterInput {
-  and: [CharacterFilterInput!]
-  or: [CharacterFilterInput!]
+input CharacterDataFilterInput {
+  and: [CharacterDataFilterInput!]
+  or: [CharacterDataFilterInput!]
   id: ComparableInt32OperationFilterInput
-  movie: MovieFilterInput
-  actor: ActorFilterInput
+  movie: MovieDataFilterInput
+  actor: ActorDataFilterInput
   characterName: StringOperationFilterInput
 }
 
-input CharacterSortInput {
+input CharacterDataSortInput {
   id: SortEnumType
-  movie: MovieSortInput
-  actor: ActorSortInput
+  movie: MovieDataSortInput
+  actor: ActorDataSortInput
   characterName: SortEnumType
 }
 
@@ -116,10 +156,10 @@ input ComparableDecimalOperationFilterInput {
   nlte: Decimal
 }
 
-input ListFilterInputTypeOfCharacterFilterInput {
-  all: CharacterFilterInput
-  none: CharacterFilterInput
-  some: CharacterFilterInput
+input ListFilterInputTypeOfCharacterDataFilterInput {
+  all: CharacterDataFilterInput
+  none: CharacterDataFilterInput
+  some: CharacterDataFilterInput
   any: Boolean
 }
 
@@ -128,30 +168,40 @@ enum SortEnumType {
   DESC
 }
 
-type Movie {
+type MovieData {
   id: Int!
   title: String!
   releaseDate: DateTime!
   genre: String!
   price: Decimal!
-  characters(where: CharacterFilterInput order: [CharacterSortInput!]): [Character!]!
+  characters(
+    where: CharacterDataFilterInput
+    order: [CharacterDataSortInput!]
+  ): [CharacterData!]!
 }
 
-type Actor {
+type ActorData {
   id: Int!
   name: String!
-  characters(where: CharacterFilterInput order: [CharacterSortInput!]): [Character!]!
+  characters(
+    where: CharacterDataFilterInput
+    order: [CharacterDataSortInput!]
+  ): [CharacterData!]!
 }
 
-type Character {
+type CharacterData {
   id: Int!
-  movie: Movie!
-  actor: Actor!
+  movie: MovieData!
+  actor: ActorData!
   characterName: String!
 }
 
-"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+"""
+The `DateTime` scalar represents an ISO-8601 compliant date time type.
+"""
 scalar DateTime
 
-"The built-in `Decimal` scalar type."
+"""
+The built-in `Decimal` scalar type.
+"""
 scalar Decimal

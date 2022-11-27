@@ -1,20 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieData;
+using MovieFrontend.PageBindingModels;
 using MovieFrontend.Services;
+using MovieFrontend.State;
+using StrawberryShake;
 
 namespace MovieFrontend.Pages.Movies
 {
     public class EditModel : PageModel
     {
+        private readonly IMovieBackendGraphqlClient _backendGraphqlClient;
         private readonly MoviesService _moviesService;
-        public EditModel(MoviesService moviesService)
+
+        public EditModel(IMovieBackendGraphqlClient backendGraphqlClient, MoviesService moviesService)
         {
+            _backendGraphqlClient = backendGraphqlClient;
             _moviesService = moviesService;
         }
 
         [BindProperty]
-        public MovieDto Movie { get; set; } = default!;
+        public MoviePbm Movie { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -23,12 +29,13 @@ namespace MovieFrontend.Pages.Movies
                 return NotFound();
             }
 
-            var movie = await _moviesService.GetMovie(id.Value);
-            if (movie == null)
+            var movie = await _backendGraphqlClient.Movie_by_id.ExecuteAsync(id.Value);
+            movie.EnsureNoErrors();
+            if (movie.Data == null)
             {
                 return NotFound();
             }
-            Movie = movie;
+            Movie = movie.Data.Movies.Select(x => x.AsPbm()).First();
             return Page();
         }
 
@@ -41,7 +48,7 @@ namespace MovieFrontend.Pages.Movies
                 return Page();
             }
 
-            var movie = await _moviesService.UpdateMovie(Movie.Id, Movie);
+            var movie = await _moviesService.UpdateMovie(Movie.Id, Movie.AsDto());
             if (movie == null)
             {
                 return NotFound();

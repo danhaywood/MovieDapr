@@ -29,11 +29,8 @@ namespace MovieBackend.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
-        [UseFiltering()]
-        [UseSorting()]
         public virtual List<Character> Characters { get; set; } = new List<Character>();
         
-        [GraphQLIgnore]
         public MovieDto AsDto()
         {
             return new MovieDto()

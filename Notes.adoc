@@ -15,7 +15,8 @@ fix, use 7020 not 5001 (as per launch settings)
 ----
 httprepl https://localhost:7020/api/todoitems
 ----
-+then
++
+then
 +
 [source,repl]
 ----

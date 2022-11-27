@@ -1,29 +1,25 @@
-﻿using MovieBackend.Models;
-
-namespace MovieBackend.Graphql
+﻿namespace MovieBackend.Graphql
 {
     public class Query
     {
-        // [UseFirstOrDefault]
-        // [UsePaging()]
-        [UseProjection()]
-        [UseFiltering()]
-        [UseSorting()]
-        public IQueryable<Movie> GetMovies([Service(ServiceKind.Synchronized)] MovieRepository movieRepository) => movieRepository.GetMovies();
+        // [UsePaging]
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<MovieData> GetMovies([Service(ServiceKind.Synchronized)] MovieDataDbContext context) => context.MovieData;
 
-        // [UseFirstOrDefault]
-        // [UsePaging()]
-        [UseProjection()]
-        [UseFiltering()]
-        [UseSorting()]
-        public IQueryable<Actor> GetActors([Service(ServiceKind.Synchronized)] ActorRepository actorRepository) => actorRepository.GetActors();
+        // [UsePaging]
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<ActorData> GetActors([Service(ServiceKind.Synchronized)] MovieDataDbContext context) => context.ActorData;
 
-        // [UseFirstOrDefault]
-        // [UsePaging()]
-        [UseProjection()]
-        [UseFiltering()]
-        [UseSorting()]
-        public IQueryable<Character> GetCharacters([Service(ServiceKind.Synchronized)] CharacterRepository characterRepository) => characterRepository.GetCharacters();
+        // [UsePaging]
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<CharacterData> GetCharacters([Service(ServiceKind.Synchronized)] MovieDataDbContext context) => context.CharacterData;
     }
+
 }
 

@@ -8,6 +8,8 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Dapr.Client;
 using Man.Dapr.Sidekick.Http;
+using Man.Dapr.Sidekick.Security;
+using MovieFrontend.PageBindingModels;
 using StrawberryShake;
 
 namespace MovieFrontend.Services

@@ -6,10 +6,6 @@ namespace MovieBackend.Graphql
 {
     public class ActorData
     {
-        public ActorData()
-        {
-        }
-
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
 
@@ -18,4 +14,5 @@ namespace MovieBackend.Graphql
         public virtual List<CharacterData> Characters { get; set; } = new List<CharacterData>();
 
     }
+
 }
