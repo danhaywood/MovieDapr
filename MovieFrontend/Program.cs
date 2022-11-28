@@ -11,7 +11,16 @@ builder.Services.AddMovieBackendGraphqlClient()
     {
         httpClient.DefaultRequestHeaders.Add("dapr-app-id", "moviebackend");
         httpClient.BaseAddress = new Uri("http://localhost:3500/graphql");
-    });
+    }
+    // , 
+    // clientBuilder =>
+    // {
+    //     clientBuilder.ConfigureHttpMessageHandlerBuilder(handlerBuilder =>
+    //     {
+    //         handlerBuilder.PrimaryHandler = new Man.Dapr.Sidekick.DaprClient.InvocationHandler();
+    //     });
+    // }
+    );
 
 var app = builder.Build();
 
