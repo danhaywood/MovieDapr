@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MovieBackend.Data;
+using MovieBackend.Domain;
 
 namespace MovieBackend.Models
 {
@@ -17,7 +17,6 @@ namespace MovieBackend.Models
                 }
 
                 new SeedData(context).Seed();
-
             }
         }
 

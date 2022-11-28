@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
+using Man.Dapr.Sidekick;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MovieBackend.Data;
 using MovieBackend.Models;
 using MovieData;
 
@@ -70,5 +70,5 @@ namespace MovieBackend.Controllers
             var result =  await _movieRepository.DeleteMovieAsync(id);
             return result ? NoContent() : NotFound();
         }
-    }
+   }
 }

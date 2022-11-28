@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using MovieBackend.Controllers;
-using MovieBackend.Data;
+using MovieBackend.Domain;
 using MovieData;
 
 namespace MovieBackend.Models

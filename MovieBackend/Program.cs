@@ -1,9 +1,14 @@
-﻿using System.Reflection;
+﻿using System.Data.Entity;
+using System.Data.Entity.Core.Common;
+using System.Data.Entity.Infrastructure;
+using System.Reflection;
+using Dapr.Client;
 using EvolveDb;
+using Man.Dapr.Sidekick;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using MovieBackend.Data;
+using MovieBackend.Domain;
 using MovieBackend.Graphql;
 using MovieBackend.Models;
 using MovieFrontend.Sql;
@@ -67,6 +72,7 @@ builder.Services.Configure<AspNetCoreInstrumentationOptions>(builder.Configurati
 builder.Services.AddControllers();
 // builder.Services.AddControllers().AddDapr(); // not necessary, think this is to support pubsub attributes, eg [Topic]
 
+
 //// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -74,8 +80,8 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "ToDo API",
-        Description = "An ASP.NET Core Web API for managing ToDo items",
+        Title = "Movie App API",
+        Description = "An ASP.NET Core Web API for exploring movies",
         TermsOfService = new Uri("https://example.com/terms"),
         Contact = new OpenApiContact
         {
@@ -102,47 +108,53 @@ builder.Services
     ;
 
 builder.Services.AddRazorPages();
-builder.Services.AddDaprSidekick(builder.Configuration);
-
-var connectionString = builder.Configuration.GetConnectionString("MovieBackendContext") ??
-                             throw new InvalidOperationException( "Connection string 'MovieBackendContext' not found.");
-
-builder.Services.AddDbContext<MovieDbContext>(options =>
+builder.Services.AddDaprSidekick(builder.Configuration, options =>
 {
-    options.UseLazyLoadingProxies().UseSqlServer(connectionString);
+    Console.WriteLine("hi there");
 });
 
-builder.Services.AddDbContext<MovieDataDbContext>(options =>
-// builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>
-{
-    options.UseLazyLoadingProxies().UseSqlServer(connectionString);
-});
-
-
-var app = builder.Build();
-
-var isDevelopment = app.Environment.IsDevelopment();
 
 var postBuild = Environment.GetEnvironmentVariable("POST_BUILD");
 if (postBuild == null)
 {
-    var evolve = new Evolve(new SqlConnection(connectionString), logDelegate: s => Console.Out.WriteLine("Evolve: " + s))
-    {
-        EmbeddedResourceAssemblies = new[] { typeof(Sql).Assembly },
-        IsEraseDisabled = !isDevelopment,
-        RetryRepeatableMigrationsUntilNoError = true,
-        MustEraseOnValidationError = isDevelopment
-    };
-    evolve.Migrate();
-    
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
 
-        SeedData.Initialize(services);
-    }
+    var connectionString = builder.Configuration.GetConnectionString("MovieBackendContext") ??
+                                 throw new InvalidOperationException( "Connection string 'MovieBackendContext' not found.");
+
+    builder.Services.AddDbContext<MovieDbContext>(options =>
+    {
+        options.UseLazyLoadingProxies().UseSqlServer(connectionString);
+    });
+
+    builder.Services.AddDbContext<MovieDataDbContext>(options =>
+    // builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>
+    {
+        options.UseLazyLoadingProxies().UseSqlServer(connectionString);
+    });
+
+    builder.Services.AddHostedService<RunEvolveMigrate>();
 }
 
+
+WebApplication app = builder.Build();
+
+var isDevelopment = app.Environment.IsDevelopment();
+
+DbConfiguration.Loaded += (_, a) =>
+{
+    Console.WriteLine(a);
+    // a.ReplaceService<DbProviderServices>((s, k) => new MyProviderServices(s));
+    // a.ReplaceService<IDbConnectionFactory>((s, k) => new MyConnectionFactory(s));
+};
+
+if (postBuild == null)
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var serviceProvider = scope.ServiceProvider;
+        SeedData.Initialize(serviceProvider);
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (isDevelopment)
@@ -165,5 +177,57 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapGraphQL();
+app.MapHealthChecks("/health");
+app.MapDaprMetrics("/metrics");
 
 app.Run();
+
+
+public class RunEvolveMigrate : IHostedService
+{
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    private readonly IServiceProvider _serviceProvider;
+
+    public RunEvolveMigrate(IWebHostEnvironment webHostEnvironment, IServiceProvider serviceProvider)
+    {
+        _webHostEnvironment = webHostEnvironment;
+        _serviceProvider = serviceProvider;
+    }
+
+    public async Task StartAsync(CancellationToken cancellationToken)
+    {
+        var isDevelopment = _webHostEnvironment.IsDevelopment();
+        // var connectionString =  builder.Configuration.GetConnectionString("MovieBackendContext") ??
+        //                        throw new InvalidOperationException( "Connection string 'MovieBackendContext' not found.");
+
+        var connectionString =
+            "Server=halxps15-2022\\SQLEXPRESS;Database=dbMovie;Integrated Security=True;Encrypt=False;Trusted_Connection=True;MultipleActiveResultSets=true";
+
+        // var baseURL = (Environment.GetEnvironmentVariable("BASE_URL") ?? "http://localhost") + ":" 
+        //     + (Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") ?? "3500");
+        // const string DAPR_SECRET_STORE = "localsecretstore";
+        // const string SECRET_NAME = "secretFile";
+        //
+        // var httpClient = new HttpClient();
+        // httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+        //
+        // var secret = await httpClient.GetStringAsync($"{baseURL}/v1.0/secrets/{DAPR_SECRET_STORE}/{SECRET_NAME}");
+        // Console.WriteLine("Fetched Secret: " + secret);
+
+    
+        var evolve = new Evolve(new SqlConnection(connectionString), logDelegate: s => Console.Out.WriteLine("Evolve: " + s))
+        {
+            EmbeddedResourceAssemblies = new[] { typeof(Sql).Assembly },
+            IsEraseDisabled = !isDevelopment,
+            RetryRepeatableMigrationsUntilNoError = true,
+            MustEraseOnValidationError = isDevelopment
+        };
+        evolve.Migrate();
+    
+    }
+
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        //Cleanup logic here
+    }
+}
