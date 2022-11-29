@@ -4,38 +4,7 @@ using MovieBackend.Models;
 
 namespace MovieBackend.Services;
 
-public class SeedDataBootstrapper : IHostedService
-{
-    private readonly IHostApplicationLifetime _hostApplicationLifetime;
-    private readonly IServiceProvider _serviceProvider;
-
-    public SeedDataBootstrapper(IHostApplicationLifetime hostApplicationLifetime, IServiceProvider serviceProvider)
-    {
-        _hostApplicationLifetime = hostApplicationLifetime;
-        _serviceProvider = serviceProvider;
-    }
-
-    public Task StartAsync(CancellationToken cancellationToken)
-    {
-        _hostApplicationLifetime.ApplicationStarted.Register(OnStarted);
-        return Task.CompletedTask;
-    }
-
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
-    }
-
-    private void OnStarted()
-    {
-        using (var scope = _serviceProvider.CreateScope()) {
-            var seedDataService = scope.ServiceProvider.GetService<SeedDataService>();
-            seedDataService!.Seed();
-        }
-    }
-}
-
-public class SeedDataService
+public class SeedDataService : IBootstrappable
 {
     private readonly MovieDbContext _dbContext;
 
@@ -44,7 +13,7 @@ public class SeedDataService
         _dbContext = dbContext;
     }
     
-    public void Seed()
+    public void Bootstrap()
     {
         RemoveAll(_dbContext.Character);
         RemoveAll(_dbContext.Actor);

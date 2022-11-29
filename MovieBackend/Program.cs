@@ -110,35 +110,21 @@ builder.Services.AddRazorPages();
 builder.Services.AddDaprSidekick(builder.Configuration);
 builder.Services.AddSingleton<ConnectionStringService>();
 
-var connectionString = builder.Configuration.GetConnectionString("MovieBackendContext") ??
-                             throw new InvalidOperationException( "Connection string 'MovieBackendContext' not found.");
-
-
 var postBuild = Environment.GetEnvironmentVariable("POST_BUILD");
 if (postBuild == null)
 {
+    builder.Services.AddScoped<EvolveMigrateService>();
+    builder.Services.AddHostedService<ScopedBootstrapper<EvolveMigrateService>>();
+    
     builder.Services.AddScoped<SeedDataService>();
-    builder.Services.AddHostedService<SeedDataBootstrapper>();
+    builder.Services.AddHostedService<ScopedBootstrapper<SeedDataService>>();
 }
 
 var app = builder.Build();
 
-var isDevelopment = app.Environment.IsDevelopment();
-
-if (postBuild == null)
-{
-    var evolve = new Evolve(new SqlConnection(connectionString), logDelegate: s => Console.Out.WriteLine("Evolve: " + s))
-    {
-        EmbeddedResourceAssemblies = new[] { typeof(Sql).Assembly },
-        IsEraseDisabled = !isDevelopment,
-        RetryRepeatableMigrationsUntilNoError = true,
-        MustEraseOnValidationError = isDevelopment
-    };
-    evolve.Migrate();
-}
-
 
 // Configure the HTTP request pipeline.
+var isDevelopment = app.Environment.IsDevelopment();
 if (isDevelopment)
 {
     app.UseDeveloperExceptionPage();
