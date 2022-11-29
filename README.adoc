@@ -110,7 +110,7 @@ dotnet SqlPackage /Action:Publish /SourceFile:"bin\Debug\Db.dacpac" /TargetConne
 tables (but no views)
 
 
-== Run backend
+== Run dapr
 
 * run dapr
 +
@@ -176,12 +176,13 @@ compare the SQL in both cases
 * run the frontend also (on port 7082)
 
 * Should be able to list, edit
++
+* inspect Zipkin, navigate to http://localhost:9411/zipkin
 
 * Perform an edit
 +
-* inspect Zipkin, navigate to http://localhost:9411/zipkin
-+
-The trace now extends to the client for edit
-+
-NB: it doesn't, yet for graphql, as graphql isn't setting the correct http headers :-(
+* inspect Zipkin
 
+* Perform a delete (which has a bug in it)
++
+* inspect Zipkin, can see reason why movie doesn't delete
