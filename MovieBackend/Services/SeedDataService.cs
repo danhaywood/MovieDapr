@@ -1,21 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieBackend.Data;
-using MovieBackend.Graphql;
 using MovieBackend.Models;
 
 namespace MovieBackend.Services;
 
-public class SeedDataService : IHostedService
+public class SeedDataBootstrapper : IHostedService
 {
-    private readonly MovieDbContext _dbContext;
+    private readonly IHostApplicationLifetime _hostApplicationLifetime;
+    private readonly IServiceProvider _serviceProvider;
 
-    public SeedDataService(MovieDbContext dbContext)
+    public SeedDataBootstrapper(IHostApplicationLifetime hostApplicationLifetime, IServiceProvider serviceProvider)
     {
-        _dbContext = dbContext;
+        _hostApplicationLifetime = hostApplicationLifetime;
+        _serviceProvider = serviceProvider;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
+        _hostApplicationLifetime.ApplicationStarted.Register(OnStarted);
         return Task.CompletedTask;
     }
 
@@ -23,8 +25,26 @@ public class SeedDataService : IHostedService
     {
         return Task.CompletedTask;
     }
+
+    private void OnStarted()
+    {
+        using (var scope = _serviceProvider.CreateScope()) {
+            var seedDataService = scope.ServiceProvider.GetService<SeedDataService>();
+            seedDataService!.Seed();
+        }
+    }
+}
+
+public class SeedDataService
+{
+    private readonly MovieDbContext _dbContext;
+
+    public SeedDataService(MovieDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
     
-    private void Seed()
+    public void Seed()
     {
         RemoveAll(_dbContext.Character);
         RemoveAll(_dbContext.Actor);

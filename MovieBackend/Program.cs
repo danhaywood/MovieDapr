@@ -57,16 +57,18 @@ builder.Services.AddOpenTelemetryTracing(options =>
     }
 });
 
-// domain repositories
 builder.Services.AddDbContextFactory<MovieDbContext>();
 builder.Services.AddDbContextFactory<MovieDataDbContext>();
 builder.Services.AddScoped<MovieRepository>();
 builder.Services.AddScoped<ActorRepository>();
 builder.Services.AddScoped<CharacterRepository>();
 
+// // builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>
+// builder.Services.AddDbContext<MovieDbContext>();
+// builder.Services.AddDbContext<MovieDataDbContext>();
+
 builder.Services.Configure<AspNetCoreInstrumentationOptions>(builder.Configuration.GetSection("AspNetCoreInstrumentation"));
 
-// Add services to the container.
 builder.Services.AddControllers();
 // builder.Services.AddControllers().AddDapr(); // not necessary, think this is to support pubsub attributes, eg [Topic]
 
@@ -77,8 +79,8 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "ToDo API",
-        Description = "An ASP.NET Core Web API for managing ToDo items",
+        Title = "Movie API",
+        Description = "An ASP.NET Core Web API for managing Movie items",
         TermsOfService = new Uri("https://example.com/terms"),
         Contact = new OpenApiContact
         {
@@ -107,33 +109,22 @@ builder.Services
 builder.Services.AddRazorPages();
 builder.Services.AddDaprSidekick(builder.Configuration);
 builder.Services.AddSingleton<ConnectionStringService>();
-builder.Services.AddScoped<SeedDataService>();
 
 var connectionString = builder.Configuration.GetConnectionString("MovieBackendContext") ??
                              throw new InvalidOperationException( "Connection string 'MovieBackendContext' not found.");
 
 
-// builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>
-builder.Services.AddDbContext<MovieDbContext>();
-builder.Services.AddDbContext<MovieDataDbContext>();
-
-// builder.Services.AddDbContext<MovieDbContext>(options =>
-// {
-//     options.UseLazyLoadingProxies().UseSqlServer(connectionString);
-// });
-//
-// builder.Services.AddDbContext<MovieDataDbContext>(options =>
-// // builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>
-// {
-//     options.UseLazyLoadingProxies().UseSqlServer(connectionString);
-// });
-
+var postBuild = Environment.GetEnvironmentVariable("POST_BUILD");
+if (postBuild == null)
+{
+    builder.Services.AddScoped<SeedDataService>();
+    builder.Services.AddHostedService<SeedDataBootstrapper>();
+}
 
 var app = builder.Build();
 
 var isDevelopment = app.Environment.IsDevelopment();
 
-var postBuild = Environment.GetEnvironmentVariable("POST_BUILD");
 if (postBuild == null)
 {
     var evolve = new Evolve(new SqlConnection(connectionString), logDelegate: s => Console.Out.WriteLine("Evolve: " + s))
@@ -144,12 +135,6 @@ if (postBuild == null)
         MustEraseOnValidationError = isDevelopment
     };
     evolve.Migrate();
-    
-    // using (IServiceScope scope = app.Services.CreateScope())
-    // {
-    //     var services = scope.ServiceProvider;
-    //     SeedData.Initialize(services);
-    // }
 }
 
 

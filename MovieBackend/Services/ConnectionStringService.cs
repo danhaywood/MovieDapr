@@ -1,15 +1,17 @@
 ﻿using Dapr.Client;
-using MovieBackend.Graphql;
+using Polly;
 
 namespace MovieBackend.Services;
 
-public class ConnectionStringService 
+public class ConnectionStringService
 {
-    public String GetConnectionString()
+    public ConnectionStringService()
     {
         var daprClient = new DaprClientBuilder().Build();
         var secretAsync = daprClient.GetSecretAsync("movie-secret-store", "ConnectionString");
         var connectionString = secretAsync.Result["ConnectionString"];
-        return connectionString;
+        ConnectionString = connectionString;
     }
+
+    public string ConnectionString { get; }
 }

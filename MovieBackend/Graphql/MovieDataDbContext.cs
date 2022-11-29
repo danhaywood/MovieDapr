@@ -21,7 +21,7 @@ namespace MovieBackend.Graphql
         {
             optionsBuilder
                 .UseLazyLoadingProxies()
-                .UseSqlServer(_connectionStringService.GetConnectionString());
+                .UseSqlServer(_connectionStringService.ConnectionString);
         }
 
         public DbSet<MovieData> MovieData { get; set; } = default!;

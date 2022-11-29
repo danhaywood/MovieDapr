@@ -19,7 +19,7 @@ namespace MovieBackend.Data
         {
             optionsBuilder
                 .UseLazyLoadingProxies()
-                .UseSqlServer(_connectionStringService.GetConnectionString());
+                .UseSqlServer(_connectionStringService.ConnectionString);
         }
 
         public DbSet<Movie> Movie { get; set; } = default!;
