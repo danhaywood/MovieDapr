@@ -55,7 +55,8 @@ builder.Services.AddOpenTelemetryTracing(options =>
     }
 });
 
-//builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>
+// builder.Services.AddPooledDbContextFactory<MovieDbContext>(optionsBuilder => {});
+// builder.Services.AddPooledDbContextFactory<MovieViewDbContext>(optionsBuilder => {});
 builder.Services.AddDbContextFactory<MovieDbContext>();
 builder.Services.AddDbContextFactory<MovieViewDbContext>();
 builder.Services.AddScoped<MovieRepository>();

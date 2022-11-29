@@ -22,13 +22,9 @@ Demonstrating use of:
 * GraphQl frontend participates in distributed tracing
 * dapr sidekick dependent on environment (if `DAPR_xxx` env vars present, then skip).
 
-== TODO
+== Design
 
-* use `builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>`
-+
-for performance
-
-* better error handling on DELETE (FK violation not shown, but traceable via zipkin).
+image:images/design.drawio.png[]
 
 == prerequisites:
 
@@ -186,3 +182,13 @@ compare the SQL in both cases
 * Perform a delete (which has a bug in it)
 +
 * inspect Zipkin, can see reason why movie doesn't delete
+
+
+== TODO
+
+* better error handling on DELETE (FK violation not shown, but traceable via zipkin).
+
+* use `builder.Services.AddPooledDbContextFactory<MovieDbContext>(options => )`
++
+for performance
+
