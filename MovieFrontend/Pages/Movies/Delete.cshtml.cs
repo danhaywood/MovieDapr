@@ -4,48 +4,47 @@ using MovieFrontend.PageBindingModels;
 using MovieFrontend.Services;
 using StrawberryShake;
 
-namespace MovieFrontend.Pages.Movies
+namespace MovieFrontend.Pages.Movies;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly IMovieBackendGraphqlClient _backendGraphqlClient;
+    private readonly MoviesService _moviesService;
+    public DeleteModel(IMovieBackendGraphqlClient backendGraphqlClient, MoviesService moviesService)
     {
-        private readonly IMovieBackendGraphqlClient _backendGraphqlClient;
-        private readonly MoviesService _moviesService;
-        public DeleteModel(IMovieBackendGraphqlClient backendGraphqlClient, MoviesService moviesService)
+        _backendGraphqlClient = backendGraphqlClient;
+        _moviesService = moviesService;
+    }
+
+    [BindProperty]
+    public MoviePbm Movie { get; set; }
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null)
         {
-            _backendGraphqlClient = backendGraphqlClient;
-            _moviesService = moviesService;
+            return NotFound();
         }
 
-        [BindProperty]
-        public MoviePbm Movie { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var movie = await _backendGraphqlClient.Movie_by_id.ExecuteAsync(id.Value);
+        movie.EnsureNoErrors();
+        if (movie.Data == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var movie = await _backendGraphqlClient.Movie_by_id.ExecuteAsync(id.Value);
-            movie.EnsureNoErrors();
-            if (movie.Data == null)
-            {
-                return NotFound();
-            }
-
-            Movie = movie.Data.Movies.Select(x => x.AsPbm()).First();
-            return Page();
+            return NotFound();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            await _moviesService.DeleteMovie(id.Value);
+        Movie = movie.Data.Movies.Select(x => x.AsPbm()).First();
+        return Page();
+    }
 
-            return RedirectToPage("./Index");
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
         }
+        await _moviesService.DeleteMovie(id.Value);
+
+        return RedirectToPage("./Index");
     }
 }

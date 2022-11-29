@@ -1,13 +1,13 @@
 ﻿using System.Reflection;
-using EvolveDb;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using MovieBackend.Data;
+using MovieBackend.db;
+using MovieBackend.Domain;
+using MovieBackend.Domain.Seed;
 using MovieBackend.Graphql;
+using MovieBackend.Infra;
+using MovieBackend.Infra.Bootstrap;
+using MovieBackend.Infra.ConnStr;
 using MovieBackend.Models;
-using MovieBackend.Services;
-using MovieFrontend.Sql;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Resources;
@@ -57,15 +57,13 @@ builder.Services.AddOpenTelemetryTracing(options =>
     }
 });
 
+//builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>
 builder.Services.AddDbContextFactory<MovieDbContext>();
 builder.Services.AddDbContextFactory<MovieDataDbContext>();
 builder.Services.AddScoped<MovieRepository>();
 builder.Services.AddScoped<ActorRepository>();
 builder.Services.AddScoped<CharacterRepository>();
 
-// // builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>
-// builder.Services.AddDbContext<MovieDbContext>();
-// builder.Services.AddDbContext<MovieDataDbContext>();
 
 builder.Services.Configure<AspNetCoreInstrumentationOptions>(builder.Configuration.GetSection("AspNetCoreInstrumentation"));
 
@@ -108,7 +106,7 @@ builder.Services
 
 builder.Services.AddRazorPages();
 builder.Services.AddDaprSidekick(builder.Configuration);
-builder.Services.AddSingleton<ConnectionStringService>();
+builder.Services.AddSingleton<IConnectionStringService, ConnectionStringServiceUsingDaprSecrets>();
 
 var postBuild = Environment.GetEnvironmentVariable("POST_BUILD");
 if (postBuild == null)
@@ -116,8 +114,8 @@ if (postBuild == null)
     builder.Services.AddScoped<EvolveMigrateService>();
     builder.Services.AddHostedService<ScopedBootstrapper<EvolveMigrateService>>();
     
-    builder.Services.AddScoped<SeedDataService>();
-    builder.Services.AddHostedService<ScopedBootstrapper<SeedDataService>>();
+    builder.Services.AddScoped<SeedMoviesService>();
+    builder.Services.AddHostedService<ScopedBootstrapper<SeedMoviesService>>();
 }
 
 var app = builder.Build();

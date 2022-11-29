@@ -17,13 +17,17 @@ Demonstrating use of:
 ** use of ActivitySource for custom spans
 ** include instrumenting SqlClient
 * automatically seeds data in DB (if none present)
-
-== TODO
-
 * dapr for secrets lookup
 
 
+== TODO
 
+* move GraphQL frontend to own library
+* GraphQl frontend does not participate in distributed tracing
+* use `builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>`
++
+for performance
+* BUG: delete doesn't do anything
 
 == prerequisites:
 

@@ -1,15 +1,17 @@
 ﻿using EvolveDb;
 using Microsoft.Data.SqlClient;
-using MovieFrontend.Sql;
+using MovieBackend.Infra;
+using MovieBackend.Infra.Bootstrap;
+using MovieBackend.Infra.ConnStr;
 
-namespace MovieBackend.Services;
+namespace MovieBackend.db;
 
 public class EvolveMigrateService : IBootstrappable
 {
     private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly ConnectionStringService _connectionStringService;
+    private readonly IConnectionStringService _connectionStringService;
 
-    public EvolveMigrateService(IWebHostEnvironment webHostEnvironment, ConnectionStringService connectionStringService)
+    public EvolveMigrateService(IWebHostEnvironment webHostEnvironment, IConnectionStringService connectionStringService)
     {
         _webHostEnvironment = webHostEnvironment;
         _connectionStringService = connectionStringService;
@@ -22,7 +24,7 @@ public class EvolveMigrateService : IBootstrappable
         var connectionString = _connectionStringService.ConnectionString;
         var evolve = new Evolve(new SqlConnection(connectionString), logDelegate: s => Console.Out.WriteLine("Evolve: " + s))
         {
-            EmbeddedResourceAssemblies = new[] { typeof(Sql).Assembly },
+            EmbeddedResourceAssemblies = new[] { typeof(EvolveMigrateService).Assembly },
             IsEraseDisabled = !isDevelopment,
             RetryRepeatableMigrationsUntilNoError = true,
             MustEraseOnValidationError = isDevelopment

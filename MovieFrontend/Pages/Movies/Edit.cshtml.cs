@@ -6,56 +6,55 @@ using MovieFrontend.Services;
 using MovieFrontend.State;
 using StrawberryShake;
 
-namespace MovieFrontend.Pages.Movies
-{
-    public class EditModel : PageModel
-    {
-        private readonly IMovieBackendGraphqlClient _backendGraphqlClient;
-        private readonly MoviesService _moviesService;
+namespace MovieFrontend.Pages.Movies;
 
-        public EditModel(IMovieBackendGraphqlClient backendGraphqlClient, MoviesService moviesService)
+public class EditModel : PageModel
+{
+    private readonly IMovieBackendGraphqlClient _backendGraphqlClient;
+    private readonly MoviesService _moviesService;
+
+    public EditModel(IMovieBackendGraphqlClient backendGraphqlClient, MoviesService moviesService)
+    {
+        _backendGraphqlClient = backendGraphqlClient;
+        _moviesService = moviesService;
+    }
+
+    [BindProperty]
+    public MoviePbm Movie { get; set; }
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null)
         {
-            _backendGraphqlClient = backendGraphqlClient;
-            _moviesService = moviesService;
+            return NotFound();
         }
 
-        [BindProperty]
-        public MoviePbm Movie { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var movie = await _backendGraphqlClient.Movie_by_id.ExecuteAsync(id.Value);
+        movie.EnsureNoErrors();
+        if (movie.Data == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        Movie = movie.Data.Movies.Select(x => x.AsPbm()).First();
+        return Page();
+    }
 
-            var movie = await _backendGraphqlClient.Movie_by_id.ExecuteAsync(id.Value);
-            movie.EnsureNoErrors();
-            if (movie.Data == null)
-            {
-                return NotFound();
-            }
-            Movie = movie.Data.Movies.Select(x => x.AsPbm()).First();
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        var movie = await _moviesService.UpdateMovie(Movie.Id, Movie.AsDto());
+        if (movie == null)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            var movie = await _moviesService.UpdateMovie(Movie.Id, Movie.AsDto());
-            if (movie == null)
-            {
-                return NotFound();
-            }
-
-            return RedirectToPage("./Index");
+            return NotFound();
         }
 
+        return RedirectToPage("./Index");
     }
+
 }

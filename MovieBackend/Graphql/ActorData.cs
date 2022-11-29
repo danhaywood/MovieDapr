@@ -2,17 +2,15 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using MovieData;
 
-namespace MovieBackend.Graphql
+namespace MovieBackend.Graphql;
+
+public class ActorData
 {
-    public class ActorData
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-        [UseFiltering()]
-        [UseSorting()]
-        public virtual List<CharacterData> Characters { get; set; } = new List<CharacterData>();
-
-    }
+    [UseFiltering()]
+    [UseSorting()]
+    public virtual List<CharacterData> Characters { get; set; } = new List<CharacterData>();
 
 }

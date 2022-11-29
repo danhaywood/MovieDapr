@@ -3,35 +3,34 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieFrontend.PageBindingModels;
 using MovieFrontend.Services;
 
-namespace MovieFrontend.Pages.Movies
-{
-    public class CreateModel : PageModel
-    {
-        private readonly MoviesService _moviesService;
-        public CreateModel(MoviesService moviesService)
-        {
-            _moviesService = moviesService;
-        }
+namespace MovieFrontend.Pages.Movies;
 
-        public IActionResult OnGet()
+public class CreateModel : PageModel
+{
+    private readonly MoviesService _moviesService;
+    public CreateModel(MoviesService moviesService)
+    {
+        _moviesService = moviesService;
+    }
+
+    public IActionResult OnGet()
+    {
+        return Page();
+    }
+
+    [BindProperty]
+    public MoviePbm Movie { get; set; }
+
+    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
         {
             return Page();
         }
 
-        [BindProperty]
-        public MoviePbm Movie { get; set; }
+        await _moviesService.CreateMovie(Movie.AsDto());
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-          if (!ModelState.IsValid)
-          {
-              return Page();
-          }
-
-          await _moviesService.CreateMovie(Movie.AsDto());
-
-          return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

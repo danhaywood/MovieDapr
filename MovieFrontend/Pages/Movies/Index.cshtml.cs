@@ -5,28 +5,27 @@ using MovieData;
 using MovieFrontend.Services;
 using StrawberryShake;
 
-namespace MovieFrontend.Pages.Movies
+namespace MovieFrontend.Pages.Movies;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly MoviesService _moviesService;
+
+    public IndexModel(MoviesService moviesService)
     {
-        private readonly MoviesService _moviesService;
-
-        public IndexModel(MoviesService moviesService)
-        {
-            _moviesService = moviesService;
-        }
-
-        public IList<MovieDto> Movie { get;set; } = default!;
-        [BindProperty(SupportsGet = true)]
-        public string ? SearchString { get; set; }
-        public SelectList ? Genres { get; set; }
-        [BindProperty(SupportsGet = true)]
-        public string ? MovieGenre { get; set; }
-        
-        public async Task OnGetAsync()
-        {
-            Movie = await _moviesService.GetMovies();  // no search just yet...  _context.Movie.Where(s => string.IsNullOrEmpty(SearchString) || s.Title.Contains(SearchString)).Select(x => x.AsDto());
-        }
-        
+        _moviesService = moviesService;
     }
+
+    public IList<MovieDto> Movie { get;set; } = default!;
+    [BindProperty(SupportsGet = true)]
+    public string ? SearchString { get; set; }
+    public SelectList ? Genres { get; set; }
+    [BindProperty(SupportsGet = true)]
+    public string ? MovieGenre { get; set; }
+        
+    public async Task OnGetAsync()
+    {
+        Movie = await _moviesService.GetMovies();  // no search just yet...  _context.Movie.Where(s => string.IsNullOrEmpty(SearchString) || s.Title.Contains(SearchString)).Select(x => x.AsDto());
+    }
+        
 }

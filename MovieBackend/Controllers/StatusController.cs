@@ -1,18 +1,17 @@
 ﻿using Man.Dapr.Sidekick;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MovieBackend.Controllers
+namespace MovieBackend.Controllers;
+
+[Route("[controller]")]
+[ApiController]
+[Produces("application/json")]
+public class StatusController : ControllerBase
 {
-    [Route("[controller]")]
-    [ApiController]
-    [Produces("application/json")]
-    public class StatusController : ControllerBase
+    [HttpGet]
+    public ActionResult GetStatus([FromServices] IDaprSidecarHost daprSidecarHost) => Ok(new
     {
-        [HttpGet]
-        public ActionResult GetStatus([FromServices] IDaprSidecarHost daprSidecarHost) => Ok(new
-        {
-            Process = daprSidecarHost.GetProcessInfo(),
-            Options = daprSidecarHost.GetProcessOptions()
-        });
-    }
+        Process = daprSidecarHost.GetProcessInfo(),
+        Options = daprSidecarHost.GetProcessOptions()
+    });
 }

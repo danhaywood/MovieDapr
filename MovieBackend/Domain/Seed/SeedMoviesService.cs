@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MovieBackend.Data;
-using MovieBackend.Models;
+using MovieBackend.Infra.Bootstrap;
 
-namespace MovieBackend.Services;
+namespace MovieBackend.Domain.Seed;
 
-public class SeedDataService : IBootstrappable
+public class SeedMoviesService : IBootstrappable
 {
     private readonly MovieDbContext _dbContext;
 
-    public SeedDataService(MovieDbContext dbContext)
+    public SeedMoviesService(MovieDbContext dbContext)
     {
         _dbContext = dbContext;
     }

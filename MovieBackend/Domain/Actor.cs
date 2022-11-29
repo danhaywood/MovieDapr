@@ -1,33 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using MovieBackend.Models;
 using MovieData;
 
-namespace MovieBackend.Models
+namespace MovieBackend.Domain;
+
+public class Actor
 {
-    public class Actor
+    public Actor()
     {
-        public Actor()
+    }
+
+    public Actor(ActorDto actorDto)
+    {
+        Id = actorDto.Id;
+        Name = actorDto.Name;
+    }
+
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+
+    public virtual List<Character> Characters { get; set; } = new List<Character>();
+
+    public ActorDto AsDto()
+    {
+        return new ActorDto()
         {
-        }
-
-        public Actor(ActorDto actorDto)
-        {
-            Id = actorDto.Id;
-            Name = actorDto.Name;
-        }
-
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-
-        public virtual List<Character> Characters { get; set; } = new List<Character>();
-
-        public ActorDto AsDto()
-        {
-            return new ActorDto()
-            {
-                Id = Id,
-                Name = Name,
-            };
-        }
+            Id = Id,
+            Name = Name,
+        };
     }
 }

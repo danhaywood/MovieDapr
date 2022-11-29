@@ -1,11 +1,11 @@
 ﻿using Dapr.Client;
 
-namespace MovieBackend.Services;
+namespace MovieBackend.Infra.ConnStr;
 
 // registered as a transient service so fully reusable
-public class ConnectionStringService
+public class ConnectionStringServiceUsingDaprSecrets : IConnectionStringService
 {
-    public ConnectionStringService()
+    public ConnectionStringServiceUsingDaprSecrets()
     {
         var daprClient = new DaprClientBuilder().Build();
         

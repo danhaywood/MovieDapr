@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MovieFrontend.PageBindingModels
+namespace MovieFrontend.PageBindingModels;
+
+public class CharacterPbm
 {
-    public class CharacterPbm
-    {
-        public int ID { get; set; }
-        public string CharacterName { get; set; } = string.Empty;
-    }
+    public int ID { get; set; }
+    public string CharacterName { get; set; } = string.Empty;
 }
