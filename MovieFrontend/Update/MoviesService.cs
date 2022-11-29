@@ -1,10 +1,12 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
+using Dapr.Client;
 using Man.Dapr.Sidekick;
 using Man.Dapr.Sidekick.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieClient;
 using MovieData;
+using MovieFrontend.Infra.DaprSidecar;
 
 namespace MovieFrontend.Update;
 
@@ -13,21 +15,11 @@ public class MoviesService
     private readonly HttpClient _httpClient;
     private readonly MovieBackendGraphqlClient _movieBackendGraphqlClient;
 
-    public MoviesService(IDaprSidecarHost daprSidecarHost, IDaprSidecarHttpClientFactory daprSidecarHttpClientFactory, MovieBackendGraphqlClient movieBackendGraphqlClient)
+    public MoviesService(IHttpClientFactory httpClientFactory, MovieBackendGraphqlClient movieBackendGraphqlClient)
     {
         _movieBackendGraphqlClient = movieBackendGraphqlClient;
-        
-        var daprHttpPort = daprSidecarHost.GetProcessOptions().DaprHttpPort;
-        var httpClient = daprSidecarHttpClientFactory.CreateInvokeHttpClient("moviebackend");
-        // var httpClient = new HttpClient();
-        // httpClient.DefaultRequestHeaders.Add("dapr-app-id", "moviebackend");
-        // httpClient.BaseAddress = new Uri("http://localhost:3501");
 
-        httpClient.DefaultRequestHeaders.Accept.Clear();
-        httpClient.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/json"));
-            
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient(nameof(MoviesService));
     }
 
     // GET: api/Movies
@@ -38,11 +30,6 @@ public class MoviesService
         // probably wouldn't bother to marshall to a DTO, the result.Data already is our DTO structure.
         var movieDtos = result.Data?.Movies.Select(x => x.ToDto()).ToList();
         return movieDtos ?? new List<MovieDto>();
-
-        // var response = await _httpClient.GetAsync("/api/Movies");
-        // response.EnsureSuccessStatusCode();
-        //
-        // return await response.Content.ReadFromJsonAsync<List<MovieDto>>() ?? new List<MovieDto>();
     }
 
     // GET: api/Movies/5

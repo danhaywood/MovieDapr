@@ -2,13 +2,11 @@
 using Microsoft.OpenApi.Models;
 using MovieBackend.Domain;
 using MovieBackend.Domain.Seed;
-using MovieBackend.Graphql;
 using MovieBackend.Graphql.Migrate;
-using MovieBackend.Infra;
 using MovieBackend.Infra.Bootstrap;
 using MovieBackend.Infra.ConnStr;
 using MovieBackend.Models;
-using MovieBackend.Query;
+using MovieBackend.Read;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Resources;
@@ -25,42 +23,41 @@ var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToStrin
 var tracingExporter = builder.Configuration.GetValue<string>("UseTracingExporter").ToLowerInvariant();
 
 
+// distributed tracing 
 builder.Services.AddOpenTelemetryTracing(options =>
 {
     options
         .ConfigureResource(r => r.AddService( serviceName: assemblyName + " app", serviceVersion: assemblyVersion, serviceInstanceId: Environment.MachineName))
-        .AddSource(nameof(MovieRepository))
-        .AddSource(nameof(ActorRepository))
-        .AddSource(nameof(CharacterRepository))
+        .AddSource(nameof(MovieRepository))         // explicit ActivitySource
+        .AddSource(nameof(ActorRepository))         // explicit ActivitySource
+        .AddSource(nameof(CharacterRepository))     // explicit ActivitySource
         .SetSampler(new AlwaysOnSampler())
-        //.AddHttpClientInstrumentation()   // don't do this, otherwise we'll instrument our calls to the dapr sidecar.
         .AddAspNetCoreInstrumentation()
-        .AddSqlClientInstrumentation(options =>
+        .AddSqlClientInstrumentation(options =>     // trace SQL calls
         {
             options.SetDbStatementForText = true;
             options.RecordException = true;
             options.SetDbStatementForStoredProcedure = true;
         })
+        //.AddHttpClientInstrumentation()   // don't do this, otherwise we'll instrument our calls to the dapr sidecar.
         ;
 
     switch (tracingExporter)
     {
         case "zipkin":
             options.AddZipkinExporter();
-
             builder.Services.Configure<ZipkinExporterOptions>(builder.Configuration.GetSection("Zipkin"));
             break;
 
         default:
             options.AddConsoleExporter();
-
             break;
     }
 });
 
 //builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>
 builder.Services.AddDbContextFactory<MovieDbContext>();
-builder.Services.AddDbContextFactory<MovieDataDbContext>();
+builder.Services.AddDbContextFactory<MovieViewDbContext>();
 builder.Services.AddScoped<MovieRepository>();
 builder.Services.AddScoped<ActorRepository>();
 builder.Services.AddScoped<CharacterRepository>();
@@ -71,7 +68,8 @@ builder.Services.Configure<AspNetCoreInstrumentationOptions>(builder.Configurati
 builder.Services.AddControllers();
 // builder.Services.AddControllers().AddDapr(); // not necessary, think this is to support pubsub attributes, eg [Topic]
 
-//// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// swagger support
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -97,6 +95,7 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+// graphql support
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
@@ -105,8 +104,18 @@ builder.Services
     .AddSorting()
     ;
 
-builder.Services.AddRazorPages();
-builder.Services.AddDaprSidekick(builder.Configuration);
+// builder.Services.AddRazorPages();
+
+if (Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") != null)
+{
+    // running under an orchestrator    
+}
+else
+{
+    // local environment, start up our own daprd
+    builder.Services.AddDaprSidekick(builder.Configuration);
+}
+
 builder.Services.AddSingleton<IConnectionStringService, ConnectionStringServiceUsingDaprSecrets>();
 
 var postBuild = Environment.GetEnvironmentVariable("POST_BUILD");

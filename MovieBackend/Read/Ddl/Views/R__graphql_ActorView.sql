@@ -1,4 +1,4 @@
-﻿CREATE OR ALTER VIEW [graphql].[ActorData] AS
+﻿CREATE OR ALTER VIEW [graphql].[ActorView] AS
 SELECT 
      Id     as Id            
     ,Name   as Name 

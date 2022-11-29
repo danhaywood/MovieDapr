@@ -21,10 +21,8 @@ Demonstrating use of:
 * GraphQL frontend to own library
 * GraphQl frontend participates in distributed tracing
 
-
 == TODO
 
-* lookup dapr sidecar port dynamically
 * make dependency on dapr sidecar dependent on environment
 +
 if `DAPR_xxx` env vars present, then skip.
@@ -32,7 +30,8 @@ if `DAPR_xxx` env vars present, then skip.
 * use `builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>`
 +
 for performance
-* BUG: delete doesn't do anything
+
+* better error handling on DELETE (FK violation not shown, but traceable via zipkin).
 
 == prerequisites:
 

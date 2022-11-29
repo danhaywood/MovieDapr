@@ -1,25 +1,34 @@
-﻿using MovieFrontend.Update;
+﻿using MovieFrontend.Infra.DaprSidecar;
+using MovieFrontend.Infra.Http;
+using MovieFrontend.Update;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<MoviesService, MoviesService>();
-builder.Services.AddDaprSidekick(builder.Configuration);
 
-builder.Services.AddMovieBackendGraphqlClient()
-    .ConfigureHttpClient(httpClient =>
-    {
-        // TODO: need to figure out how to obtain the 3501 dynamically, from DaprSidekickHost when running locally.
-        httpClient.DefaultRequestHeaders.Add("dapr-app-id", "moviebackend");
-        httpClient.BaseAddress = new Uri("http://localhost:3501/graphql");
-    }
-    );
+if (Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") != null)
+{
+    // running under an orchestrator    
+    builder.Services.AddTransient<IDaprHttpPortService, DaprHttpPortServiceUsingEnvVar>();
+}
+else
+{
+    // local environment, start up our own daprd
+    builder.Services.AddDaprSidekick(builder.Configuration);
+    builder.Services.AddTransient<IDaprHttpPortService, DaprHttpPortServiceUsingSidekick>();
+}
+
+builder.Services.AddHttpClient();                                                   // install DefaultHttpClientFactory
+builder.Services.AddSingleton<IHttpClientFactory, DaprAwareHttpClientFactory>();    // decorator that sets up dapr headers
+
+builder.Services.AddMovieBackendGraphqlClient() ;
 
 var app = builder.Build();
 
-var isDevelopment = app.Environment.IsDevelopment();
 
 // Configure the HTTP request pipeline.
+var isDevelopment = app.Environment.IsDevelopment();
 if (isDevelopment)
 {
     app.UseDeveloperExceptionPage();
@@ -33,11 +42,8 @@ else
 }
 
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapRazorPages();
 app.MapControllers();
 

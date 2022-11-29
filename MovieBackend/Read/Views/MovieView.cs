@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MovieBackend.Query;
+namespace MovieBackend.Read.Views;
 
-public class MovieData
+public class MovieView
 {
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
@@ -18,6 +18,6 @@ public class MovieData
 
     [UseFiltering()]
     [UseSorting()]
-    public virtual List<CharacterData> Characters { get; set; } = new List<CharacterData>();
+    public virtual List<CharacterView> Characters { get; set; } = new List<CharacterView>();
         
 }

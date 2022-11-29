@@ -1,4 +1,4 @@
-﻿CREATE or ALTER VIEW [graphql].[CharacterData] AS
+﻿CREATE or ALTER VIEW [graphql].[CharacterView] AS
 SELECT
     [Id]            as [Id]
     ,[MovieId]       as [MovieId]       

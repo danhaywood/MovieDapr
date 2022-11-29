@@ -1,18 +1,18 @@
-﻿namespace MovieBackend.Query;
+﻿namespace MovieBackend.Read.Views;
 
-public class CharacterData
+public class CharacterView
 {
     public int Id { get; set; }
         
     [GraphQLIgnore]
     public int MovieId { get; set; }
         
-    public virtual MovieData Movie { get; set; } = null!;
+    public virtual MovieView Movie { get; set; } = null!;
 
     [GraphQLIgnore]
     public int ActorId { get; set; }
         
-    public virtual ActorData Actor { get; set; } = null!;
+    public virtual ActorView Actor { get; set; } = null!;
 
     public string CharacterName { get; set; } = string.Empty;
 

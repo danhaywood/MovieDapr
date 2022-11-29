@@ -35,31 +35,31 @@ directive @stream(
 
 type Query {
   movies(
-    where: MovieDataFilterInput
-    order: [MovieDataSortInput!]
-  ): [MovieData!]!
+    where: MovieViewFilterInput
+    order: [MovieViewSortInput!]
+  ): [MovieView!]!
   actors(
-    where: ActorDataFilterInput
-    order: [ActorDataSortInput!]
-  ): [ActorData!]!
+    where: ActorViewFilterInput
+    order: [ActorViewSortInput!]
+  ): [ActorView!]!
   characters(
-    where: CharacterDataFilterInput
-    order: [CharacterDataSortInput!]
-  ): [CharacterData!]!
+    where: CharacterViewFilterInput
+    order: [CharacterViewSortInput!]
+  ): [CharacterView!]!
 }
 
-input MovieDataFilterInput {
-  and: [MovieDataFilterInput!]
-  or: [MovieDataFilterInput!]
+input MovieViewFilterInput {
+  and: [MovieViewFilterInput!]
+  or: [MovieViewFilterInput!]
   id: ComparableInt32OperationFilterInput
   title: StringOperationFilterInput
   releaseDate: ComparableDateTimeOperationFilterInput
   genre: StringOperationFilterInput
   price: ComparableDecimalOperationFilterInput
-  characters: ListFilterInputTypeOfCharacterDataFilterInput
+  characters: ListFilterInputTypeOfCharacterViewFilterInput
 }
 
-input MovieDataSortInput {
+input MovieViewSortInput {
   id: SortEnumType
   title: SortEnumType
   releaseDate: SortEnumType
@@ -67,32 +67,32 @@ input MovieDataSortInput {
   price: SortEnumType
 }
 
-input ActorDataFilterInput {
-  and: [ActorDataFilterInput!]
-  or: [ActorDataFilterInput!]
+input ActorViewFilterInput {
+  and: [ActorViewFilterInput!]
+  or: [ActorViewFilterInput!]
   id: ComparableInt32OperationFilterInput
   name: StringOperationFilterInput
-  characters: ListFilterInputTypeOfCharacterDataFilterInput
+  characters: ListFilterInputTypeOfCharacterViewFilterInput
 }
 
-input ActorDataSortInput {
+input ActorViewSortInput {
   id: SortEnumType
   name: SortEnumType
 }
 
-input CharacterDataFilterInput {
-  and: [CharacterDataFilterInput!]
-  or: [CharacterDataFilterInput!]
+input CharacterViewFilterInput {
+  and: [CharacterViewFilterInput!]
+  or: [CharacterViewFilterInput!]
   id: ComparableInt32OperationFilterInput
-  movie: MovieDataFilterInput
-  actor: ActorDataFilterInput
+  movie: MovieViewFilterInput
+  actor: ActorViewFilterInput
   characterName: StringOperationFilterInput
 }
 
-input CharacterDataSortInput {
+input CharacterViewSortInput {
   id: SortEnumType
-  movie: MovieDataSortInput
-  actor: ActorDataSortInput
+  movie: MovieViewSortInput
+  actor: ActorViewSortInput
   characterName: SortEnumType
 }
 
@@ -156,10 +156,10 @@ input ComparableDecimalOperationFilterInput {
   nlte: Decimal
 }
 
-input ListFilterInputTypeOfCharacterDataFilterInput {
-  all: CharacterDataFilterInput
-  none: CharacterDataFilterInput
-  some: CharacterDataFilterInput
+input ListFilterInputTypeOfCharacterViewFilterInput {
+  all: CharacterViewFilterInput
+  none: CharacterViewFilterInput
+  some: CharacterViewFilterInput
   any: Boolean
 }
 
@@ -168,31 +168,31 @@ enum SortEnumType {
   DESC
 }
 
-type MovieData {
+type MovieView {
   id: Int!
   title: String!
   releaseDate: DateTime!
   genre: String!
   price: Decimal!
   characters(
-    where: CharacterDataFilterInput
-    order: [CharacterDataSortInput!]
-  ): [CharacterData!]!
+    where: CharacterViewFilterInput
+    order: [CharacterViewSortInput!]
+  ): [CharacterView!]!
 }
 
-type ActorData {
+type ActorView {
   id: Int!
   name: String!
   characters(
-    where: CharacterDataFilterInput
-    order: [CharacterDataSortInput!]
-  ): [CharacterData!]!
+    where: CharacterViewFilterInput
+    order: [CharacterViewSortInput!]
+  ): [CharacterView!]!
 }
 
-type CharacterData {
+type CharacterView {
   id: Int!
-  movie: MovieData!
-  actor: ActorData!
+  movie: MovieView!
+  actor: ActorView!
   characterName: String!
 }
 
