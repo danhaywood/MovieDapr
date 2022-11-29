@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MovieBackend.Infra;
 using MovieBackend.Infra.ConnStr;
 
 namespace MovieBackend.Domain;

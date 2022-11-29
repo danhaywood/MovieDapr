@@ -1,5 +1,4 @@
 ﻿using Man.Dapr.Sidekick;
-using Man.Dapr.Sidekick.Process;
 
 namespace MovieFrontend.Infra.DaprSidecar
 {
