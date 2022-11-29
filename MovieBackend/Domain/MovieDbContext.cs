@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapr.Client;
+using Microsoft.EntityFrameworkCore;
 using MovieBackend.Models;
 
 namespace MovieBackend.Data
@@ -8,6 +9,15 @@ namespace MovieBackend.Data
         public MovieDbContext (DbContextOptions<MovieDbContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var daprClient = new DaprClientBuilder().Build();
+            var secretAsync = daprClient.GetSecretAsync("movie-secret-store", "ConnectionString");
+            var connectionString = secretAsync.Result["ConnectionString"];
+            
+            optionsBuilder.UseLazyLoadingProxies() .UseSqlServer(connectionString);
         }
 
         public DbSet<Movie> Movie { get; set; } = default!;

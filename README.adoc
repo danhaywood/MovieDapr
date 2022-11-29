@@ -23,6 +23,8 @@ Demonstrating use of:
 * dapr for secrets lookup
 
 
+
+
 == prerequisites:
 
 * install Docker Desktop
@@ -35,6 +37,39 @@ https://docs.dapr.io/getting-started/install-dapr-cli/
 ----
 iwr -useb https://raw.githubusercontent.com/dapr/cli/master/install/install.ps1 | iex
 ----
+
+* configure local secrets component
++
+[source,yaml]
+.~/dapr/components/movie-secret-store.yml
+----
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: movie-secret-store
+  namespace: default
+spec:
+  type: secretstores.local.file
+  version: v1
+  metadata:
+    - name: secretsFile
+      value: movie-secrets.json
+    - name: nestedSeparator
+      value: ":"
+----
++
+and
++
+[source,json]
+.~/dapr/bin/movie-secrets.json
+----
+{
+    "ConnectionString": "Server=halxps15-2022\\SQLEXPRESS;Database=dbMovie;Integrated Security=True;Encrypt=False;Trusted_Connection=True;MultipleActiveResultSets=true"
+ }
+----
++
+NOTE: dapr sidekick runs daprd in its home directory, `~/.dapr/bin`.
+Haven't figured out how to relocate yet.
 
 
 == Build
