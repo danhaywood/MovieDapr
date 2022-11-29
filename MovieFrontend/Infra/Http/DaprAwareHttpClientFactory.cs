@@ -17,7 +17,7 @@ public class DaprAwareHttpClientFactory : IHttpClientFactory
     public HttpClient CreateClient(string name)
     {
         var httpClientFactories = _serviceProvider.GetServices<IHttpClientFactory>();
-        var httpClientFactory = httpClientFactories.FirstOrDefault(x => x != this);
+        var httpClientFactory = httpClientFactories.First(x => x != this);
         var httpClient = httpClientFactory.CreateClient();
 
         var daprHttpPort = _daprHttpPortService.DaprHttpPort;

@@ -19,7 +19,7 @@ public class CreateModel : PageModel
     }
 
     [BindProperty]
-    public MoviePbm Movie { get; set; }
+    public MoviePbm Movie { get; set; } = null!;
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()

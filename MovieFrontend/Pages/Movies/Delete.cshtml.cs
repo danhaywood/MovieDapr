@@ -18,7 +18,7 @@ public class DeleteModel : PageModel
     }
 
     [BindProperty]
-    public MoviePbm Movie { get; set; }
+    public MoviePbm Movie { get; set; } = null!;
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {

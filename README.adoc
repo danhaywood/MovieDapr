@@ -20,12 +20,9 @@ Demonstrating use of:
 * dapr for secrets lookup
 * GraphQL frontend to own library
 * GraphQl frontend participates in distributed tracing
+* dapr sidekick dependent on environment (if `DAPR_xxx` env vars present, then skip).
 
 == TODO
-
-* make dependency on dapr sidecar dependent on environment
-+
-if `DAPR_xxx` env vars present, then skip.
 
 * use `builder.Services.AddPooledDbContextFactory<MovieDataDbContext>(options =>`
 +
