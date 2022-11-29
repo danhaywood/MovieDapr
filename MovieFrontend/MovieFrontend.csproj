@@ -12,9 +12,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+<!--
+    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="12.15.2" />
+-->
+    <PackageReference Include="StrawberryShake.Transport.Http" Version="12.15.2" />
     <PackageReference Include="Dapr.Client" Version="1.9.0" />
-    <PackageReference Include="Evolve" Version="3.1.0-alpha7" />
     <PackageReference Include="Man.Dapr.Sidekick.AspNetCore" Version="1.2.1" />
+<!--
+    <PackageReference Include="Evolve" Version="3.1.0-alpha7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,24 +29,23 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+-->
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
-    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="12.15.2" />
-    <PackageReference Include="StrawberryShake.Transport.Http" Version="12.15.2" />
+<!--
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+-->
   </ItemGroup>
 
+<!--
   <ItemGroup>
     <EmbeddedResource Include="db\**\*.sql" />
   </ItemGroup>
+-->
 
   <ItemGroup>
     <Content Include=".config\dotnet-tools.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Graphql\Generated" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,5 +55,14 @@
   <ItemGroup>
     <ProjectReference Include="..\MovieData\MovieData.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MovieClient\MovieClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Graphql\.graphqlrc.json" />
+  </ItemGroup>
+
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace MovieBackend.Graphql;
+﻿namespace MovieBackend.Query;
 
 public class Query
 {

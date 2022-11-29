@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using MovieData;
+﻿using MovieBackend.Graphql;
 
-namespace MovieBackend.Graphql;
+namespace MovieBackend.Query;
 
 public class ActorData
 {

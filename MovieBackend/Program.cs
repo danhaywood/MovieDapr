@@ -8,6 +8,7 @@ using MovieBackend.Infra;
 using MovieBackend.Infra.Bootstrap;
 using MovieBackend.Infra.ConnStr;
 using MovieBackend.Models;
+using MovieBackend.Query;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Resources;

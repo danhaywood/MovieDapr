@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieBackend.Infra.ConnStr;
 
-namespace MovieBackend.Graphql;
+namespace MovieBackend.Query;
 
 public class MovieDataDbContext : DbContext
 {
@@ -24,12 +24,12 @@ public class MovieDataDbContext : DbContext
     {
         modelBuilder.HasDefaultSchema("graphql");
             
-        modelBuilder.Entity<MovieData>()    .ToView("MovieData");
+        modelBuilder.Entity<MovieBackend.Query.MovieData>()    .ToView("MovieData");
         modelBuilder.Entity<ActorData>()    .ToView("ActorData");
         modelBuilder.Entity<CharacterData>().ToView("CharacterData");
     }
 
-    public DbSet<MovieData> MovieData { get; set; } = default!;
+    public DbSet<MovieBackend.Query.MovieData> MovieData { get; set; } = default!;
     public DbSet<ActorData> ActorData { get; set; } = default!;
     public DbSet<CharacterData> CharacterData { get; set; } = default!;
 }

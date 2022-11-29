@@ -1,7 +1,7 @@
 ﻿using Man.Dapr.Sidekick;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MovieBackend.Controllers;
+namespace MovieBackend.Infra.Status;
 
 [Route("[controller]")]
 [ApiController]

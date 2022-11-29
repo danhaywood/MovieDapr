@@ -42,10 +42,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="db\**\*.sql" />
-    <EmbeddedResource Include="Graphql\Db\V20221127_1300__adds_schema_graphql.sql" />
-    <EmbeddedResource Include="Graphql\Db\Views\R__graphql_ActorData.sql" />
-    <EmbeddedResource Include="Graphql\Db\Views\R__graphql_CharacterData.sql" />
-    <EmbeddedResource Include="Graphql\Db\Views\R__graphql_MovieData.sql" />
+    <EmbeddedResource Include="Query\Db\V20221127_1300__adds_schema_graphql.sql" />
+    <EmbeddedResource Include="Query\Db\Views\R__graphql_ActorData.sql" />
+    <EmbeddedResource Include="Query\Db\Views\R__graphql_CharacterData.sql" />
+    <EmbeddedResource Include="Query\Db\Views\R__graphql_MovieData.sql" />
   </ItemGroup>
 
   <ItemGroup>

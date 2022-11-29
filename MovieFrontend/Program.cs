@@ -1,4 +1,4 @@
-﻿using MovieFrontend.Services;
+﻿using MovieFrontend.Update;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,17 +9,10 @@ builder.Services.AddDaprSidekick(builder.Configuration);
 builder.Services.AddMovieBackendGraphqlClient()
     .ConfigureHttpClient(httpClient =>
     {
+        // TODO: need to figure out how to obtain the 3501 dynamically, from DaprSidekickHost when running locally.
         httpClient.DefaultRequestHeaders.Add("dapr-app-id", "moviebackend");
-        httpClient.BaseAddress = new Uri("http://localhost:3500/graphql");
+        httpClient.BaseAddress = new Uri("http://localhost:3501/graphql");
     }
-    // , 
-    // clientBuilder =>
-    // {
-    //     clientBuilder.ConfigureHttpMessageHandlerBuilder(handlerBuilder =>
-    //     {
-    //         handlerBuilder.PrimaryHandler = new Man.Dapr.Sidekick.DaprClient.InvocationHandler();
-    //     });
-    // }
     );
 
 var app = builder.Build();
@@ -46,5 +39,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllers();
 
 app.Run();

@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using MovieData;
 
-namespace MovieBackend.Graphql;
+namespace MovieBackend.Query;
 
 public class MovieData
 {

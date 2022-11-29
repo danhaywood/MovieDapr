@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
     public static partial class MovieBackendGraphqlClientServiceCollectionExtensions
     {
-        public static global::StrawberryShake.IClientBuilder<global::MovieFrontend.State.MovieBackendGraphqlClientStoreAccessor> AddMovieBackendGraphqlClient(this global::Microsoft.Extensions.DependencyInjection.IServiceCollection services, global::StrawberryShake.ExecutionStrategy strategy = global::StrawberryShake.ExecutionStrategy.NetworkOnly)
+        public static global::StrawberryShake.IClientBuilder<global::MovieClient.State.MovieBackendGraphqlClientStoreAccessor> AddMovieBackendGraphqlClient(this global::Microsoft.Extensions.DependencyInjection.IServiceCollection services, global::StrawberryShake.ExecutionStrategy strategy = global::StrawberryShake.ExecutionStrategy.NetworkOnly)
         {
             var serviceCollection = new global::Microsoft.Extensions.DependencyInjection.ServiceCollection();
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp =>
@@ -14,12 +14,12 @@ namespace Microsoft.Extensions.DependencyInjection
                 ConfigureClientDefault(sp, serviceCollection, strategy);
                 return new ClientServiceProvider(global::Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(serviceCollection));
             });
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => new global::MovieFrontend.State.MovieBackendGraphqlClientStoreAccessor(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityStore>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityIdSerializer>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory>>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory>>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp))));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieFrontend.MoviesQuery>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieFrontend.Movie_by_idQuery>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieFrontend.MovieBackendGraphqlClient>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieFrontend.IMovieBackendGraphqlClient>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
-            return new global::StrawberryShake.ClientBuilder<global::MovieFrontend.State.MovieBackendGraphqlClientStoreAccessor>("MovieBackendGraphqlClient", services, serviceCollection);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => new global::MovieClient.State.MovieBackendGraphqlClientStoreAccessor(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityStore>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityIdSerializer>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory>>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory>>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp))));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieClient.MoviesQuery>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieClient.Movie_by_idQuery>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieClient.MovieBackendGraphqlClient>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieClient.IMovieBackendGraphqlClient>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            return new global::StrawberryShake.ClientBuilder<global::MovieClient.State.MovieBackendGraphqlClientStoreAccessor>("MovieBackendGraphqlClient", services, serviceCollection);
         }
 
         private static global::Microsoft.Extensions.DependencyInjection.IServiceCollection ConfigureClientDefault(global::System.IServiceProvider parentServices, global::Microsoft.Extensions.DependencyInjection.ServiceCollection services, global::StrawberryShake.ExecutionStrategy strategy = global::StrawberryShake.ExecutionStrategy.NetworkOnly)
@@ -31,10 +31,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 var clientFactory = global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Net.Http.IHttpClientFactory>(parentServices);
                 return new global::StrawberryShake.Transport.Http.HttpConnection(() => clientFactory.CreateClient("MovieBackendGraphqlClient"));
             });
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.MovieDataEntity, global::MovieFrontend.Movies_Movies_MovieData>, global::MovieFrontend.State.Movies_Movies_MovieDataFromMovieDataEntityMapper>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.CharacterDataEntity, global::MovieFrontend.Movies_Movies_Characters_CharacterData>, global::MovieFrontend.State.Movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.MovieDataEntity, global::MovieFrontend.Movie_by_id_Movies_MovieData>, global::MovieFrontend.State.Movie_by_id_Movies_MovieDataFromMovieDataEntityMapper>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.CharacterDataEntity, global::MovieFrontend.Movie_by_id_Movies_Characters_CharacterData>, global::MovieFrontend.State.Movie_by_id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::MovieClient.State.MovieDataEntity, global::MovieClient.Movies_Movies_MovieData>, global::MovieClient.State.Movies_Movies_MovieDataFromMovieDataEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::MovieClient.State.CharacterDataEntity, global::MovieClient.Movies_Movies_Characters_CharacterData>, global::MovieClient.State.Movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::MovieClient.State.MovieDataEntity, global::MovieClient.Movie_by_id_Movies_MovieData>, global::MovieClient.State.Movie_by_id_Movies_MovieDataFromMovieDataEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::MovieClient.State.CharacterDataEntity, global::MovieClient.Movie_by_id_Movies_Characters_CharacterData>, global::MovieClient.State.Movie_by_id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.StringSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.BooleanSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.ByteSerializer>(services);
@@ -52,23 +52,23 @@ namespace Microsoft.Extensions.DependencyInjection
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.TimeSpanSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.JsonSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializerResolver>(services, sp => new global::StrawberryShake.Serialization.SerializerResolver(global::System.Linq.Enumerable.Concat(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.Serialization.ISerializer>>(parentServices), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.Serialization.ISerializer>>(sp))));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::MovieFrontend.IMoviesResult>, global::MovieFrontend.State.MoviesResultFactory>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::MovieFrontend.IMoviesResult>>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieFrontend.IMoviesQuery>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieFrontend.IMoviesResult>, global::MovieFrontend.State.MoviesBuilder>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::MovieFrontend.IMoviesResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::MovieFrontend.IMoviesResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.IHttpConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieFrontend.IMoviesResult>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieFrontend.MoviesQuery>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieFrontend.IMoviesQuery>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieFrontend.MoviesQuery>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::MovieFrontend.IMovie_by_idResult>, global::MovieFrontend.State.Movie_by_idResultFactory>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::MovieFrontend.IMovie_by_idResult>>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieFrontend.IMovie_by_idQuery>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieFrontend.IMovie_by_idResult>, global::MovieFrontend.State.Movie_by_idBuilder>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::MovieFrontend.IMovie_by_idResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::MovieFrontend.IMovie_by_idResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.IHttpConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieFrontend.IMovie_by_idResult>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieFrontend.Movie_by_idQuery>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieFrontend.IMovie_by_idQuery>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieFrontend.Movie_by_idQuery>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityIdSerializer, global::MovieFrontend.State.MovieBackendGraphqlClientEntityIdFactory>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieFrontend.MovieBackendGraphqlClient>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieFrontend.IMovieBackendGraphqlClient>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieFrontend.MovieBackendGraphqlClient>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::MovieClient.IMoviesResult>, global::MovieClient.State.MoviesResultFactory>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::MovieClient.IMoviesResult>>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieClient.IMoviesQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieClient.IMoviesResult>, global::MovieClient.State.MoviesBuilder>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::MovieClient.IMoviesResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::MovieClient.IMoviesResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.IHttpConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieClient.IMoviesResult>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieClient.MoviesQuery>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieClient.IMoviesQuery>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieClient.MoviesQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::MovieClient.IMovie_by_idResult>, global::MovieClient.State.Movie_by_idResultFactory>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::MovieClient.IMovie_by_idResult>>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieClient.IMovie_by_idQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieClient.IMovie_by_idResult>, global::MovieClient.State.Movie_by_idBuilder>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::MovieClient.IMovie_by_idResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::MovieClient.IMovie_by_idResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.IHttpConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieClient.IMovie_by_idResult>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieClient.Movie_by_idQuery>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieClient.IMovie_by_idQuery>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieClient.Movie_by_idQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityIdSerializer, global::MovieClient.State.MovieBackendGraphqlClientEntityIdFactory>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieClient.MovieBackendGraphqlClient>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::MovieClient.IMovieBackendGraphqlClient>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::MovieClient.MovieBackendGraphqlClient>(sp));
             return services;
         }
 
@@ -96,17 +96,17 @@ namespace Microsoft.Extensions.DependencyInjection
     }
 }
 
-namespace MovieFrontend
+namespace MovieClient
 {
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
     public partial class MoviesResult : global::System.IEquatable<MoviesResult>, IMoviesResult
     {
-        public MoviesResult(global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovies_Movies> movies)
+        public MoviesResult(global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovies_Movies> movies)
         {
             Movies = movies;
         }
 
-        public global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovies_Movies> Movies { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovies_Movies> Movies { get; }
 
         public virtual global::System.Boolean Equals(MoviesResult? other)
         {
@@ -166,7 +166,7 @@ namespace MovieFrontend
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
     public partial class Movies_Movies_MovieData : global::System.IEquatable<Movies_Movies_MovieData>, IMovies_Movies_MovieData
     {
-        public Movies_Movies_MovieData(global::System.Int32 id, global::System.String title, global::System.DateTimeOffset releaseDate, global::System.String genre, global::System.Decimal price, global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovies_Movies_Characters> characters)
+        public Movies_Movies_MovieData(global::System.Int32 id, global::System.String title, global::System.DateTimeOffset releaseDate, global::System.String genre, global::System.Decimal price, global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovies_Movies_Characters> characters)
         {
             Id = id;
             Title = title;
@@ -186,7 +186,7 @@ namespace MovieFrontend
 
         public global::System.Decimal Price { get; }
 
-        public global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovies_Movies_Characters> Characters { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovies_Movies_Characters> Characters { get; }
 
         public virtual global::System.Boolean Equals(Movies_Movies_MovieData? other)
         {
@@ -312,7 +312,7 @@ namespace MovieFrontend
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
     public partial interface IMoviesResult
     {
-        public global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovies_Movies> Movies { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovies_Movies> Movies { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
@@ -328,7 +328,7 @@ namespace MovieFrontend
 
         public global::System.Decimal Price { get; }
 
-        public global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovies_Movies_Characters> Characters { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovies_Movies_Characters> Characters { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
@@ -350,12 +350,12 @@ namespace MovieFrontend
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
     public partial class Movie_by_idResult : global::System.IEquatable<Movie_by_idResult>, IMovie_by_idResult
     {
-        public Movie_by_idResult(global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovie_by_id_Movies> movies)
+        public Movie_by_idResult(global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovie_by_id_Movies> movies)
         {
             Movies = movies;
         }
 
-        public global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovie_by_id_Movies> Movies { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovie_by_id_Movies> Movies { get; }
 
         public virtual global::System.Boolean Equals(Movie_by_idResult? other)
         {
@@ -415,7 +415,7 @@ namespace MovieFrontend
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
     public partial class Movie_by_id_Movies_MovieData : global::System.IEquatable<Movie_by_id_Movies_MovieData>, IMovie_by_id_Movies_MovieData
     {
-        public Movie_by_id_Movies_MovieData(global::System.Int32 id, global::System.String title, global::System.DateTimeOffset releaseDate, global::System.String genre, global::System.Decimal price, global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovie_by_id_Movies_Characters> characters)
+        public Movie_by_id_Movies_MovieData(global::System.Int32 id, global::System.String title, global::System.DateTimeOffset releaseDate, global::System.String genre, global::System.Decimal price, global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovie_by_id_Movies_Characters> characters)
         {
             Id = id;
             Title = title;
@@ -435,7 +435,7 @@ namespace MovieFrontend
 
         public global::System.Decimal Price { get; }
 
-        public global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovie_by_id_Movies_Characters> Characters { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovie_by_id_Movies_Characters> Characters { get; }
 
         public virtual global::System.Boolean Equals(Movie_by_id_Movies_MovieData? other)
         {
@@ -561,7 +561,7 @@ namespace MovieFrontend
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
     public partial interface IMovie_by_idResult
     {
-        public global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovie_by_id_Movies> Movies { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovie_by_id_Movies> Movies { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
@@ -577,7 +577,7 @@ namespace MovieFrontend
 
         public global::System.Decimal Price { get; }
 
-        public global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovie_by_id_Movies_Characters> Characters { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovie_by_id_Movies_Characters> Characters { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
@@ -668,7 +668,7 @@ namespace MovieFrontend
     /// </code>
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class MoviesQuery : global::MovieFrontend.IMoviesQuery
+    public partial class MoviesQuery : global::MovieClient.IMoviesQuery
     {
         private readonly global::StrawberryShake.IOperationExecutor<IMoviesResult> _operationExecutor;
         public MoviesQuery(global::StrawberryShake.IOperationExecutor<IMoviesResult> operationExecutor)
@@ -809,7 +809,7 @@ namespace MovieFrontend
     /// </code>
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class Movie_by_idQuery : global::MovieFrontend.IMovie_by_idQuery
+    public partial class Movie_by_idQuery : global::MovieClient.IMovie_by_idQuery
     {
         private readonly global::StrawberryShake.IOperationExecutor<IMovie_by_idResult> _operationExecutor;
         private readonly global::StrawberryShake.Serialization.IInputValueFormatter _intFormatter;
@@ -898,19 +898,19 @@ namespace MovieFrontend
     /// Represents the MovieBackendGraphqlClient GraphQL client
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class MovieBackendGraphqlClient : global::MovieFrontend.IMovieBackendGraphqlClient
+    public partial class MovieBackendGraphqlClient : global::MovieClient.IMovieBackendGraphqlClient
     {
-        private readonly global::MovieFrontend.IMoviesQuery _movies;
-        private readonly global::MovieFrontend.IMovie_by_idQuery _movie_By_Id;
-        public MovieBackendGraphqlClient(global::MovieFrontend.IMoviesQuery movies, global::MovieFrontend.IMovie_by_idQuery movie_By_Id)
+        private readonly global::MovieClient.IMoviesQuery _movies;
+        private readonly global::MovieClient.IMovie_by_idQuery _movie_By_Id;
+        public MovieBackendGraphqlClient(global::MovieClient.IMoviesQuery movies, global::MovieClient.IMovie_by_idQuery movie_By_Id)
         {
             _movies = movies ?? throw new global::System.ArgumentNullException(nameof(movies));
             _movie_By_Id = movie_By_Id ?? throw new global::System.ArgumentNullException(nameof(movie_By_Id));
         }
 
         public static global::System.String ClientName => "MovieBackendGraphqlClient";
-        public global::MovieFrontend.IMoviesQuery Movies => _movies;
-        public global::MovieFrontend.IMovie_by_idQuery Movie_by_id => _movie_By_Id;
+        public global::MovieClient.IMoviesQuery Movies => _movies;
+        public global::MovieClient.IMovie_by_idQuery Movie_by_id => _movie_By_Id;
     }
 
     /// <summary>
@@ -919,13 +919,13 @@ namespace MovieFrontend
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
     public partial interface IMovieBackendGraphqlClient
     {
-        global::MovieFrontend.IMoviesQuery Movies { get; }
+        global::MovieClient.IMoviesQuery Movies { get; }
 
-        global::MovieFrontend.IMovie_by_idQuery Movie_by_id { get; }
+        global::MovieClient.IMovie_by_idQuery Movie_by_id { get; }
     }
 }
 
-namespace MovieFrontend.State
+namespace MovieClient.State
 {
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
     public partial class MovieDataEntity
@@ -965,17 +965,17 @@ namespace MovieFrontend.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class MoviesResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::MovieFrontend.MoviesResult>
+    public partial class MoviesResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::MovieClient.MoviesResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.MovieDataEntity, Movies_Movies_MovieData> _movies_Movies_MovieDataFromMovieDataEntityMapper;
-        public MoviesResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.MovieDataEntity, Movies_Movies_MovieData> movies_Movies_MovieDataFromMovieDataEntityMapper)
+        private readonly global::StrawberryShake.IEntityMapper<global::MovieClient.State.MovieDataEntity, Movies_Movies_MovieData> _movies_Movies_MovieDataFromMovieDataEntityMapper;
+        public MoviesResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::MovieClient.State.MovieDataEntity, Movies_Movies_MovieData> movies_Movies_MovieDataFromMovieDataEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
             _movies_Movies_MovieDataFromMovieDataEntityMapper = movies_Movies_MovieDataFromMovieDataEntityMapper ?? throw new global::System.ArgumentNullException(nameof(movies_Movies_MovieDataFromMovieDataEntityMapper));
         }
 
-        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::MovieFrontend.IMoviesResult);
+        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::MovieClient.IMoviesResult);
         public MoviesResult Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
@@ -991,14 +991,14 @@ namespace MovieFrontend.State
             throw new global::System.ArgumentException("MoviesResultInfo expected.");
         }
 
-        private global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovies_Movies> MapNonNullableIMovies_MoviesNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovies_Movies> MapNonNullableIMovies_MoviesNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (list is null)
             {
                 throw new global::System.ArgumentNullException();
             }
 
-            var movieDatas = new global::System.Collections.Generic.List<global::MovieFrontend.IMovies_Movies>();
+            var movieDatas = new global::System.Collections.Generic.List<global::MovieClient.IMovies_Movies>();
             foreach (global::StrawberryShake.EntityId child in list)
             {
                 movieDatas.Add(MapNonNullableIMovies_Movies(child, snapshot));
@@ -1007,11 +1007,11 @@ namespace MovieFrontend.State
             return movieDatas;
         }
 
-        private global::MovieFrontend.IMovies_Movies MapNonNullableIMovies_Movies(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::MovieClient.IMovies_Movies MapNonNullableIMovies_Movies(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("MovieData", global::System.StringComparison.Ordinal))
             {
-                return _movies_Movies_MovieDataFromMovieDataEntityMapper.Map(snapshot.GetEntity<global::MovieFrontend.State.MovieDataEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _movies_Movies_MovieDataFromMovieDataEntityMapper.Map(snapshot.GetEntity<global::MovieClient.State.MovieDataEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
@@ -1046,17 +1046,17 @@ namespace MovieFrontend.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class Movies_Movies_MovieDataFromMovieDataEntityMapper : global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.MovieDataEntity, Movies_Movies_MovieData>
+    public partial class Movies_Movies_MovieDataFromMovieDataEntityMapper : global::StrawberryShake.IEntityMapper<global::MovieClient.State.MovieDataEntity, Movies_Movies_MovieData>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.CharacterDataEntity, Movies_Movies_Characters_CharacterData> _movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper;
-        public Movies_Movies_MovieDataFromMovieDataEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.CharacterDataEntity, Movies_Movies_Characters_CharacterData> movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper)
+        private readonly global::StrawberryShake.IEntityMapper<global::MovieClient.State.CharacterDataEntity, Movies_Movies_Characters_CharacterData> _movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper;
+        public Movies_Movies_MovieDataFromMovieDataEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::MovieClient.State.CharacterDataEntity, Movies_Movies_Characters_CharacterData> movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
             _movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper = movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper ?? throw new global::System.ArgumentNullException(nameof(movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper));
         }
 
-        public Movies_Movies_MovieData Map(global::MovieFrontend.State.MovieDataEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        public Movies_Movies_MovieData Map(global::MovieClient.State.MovieDataEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
             {
@@ -1066,14 +1066,14 @@ namespace MovieFrontend.State
             return new Movies_Movies_MovieData(entity.Id, entity.Title, entity.ReleaseDate, entity.Genre, entity.Price, MapNonNullableIMovies_Movies_CharactersNonNullableArray(entity.Characters, snapshot));
         }
 
-        private global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovies_Movies_Characters> MapNonNullableIMovies_Movies_CharactersNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovies_Movies_Characters> MapNonNullableIMovies_Movies_CharactersNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (list is null)
             {
                 throw new global::System.ArgumentNullException();
             }
 
-            var characterDatas = new global::System.Collections.Generic.List<global::MovieFrontend.IMovies_Movies_Characters>();
+            var characterDatas = new global::System.Collections.Generic.List<global::MovieClient.IMovies_Movies_Characters>();
             foreach (global::StrawberryShake.EntityId child in list)
             {
                 characterDatas.Add(MapNonNullableIMovies_Movies_Characters(child, snapshot));
@@ -1082,11 +1082,11 @@ namespace MovieFrontend.State
             return characterDatas;
         }
 
-        private global::MovieFrontend.IMovies_Movies_Characters MapNonNullableIMovies_Movies_Characters(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::MovieClient.IMovies_Movies_Characters MapNonNullableIMovies_Movies_Characters(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("CharacterData", global::System.StringComparison.Ordinal))
             {
-                return _movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper.Map(snapshot.GetEntity<global::MovieFrontend.State.CharacterDataEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper.Map(snapshot.GetEntity<global::MovieClient.State.CharacterDataEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
@@ -1094,7 +1094,7 @@ namespace MovieFrontend.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class Movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper : global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.CharacterDataEntity, Movies_Movies_Characters_CharacterData>
+    public partial class Movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper : global::StrawberryShake.IEntityMapper<global::MovieClient.State.CharacterDataEntity, Movies_Movies_Characters_CharacterData>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
         public Movies_Movies_Characters_CharacterDataFromCharacterDataEntityMapper(global::StrawberryShake.IEntityStore entityStore)
@@ -1102,7 +1102,7 @@ namespace MovieFrontend.State
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
         }
 
-        public Movies_Movies_Characters_CharacterData Map(global::MovieFrontend.State.CharacterDataEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        public Movies_Movies_Characters_CharacterData Map(global::MovieClient.State.CharacterDataEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
             {
@@ -1114,17 +1114,17 @@ namespace MovieFrontend.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class Movie_by_idResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::MovieFrontend.Movie_by_idResult>
+    public partial class Movie_by_idResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::MovieClient.Movie_by_idResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.MovieDataEntity, Movie_by_id_Movies_MovieData> _movie_By_Id_Movies_MovieDataFromMovieDataEntityMapper;
-        public Movie_by_idResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.MovieDataEntity, Movie_by_id_Movies_MovieData> movie_By_Id_Movies_MovieDataFromMovieDataEntityMapper)
+        private readonly global::StrawberryShake.IEntityMapper<global::MovieClient.State.MovieDataEntity, Movie_by_id_Movies_MovieData> _movie_By_Id_Movies_MovieDataFromMovieDataEntityMapper;
+        public Movie_by_idResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::MovieClient.State.MovieDataEntity, Movie_by_id_Movies_MovieData> movie_By_Id_Movies_MovieDataFromMovieDataEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
             _movie_By_Id_Movies_MovieDataFromMovieDataEntityMapper = movie_By_Id_Movies_MovieDataFromMovieDataEntityMapper ?? throw new global::System.ArgumentNullException(nameof(movie_By_Id_Movies_MovieDataFromMovieDataEntityMapper));
         }
 
-        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::MovieFrontend.IMovie_by_idResult);
+        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::MovieClient.IMovie_by_idResult);
         public Movie_by_idResult Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
@@ -1140,14 +1140,14 @@ namespace MovieFrontend.State
             throw new global::System.ArgumentException("Movie_by_idResultInfo expected.");
         }
 
-        private global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovie_by_id_Movies> MapNonNullableIMovie_by_id_MoviesNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovie_by_id_Movies> MapNonNullableIMovie_by_id_MoviesNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (list is null)
             {
                 throw new global::System.ArgumentNullException();
             }
 
-            var movieDatas = new global::System.Collections.Generic.List<global::MovieFrontend.IMovie_by_id_Movies>();
+            var movieDatas = new global::System.Collections.Generic.List<global::MovieClient.IMovie_by_id_Movies>();
             foreach (global::StrawberryShake.EntityId child in list)
             {
                 movieDatas.Add(MapNonNullableIMovie_by_id_Movies(child, snapshot));
@@ -1156,11 +1156,11 @@ namespace MovieFrontend.State
             return movieDatas;
         }
 
-        private global::MovieFrontend.IMovie_by_id_Movies MapNonNullableIMovie_by_id_Movies(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::MovieClient.IMovie_by_id_Movies MapNonNullableIMovie_by_id_Movies(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("MovieData", global::System.StringComparison.Ordinal))
             {
-                return _movie_By_Id_Movies_MovieDataFromMovieDataEntityMapper.Map(snapshot.GetEntity<global::MovieFrontend.State.MovieDataEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _movie_By_Id_Movies_MovieDataFromMovieDataEntityMapper.Map(snapshot.GetEntity<global::MovieClient.State.MovieDataEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
@@ -1195,17 +1195,17 @@ namespace MovieFrontend.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class Movie_by_id_Movies_MovieDataFromMovieDataEntityMapper : global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.MovieDataEntity, Movie_by_id_Movies_MovieData>
+    public partial class Movie_by_id_Movies_MovieDataFromMovieDataEntityMapper : global::StrawberryShake.IEntityMapper<global::MovieClient.State.MovieDataEntity, Movie_by_id_Movies_MovieData>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.CharacterDataEntity, Movie_by_id_Movies_Characters_CharacterData> _movie_By_Id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper;
-        public Movie_by_id_Movies_MovieDataFromMovieDataEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.CharacterDataEntity, Movie_by_id_Movies_Characters_CharacterData> movie_By_Id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper)
+        private readonly global::StrawberryShake.IEntityMapper<global::MovieClient.State.CharacterDataEntity, Movie_by_id_Movies_Characters_CharacterData> _movie_By_Id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper;
+        public Movie_by_id_Movies_MovieDataFromMovieDataEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::MovieClient.State.CharacterDataEntity, Movie_by_id_Movies_Characters_CharacterData> movie_By_Id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
             _movie_By_Id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper = movie_By_Id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper ?? throw new global::System.ArgumentNullException(nameof(movie_By_Id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper));
         }
 
-        public Movie_by_id_Movies_MovieData Map(global::MovieFrontend.State.MovieDataEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        public Movie_by_id_Movies_MovieData Map(global::MovieClient.State.MovieDataEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
             {
@@ -1215,14 +1215,14 @@ namespace MovieFrontend.State
             return new Movie_by_id_Movies_MovieData(entity.Id, entity.Title, entity.ReleaseDate, entity.Genre, entity.Price, MapNonNullableIMovie_by_id_Movies_CharactersNonNullableArray(entity.Characters, snapshot));
         }
 
-        private global::System.Collections.Generic.IReadOnlyList<global::MovieFrontend.IMovie_by_id_Movies_Characters> MapNonNullableIMovie_by_id_Movies_CharactersNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::System.Collections.Generic.IReadOnlyList<global::MovieClient.IMovie_by_id_Movies_Characters> MapNonNullableIMovie_by_id_Movies_CharactersNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (list is null)
             {
                 throw new global::System.ArgumentNullException();
             }
 
-            var characterDatas = new global::System.Collections.Generic.List<global::MovieFrontend.IMovie_by_id_Movies_Characters>();
+            var characterDatas = new global::System.Collections.Generic.List<global::MovieClient.IMovie_by_id_Movies_Characters>();
             foreach (global::StrawberryShake.EntityId child in list)
             {
                 characterDatas.Add(MapNonNullableIMovie_by_id_Movies_Characters(child, snapshot));
@@ -1231,11 +1231,11 @@ namespace MovieFrontend.State
             return characterDatas;
         }
 
-        private global::MovieFrontend.IMovie_by_id_Movies_Characters MapNonNullableIMovie_by_id_Movies_Characters(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::MovieClient.IMovie_by_id_Movies_Characters MapNonNullableIMovie_by_id_Movies_Characters(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("CharacterData", global::System.StringComparison.Ordinal))
             {
-                return _movie_By_Id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper.Map(snapshot.GetEntity<global::MovieFrontend.State.CharacterDataEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _movie_By_Id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper.Map(snapshot.GetEntity<global::MovieClient.State.CharacterDataEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
@@ -1243,7 +1243,7 @@ namespace MovieFrontend.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class Movie_by_id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper : global::StrawberryShake.IEntityMapper<global::MovieFrontend.State.CharacterDataEntity, Movie_by_id_Movies_Characters_CharacterData>
+    public partial class Movie_by_id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper : global::StrawberryShake.IEntityMapper<global::MovieClient.State.CharacterDataEntity, Movie_by_id_Movies_Characters_CharacterData>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
         public Movie_by_id_Movies_Characters_CharacterDataFromCharacterDataEntityMapper(global::StrawberryShake.IEntityStore entityStore)
@@ -1251,7 +1251,7 @@ namespace MovieFrontend.State
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
         }
 
-        public Movie_by_id_Movies_Characters_CharacterData Map(global::MovieFrontend.State.CharacterDataEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        public Movie_by_id_Movies_Characters_CharacterData Map(global::MovieClient.State.CharacterDataEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
             {
@@ -1263,16 +1263,16 @@ namespace MovieFrontend.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class MoviesBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieFrontend.IMoviesResult>
+    public partial class MoviesBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieClient.IMoviesResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
         private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
-        private readonly global::StrawberryShake.IOperationResultDataFactory<global::MovieFrontend.IMoviesResult> _resultDataFactory;
+        private readonly global::StrawberryShake.IOperationResultDataFactory<global::MovieClient.IMoviesResult> _resultDataFactory;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Int32, global::System.Int32> _intParser;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.DateTimeOffset> _dateTimeParser;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Decimal, global::System.Decimal> _decimalParser;
-        public MoviesBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::MovieFrontend.IMoviesResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        public MoviesBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::MovieClient.IMoviesResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
             _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
@@ -1365,13 +1365,13 @@ namespace MovieFrontend.State
             entityIds.Add(entityId);
             if (entityId.Name.Equals("MovieData", global::System.StringComparison.Ordinal))
             {
-                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::MovieFrontend.State.MovieDataEntity? entity))
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::MovieClient.State.MovieDataEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::MovieFrontend.State.MovieDataEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "title")), DeserializeNonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "releaseDate")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "genre")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "price")), UpdateNonNullableIMovies_Movies_CharactersEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characters"), entityIds)));
+                    session.SetEntity(entityId, new global::MovieClient.State.MovieDataEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "title")), DeserializeNonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "releaseDate")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "genre")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "price")), UpdateNonNullableIMovies_Movies_CharactersEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characters"), entityIds)));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::MovieFrontend.State.MovieDataEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "title")), DeserializeNonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "releaseDate")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "genre")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "price")), UpdateNonNullableIMovies_Movies_CharactersEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characters"), entityIds)));
+                    session.SetEntity(entityId, new global::MovieClient.State.MovieDataEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "title")), DeserializeNonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "releaseDate")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "genre")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "price")), UpdateNonNullableIMovies_Movies_CharactersEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characters"), entityIds)));
                 }
 
                 return entityId;
@@ -1447,13 +1447,13 @@ namespace MovieFrontend.State
             entityIds.Add(entityId);
             if (entityId.Name.Equals("CharacterData", global::System.StringComparison.Ordinal))
             {
-                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::MovieFrontend.State.CharacterDataEntity? entity))
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::MovieClient.State.CharacterDataEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::MovieFrontend.State.CharacterDataEntity(DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characterName"))));
+                    session.SetEntity(entityId, new global::MovieClient.State.CharacterDataEntity(DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characterName"))));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::MovieFrontend.State.CharacterDataEntity(DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characterName"))));
+                    session.SetEntity(entityId, new global::MovieClient.State.CharacterDataEntity(DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characterName"))));
                 }
 
                 return entityId;
@@ -1464,16 +1464,16 @@ namespace MovieFrontend.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.15.2.0")]
-    public partial class Movie_by_idBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieFrontend.IMovie_by_idResult>
+    public partial class Movie_by_idBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::MovieClient.IMovie_by_idResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
         private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
-        private readonly global::StrawberryShake.IOperationResultDataFactory<global::MovieFrontend.IMovie_by_idResult> _resultDataFactory;
+        private readonly global::StrawberryShake.IOperationResultDataFactory<global::MovieClient.IMovie_by_idResult> _resultDataFactory;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Int32, global::System.Int32> _intParser;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.DateTimeOffset> _dateTimeParser;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Decimal, global::System.Decimal> _decimalParser;
-        public Movie_by_idBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::MovieFrontend.IMovie_by_idResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        public Movie_by_idBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::MovieClient.IMovie_by_idResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
             _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
@@ -1566,13 +1566,13 @@ namespace MovieFrontend.State
             entityIds.Add(entityId);
             if (entityId.Name.Equals("MovieData", global::System.StringComparison.Ordinal))
             {
-                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::MovieFrontend.State.MovieDataEntity? entity))
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::MovieClient.State.MovieDataEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::MovieFrontend.State.MovieDataEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "title")), DeserializeNonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "releaseDate")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "genre")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "price")), UpdateNonNullableIMovie_by_id_Movies_CharactersEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characters"), entityIds)));
+                    session.SetEntity(entityId, new global::MovieClient.State.MovieDataEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "title")), DeserializeNonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "releaseDate")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "genre")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "price")), UpdateNonNullableIMovie_by_id_Movies_CharactersEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characters"), entityIds)));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::MovieFrontend.State.MovieDataEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "title")), DeserializeNonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "releaseDate")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "genre")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "price")), UpdateNonNullableIMovie_by_id_Movies_CharactersEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characters"), entityIds)));
+                    session.SetEntity(entityId, new global::MovieClient.State.MovieDataEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "title")), DeserializeNonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "releaseDate")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "genre")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "price")), UpdateNonNullableIMovie_by_id_Movies_CharactersEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characters"), entityIds)));
                 }
 
                 return entityId;
@@ -1648,13 +1648,13 @@ namespace MovieFrontend.State
             entityIds.Add(entityId);
             if (entityId.Name.Equals("CharacterData", global::System.StringComparison.Ordinal))
             {
-                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::MovieFrontend.State.CharacterDataEntity? entity))
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::MovieClient.State.CharacterDataEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::MovieFrontend.State.CharacterDataEntity(DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characterName"))));
+                    session.SetEntity(entityId, new global::MovieClient.State.CharacterDataEntity(DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characterName"))));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::MovieFrontend.State.CharacterDataEntity(DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characterName"))));
+                    session.SetEntity(entityId, new global::MovieClient.State.CharacterDataEntity(DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "characterName"))));
                 }
 
                 return entityId;

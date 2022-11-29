@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MovieClient;
 using MovieFrontend.PageBindingModels;
-using MovieFrontend.Services;
+using MovieFrontend.Update;
 using StrawberryShake;
 
 namespace MovieFrontend.Pages.Movies;

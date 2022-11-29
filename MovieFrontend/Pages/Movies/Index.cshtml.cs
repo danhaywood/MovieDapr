@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieData;
-using MovieFrontend.Services;
+using MovieFrontend.Update;
 using StrawberryShake;
 
 namespace MovieFrontend.Pages.Movies;

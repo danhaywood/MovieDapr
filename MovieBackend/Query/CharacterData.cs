@@ -1,6 +1,4 @@
-﻿using MovieData;
-
-namespace MovieBackend.Graphql;
+﻿namespace MovieBackend.Query;
 
 public class CharacterData
 {

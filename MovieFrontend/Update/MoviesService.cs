@@ -1,31 +1,27 @@
-﻿using MovieData;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Dapr.Client;
+using Man.Dapr.Sidekick;
 using Man.Dapr.Sidekick.Http;
-using Man.Dapr.Sidekick.Security;
-using MovieFrontend.PageBindingModels;
-using StrawberryShake;
+using Microsoft.AspNetCore.Mvc;
+using MovieClient;
+using MovieData;
 
-namespace MovieFrontend.Services;
+namespace MovieFrontend.Update;
 
 public class MoviesService
 {
     private readonly HttpClient _httpClient;
     private readonly MovieBackendGraphqlClient _movieBackendGraphqlClient;
 
-    public MoviesService(IDaprSidecarHttpClientFactory daprSidecarHttpClientFactory, MovieBackendGraphqlClient movieBackendGraphqlClient)
+    public MoviesService(IDaprSidecarHost daprSidecarHost, IDaprSidecarHttpClientFactory daprSidecarHttpClientFactory, MovieBackendGraphqlClient movieBackendGraphqlClient)
     {
         _movieBackendGraphqlClient = movieBackendGraphqlClient;
+        
+        var daprHttpPort = daprSidecarHost.GetProcessOptions().DaprHttpPort;
         var httpClient = daprSidecarHttpClientFactory.CreateInvokeHttpClient("moviebackend");
         // var httpClient = new HttpClient();
         // httpClient.DefaultRequestHeaders.Add("dapr-app-id", "moviebackend");
-        // httpClient.BaseAddress = new Uri("http://localhost:3500");   // seems to work irrespective of which app is started first
+        // httpClient.BaseAddress = new Uri("http://localhost:3501");
 
         httpClient.DefaultRequestHeaders.Accept.Clear();
         httpClient.DefaultRequestHeaders.Accept.Add(

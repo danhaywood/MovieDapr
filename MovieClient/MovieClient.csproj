@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="12.15.2" />
+      <PackageReference Include="StrawberryShake.Transport.Http" Version="12.15.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include=".config\dotnet-tools.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Graphql\Generated" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Graphql\Generated\MovieBackendGraphqlClient.StrawberryShake.cs" />
+    </ItemGroup>
+
+</Project>
