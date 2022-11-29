@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using Microsoft.OpenApi.Models;
-using MovieBackend.db;
 using MovieBackend.Domain;
 using MovieBackend.Domain.Seed;
 using MovieBackend.Graphql;
+using MovieBackend.Graphql.Migrate;
 using MovieBackend.Infra;
 using MovieBackend.Infra.Bootstrap;
 using MovieBackend.Infra.ConnStr;

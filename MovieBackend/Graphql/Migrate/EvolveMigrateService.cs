@@ -1,10 +1,9 @@
 ﻿using EvolveDb;
 using Microsoft.Data.SqlClient;
-using MovieBackend.Infra;
 using MovieBackend.Infra.Bootstrap;
 using MovieBackend.Infra.ConnStr;
 
-namespace MovieBackend.db;
+namespace MovieBackend.Graphql.Migrate;
 
 public class EvolveMigrateService : IBootstrappable
 {

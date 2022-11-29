@@ -1,10 +1,5 @@
-﻿using Dapr.Client;
-using Man.Dapr.Sidekick.Http;
-using Microsoft.EntityFrameworkCore;
-using MovieBackend.Graphql;
-using MovieBackend.Infra;
+﻿using Microsoft.EntityFrameworkCore;
 using MovieBackend.Infra.ConnStr;
-using MovieBackend.Models;
 
 namespace MovieBackend.Graphql;
 
@@ -25,10 +20,6 @@ public class MovieDataDbContext : DbContext
             .UseSqlServer(_connectionStringService.ConnectionString);
     }
 
-    public DbSet<MovieData> MovieData { get; set; } = default!;
-    public DbSet<ActorData> ActorData { get; set; } = default!;
-    public DbSet<CharacterData> CharacterData { get; set; } = default!;
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("graphql");
@@ -37,4 +28,8 @@ public class MovieDataDbContext : DbContext
         modelBuilder.Entity<ActorData>()    .ToView("ActorData");
         modelBuilder.Entity<CharacterData>().ToView("CharacterData");
     }
+
+    public DbSet<MovieData> MovieData { get; set; } = default!;
+    public DbSet<ActorData> ActorData { get; set; } = default!;
+    public DbSet<CharacterData> CharacterData { get; set; } = default!;
 }
