@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using MovieBackend.Data;
 using MovieBackend.Graphql;
 using MovieBackend.Models;
+using MovieBackend.Services;
 using MovieFrontend.Sql;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Instrumentation.AspNetCore;
@@ -105,6 +106,8 @@ builder.Services
 
 builder.Services.AddRazorPages();
 builder.Services.AddDaprSidekick(builder.Configuration);
+builder.Services.AddSingleton<ConnectionStringService>();
+builder.Services.AddScoped<SeedDataService>();
 
 var connectionString = builder.Configuration.GetConnectionString("MovieBackendContext") ??
                              throw new InvalidOperationException( "Connection string 'MovieBackendContext' not found.");
@@ -142,12 +145,11 @@ if (postBuild == null)
     };
     evolve.Migrate();
     
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-
-        SeedData.Initialize(services);
-    }
+    // using (IServiceScope scope = app.Services.CreateScope())
+    // {
+    //     var services = scope.ServiceProvider;
+    //     SeedData.Initialize(services);
+    // }
 }
 
 

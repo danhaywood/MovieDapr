@@ -3,23 +3,25 @@ using Man.Dapr.Sidekick.Http;
 using Microsoft.EntityFrameworkCore;
 using MovieBackend.Graphql;
 using MovieBackend.Models;
+using MovieBackend.Services;
 
 namespace MovieBackend.Graphql
 {
     public class MovieDataDbContext : DbContext
     {
-        public MovieDataDbContext (DbContextOptions<MovieDataDbContext> options)
+        private readonly ConnectionStringService _connectionStringService;
+
+        public MovieDataDbContext (DbContextOptions<MovieDataDbContext> options, ConnectionStringService connectionStringService)
             : base(options)
         {
+            _connectionStringService = connectionStringService;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var daprClient = new DaprClientBuilder().Build();
-            var secretAsync = daprClient.GetSecretAsync("movie-secret-store", "ConnectionString");
-            var connectionString = secretAsync.Result["ConnectionString"];
-            
-            optionsBuilder.UseLazyLoadingProxies() .UseSqlServer( connectionString);
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(_connectionStringService.GetConnectionString());
         }
 
         public DbSet<MovieData> MovieData { get; set; } = default!;
