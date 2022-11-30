@@ -21,6 +21,8 @@ Demonstrating use of:
 * GraphQL frontend to own library
 * GraphQl frontend participates in distributed tracing
 * dapr sidekick dependent on environment (if `DAPR_xxx` env vars present, then skip).
+* using tye to emulate an orchestrator
+* building Docker images
 
 == Design
 
@@ -184,7 +186,88 @@ compare the SQL in both cases
 * inspect Zipkin, can see reason why movie doesn't delete
 
 
+== tye
+
+Install link:https://github.com/dotnet/tye[tye] (see link:https://github.com/dotnet/tye/blob/main/docs/getting_started.md[here]])
+
+* run:
++
+[source,powershell]
+----
+tye run
+----
++
+inspect dashboard at http://localhost:8000[]
++
+image::images/image-2022-11-30-07-33-34-455.png[width=800]
+
+* use `https://` endpoints to access
+** for backend, `/swagger` and `/graphql`
+** for frontend, `/movies`
+
+* zipkin still available at http://localhost:9411/zipkin/
+
+//* change some HTML in frontend
+//+
+//should restart
+
+* `ctrl-C` to stop everything
+
+* debugging
++
+set a breakpoint at first line of `Program.cs` in `MovieBackend`
++
+[source,powershell]
+----
+tye run --debug moviebackend
+----
++
+and then attach using Visual Studio 2022
+
+
+== Docker
+
+in root folder:
+
+
+* build backend
++
+[source,powershell]
+----
+docker build -f MovieBackend/Dockerfile -t moviebackend:latest .
+----
+
+* build frontend
++
+[source,powershell]
+----
+docker build -f MovieFrontend/Dockerfile -t moviefrontend:latest .
+----
+
+* confirm built:
++
+[source,powershell]
+----
+docker image ls
+----
+
+// * confirm built:
+// +
+// [source,powershell]
+// ----
+// docker run -p 7092:7092 moviebackend:latest
+// docker run -p 7082:7082 moviefrontend:latest
+// ----
+
 == TODO
+
+* `tye build` fails to create images fails, need to figure out why.
+* tye watch
+
+* run Docker images in k8s (deploy via tye)
+
+* ACA deploy
+
 
 * better error handling on DELETE (FK violation not shown, but traceable via zipkin).
 
