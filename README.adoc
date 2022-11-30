@@ -4,6 +4,7 @@ Demonstrating use of:
 
 * SSDT (DACPAC) for database definition
 * embedded Evolve to maintain backend-specific views (representing the DTO mapping)
+* sidekick for dapr dev environment
 * graphql for querying (using views)
 ** support sorting, filtering
 ** support paging (commented out for the moment)
@@ -117,14 +118,14 @@ tables (but no views)
 dapr init
 ----
 
-* inspect dashboard
-+
-[source,powershell]
-----
-dapr dashboard
-----
-+
-http://localhost:8080
+// * inspect dashboard
+// +
+// [source,powershell]
+// ----
+// dapr dashboard
+// ----
+// +
+// http://localhost:8080
 
 
 
@@ -136,14 +137,16 @@ http://localhost:8080
 +
 Views should have been created by Evolve (`graphql` schema).
 
-* check `daprd.exe` is running:
+* sidekick should have started `daprd.exe`:
 +
 [source,powershell]
 ----
 dapr list
 ----
+// +
+// NB: will _not_ appear on the dashboard though :-(
 +
-NB: will _not_ appear on the dashboard though :-(
+image:images/DaprSidekick1.jpg[]
 
 * inspect Swagger backend, https://localhost:7092/swagger
 +
